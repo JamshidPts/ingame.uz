@@ -2,7 +2,7 @@ import React from 'react'
 
 function OurPC() {
   return (
-    <div>OurPC</div>
+    <div>Test</div>
   )
 }
 
