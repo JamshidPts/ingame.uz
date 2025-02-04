@@ -2,7 +2,9 @@ import React from 'react'
 
 function OurPC() {
   return (
-    <div>Test</div>
+    <div>Test
+      <h1>Hello World?</h1>
+    </div>
   )
 }
 
