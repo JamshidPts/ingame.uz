@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Icons } from '../data/OurPC'
-import btnImg from '../assets/images/ourPcBtn.png'
-import compare from '../assets/compare_btn.svg'
+import btnImg from '../assets/ourPc/images/ourPcBtn.png'
+import compare from '../assets/navbar/compare_btn.svg'
 
 function OurPC() {
   return (
