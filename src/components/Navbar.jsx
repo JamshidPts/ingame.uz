@@ -1,64 +1,105 @@
-import React from 'react'
+import React, { useState } from 'react';
 import logo from "../assets/logo_navbar.svg";
-import vector from "../assets/navbar_icon.svg"
-import searchBtn from "../assets/search_btn.svg"
-import korzinaBtn from "../assets/korzina_btn.svg"
-import compareBtn from "../assets/compare_btn.svg"
-import modal_nav from "../assets/mobile_modal.svg"
-import closeBtn from "../assets/close_modal.svg"
-import { NavLink } from 'react-router-dom';
+import vector from "../assets/navbar_icon.svg";
+import searchBtn from "../assets/search_btn.svg";
+import korzinaBtn from "../assets/korzina_btn.svg";
+import compareBtn from "../assets/compare_btn.svg";
+import modal_nav from "../assets/mobile_modal.svg";
+import closeBtn from "../assets/close_modal.svg";
+import { Link, NavLink } from 'react-router-dom';
 
 function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [language, setLanguage] = useState("ru"); // Состояние для языка
+  const [currency, setCurrency] = useState("usd"); // Состояние для валюты
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <nav className='bg-[#1A1A1A] h-[8vh] w-full'>
-        <div className='container m-auto h-full flex justify-between items-center'>
-            <div className='flex items-center h-full'>
-                <div className='flex items-center'>
-                    <img src={logo} alt="ingame" className='w-[150px] xl:w-[200px]'/>
-                    <div className='hidden sm:hidden text-white items-center lg:flex lg:justify-between cursor-pointer'>
-                        <NavLink className="flex items-center justify-center"><p className='pl-[25px] pr-[5px] text-[22px]'>Продукция</p><img src={vector} alt="vector" className='w-[19px]'/></NavLink>
-                        <NavLink className="flex items-center justify-center"><p className='pl-[25px] pr-[5px] text-[22px]'>Услуги</p><img src={vector} alt="vector" className='w-[19px]'/></NavLink>
-                        <NavLink className="flex items-center justify-center"><p className='pl-[25px] pr-[5px] text-[22px]'>O бренде</p><img src={vector} alt="vector" className='w-[19px]'/></NavLink>
-                    </div>
-                </div>
-            </div>
-            <div className='text-white flex items-center h-full cursor-pointer px-[10px]'>
-                <div className='hidden sm:hidden lg:flex lg:justify-between gap-[10px]'>
-                    <a className='border border-white py-[3px] px-[8px] text-[18px] font-sans' href="#">Связаться</a>
-                    <select className='bg-transparent font-orbitron' name="" id="">
-                        <option className='bg-[#0A0A0A]' value="">RU</option>
-                        <option className='bg-[#0A0A0A]' value="">UZ</option>
-                    </select>
-                    <select className='bg-transparent font-orbitron' name="" id="">
-                        <option className='bg-[#0A0A0A]' value="">USZ</option>
-                        <option className='bg-[#0A0A0A]' value="">USD</option>
-                    </select>
-                </div>
-                <div className='flex items-center h-full'>
-                    <img className='p-[10px]' src={compareBtn} alt="compare" />
-                    <img className='p-[10px]' src={searchBtn} alt="search" />
-                    <img className='p-[10px] lg:block hidden sm:hidden' src={korzinaBtn} alt="kozina" />
-                </div>
-                    <img className='lg:hidden w-[50px] p-[10px]' src={modal_nav} alt="modal" />
-            </div>
+    <nav className="bg-[#1A1A1A] h-[8vh] w-full fixed top-0 left-0 z-50">
+      <div className="container mx-auto h-full flex justify-between items-center px-4">
+        <div className="flex items-center">
+          <img src={logo} alt="ingame" className="w-[150px] xl:w-[200px]" />
+          <div className="hidden lg:flex text-white space-x-6">
+            <NavLink className="flex items-center text-[22px]">
+              Продукция <img src={vector} alt="vector" className="ml-1 w-[19px]" />
+            </NavLink>
+            <NavLink className="flex items-center text-[22px]">
+              Услуги <img src={vector} alt="vector" className="ml-1 w-[19px]" />
+            </NavLink>
+            <NavLink className="flex items-center text-[22px]">
+              O бренде <img src={vector} alt="vector" className="ml-1 w-[19px]" />
+            </NavLink>
+          </div>
         </div>
-        <div className='absolute right-0 top-0 text-white flex flex-col items-end lg:hidden bg-[#0F0F0F] min-w-[250px]'>
-            <div className='w-full flex justify-end'>
-                <img src={closeBtn} alt="close" className='w-[75px] px-[26px] py-[30px]'/>
-            </div>
-            <NavLink className="flex items-center justify-between mx-auto border-b-2 border-b-[#252525] w-[200px]">
-                <p className='py-[10px] font-sans text-[19px]'>Продукция</p><img src={vector} alt="vector" className='w-[25px] py-[17px]'/>
-            </NavLink>
-            <NavLink className="flex items-center justify-between mx-auto border-b-2 border-b-[#252525] w-[200px]">
-                <p className='py-[10px] font-sans text-[19px]'>Услуги</p><img src={vector} alt="vector" className='w-[25px] py-[17px]'/>
-            </NavLink>
-            <NavLink className="flex items-center justify-between mx-auto border-b-2 border-b-[#252525] w-[200px]">
-                <p className='py-[10px] font-sans text-[19px]'>O бренде</p><img src={vector} alt="vector" className='w-[25px] py-[17px]'/>
-            </NavLink>
-            
+
+        <div className="text-white flex items-center space-x-4">
+          <div className="hidden lg:flex space-x-4">
+            <Link to="#" className="border border-white py-1 px-3 text-[18px]">Связаться</Link>
+            <select className="bg-transparent" onChange={(e) => setLanguage(e.target.value)} value={language}>
+              <option className="bg-[#0A0A0A]" value="ru">RU</option>
+              <option className="bg-[#0A0A0A]" value="uz">UZ</option>
+            </select>
+            <select className="bg-transparent" onChange={(e) => setCurrency(e.target.value)} value={currency}>
+              <option className="bg-[#0A0A0A]" value="usz">USZ</option>
+              <option className="bg-[#0A0A0A]" value="usd">USD</option>
+            </select>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <img className="p-2" src={compareBtn} alt="compare" />
+            <img className="p-2" src={searchBtn} alt="search" />
+            <img className="p-2 hidden lg:block" src={korzinaBtn} alt="korzina" />
+          </div>
+
+          {/* Бургер-иконка */}
+          <img 
+            className="lg:hidden w-[50px] p-2 cursor-pointer transition-transform duration-300 transform hover:scale-110"
+            src={modal_nav}
+            alt="menu"
+            onClick={toggleMenu}
+          />
         </div>
+      </div>
+
+      {/* Мобильное меню */}
+      <div className={`fixed top-0 right-0 min-h-[550px] w-[300px] bg-[#0F0F0F] shadow-lg transform transition-transform duration-500 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
+        <div className="flex justify-end p-4">
+          <img 
+            src={closeBtn}
+            alt="close"
+            className="w-[60px] pr-[30px] py-[10px] cursor-pointer transition-transform duration-300 transform hover:scale-110"
+            onClick={toggleMenu}
+          />
+        </div>
+        <div className="flex flex-col items-center space-y-6 text-white mt-4">
+          <NavLink className="flex items-center justify-between text-[18px] border-b-2 border-[#252525] pb-3 w-[200px]">
+            Продукция <img src={vector} alt="vector" className="w-[25px]" />
+          </NavLink>
+          <NavLink className="flex items-center justify-between text-[18px] border-b-2 border-[#252525] pb-3 w-[200px]">
+            Услуги <img src={vector} alt="vector" className="w-[25px]" />
+          </NavLink>
+          <NavLink className="flex items-center justify-between text-[18px] border-b-2 border-[#252525] pb-3 w-[200px]">
+            O бренде <img src={vector} alt="vector" className="w-[25px]" />
+          </NavLink>
+
+          <div className="lg:hidden flex items-center justify-evenly w-[200px]">
+            <select className="bg-transparent w-[70px] text-center" onChange={(e) => setLanguage(e.target.value)} value={language}>
+              <option className="bg-[#0A0A0A]" value="ru">RU</option>
+              <option className="bg-[#0A0A0A]" value="uz">UZ</option>
+            </select>
+            <select className="bg-transparent w-[70px] text-center" onChange={(e) => setCurrency(e.target.value)} value={currency}>
+              <option className="bg-[#0A0A0A]" value="usz">USZ</option>
+              <option className="bg-[#0A0A0A]" value="usd">USD</option>
+            </select>
+          </div>
+            <Link to="#" className="border-b border-white py-1 text-[18px]">Связаться</Link>
+        </div>
+      </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
