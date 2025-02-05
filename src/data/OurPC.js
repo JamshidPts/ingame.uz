@@ -1,8 +1,8 @@
 import ourPcImg from '../assets/images/ourPcImg.png'
-import ourPcIcon1 from '../assets/icons/ourPcIcon1.svg'
-import ourPcIcon2 from '../assets/icons/ourPcIcon2.svg'
-import ourPcIcon3 from '../assets/icons/ourPcIcon3.svg'
-import ourPcIcon4 from '../assets/icons/ourPcIcon4.svg'
+import ourPcIcon1 from '../assets/icons/OurPcIcon1.svg'
+import ourPcIcon2 from '../assets/icons/OurPcIcon2.svg'
+import ourPcIcon3 from '../assets/icons/OurPcIcon3.svg'
+import ourPcIcon4 from '../assets/icons/OurPcIcon4.svg'
 
 export const Card = [{
   id: 1,
