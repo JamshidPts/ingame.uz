@@ -8,7 +8,7 @@ function OurPC() {
     <section className='bg-[#1A1A1A] text-white py-[50px]'>
       <div className="container m-auto min-h-[85vh] ">
         <h1 className='text-[40px] font-[600] mb-[40px]'>Наши ПК</h1>
-
+        
         <div className='flex justify-evenly '>
           <div className='w-[359px] min-h-[600px] bg-[#1E1E1E] py-[20px] px-[16px]'>
             {Card.map((item) => (
