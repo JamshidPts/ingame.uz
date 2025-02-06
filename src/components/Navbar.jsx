@@ -21,7 +21,7 @@ function Navbar() {
     <nav className="bg-[#1A1A1A] h-[8vh] w-full fixed top-0 left-0 z-50">
       <div className="container mx-auto h-full flex justify-between items-center px-4 sm:px-0">
         <div className="flex items-center">
-          <img src={logo} alt="ingame" className="w-[150px] xl:w-[200px]" />
+          <NavLink to="/"><img src={logo} alt="ingame" className="w-[190px] xl:w-[200px]" /></NavLink>
           <div className="hidden lg:flex text-white space-x-6">
             <NavLink className="flex items-center text-[22px]">
               Продукция <img src={vector} alt="vector" className="ml-1 w-[19px]" />
