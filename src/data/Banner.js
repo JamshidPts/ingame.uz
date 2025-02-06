@@ -16,6 +16,7 @@ export const slides = [
     subText: 'Будь среди первых и протестируй новые возможности',
     img: PcICon,
   },
+  
   {
     id: 3,
     title: 'NVIDIA RTX SUPER',
