@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import spark from '../assets/banner/banner_spark.png'
 import btnOutline from '../assets/banner/banner_btn.png';
-import { slides } from '../data/Banner';
+import { slides } from '../data/BannerSlider';
 
 function Banner() {
   return (
