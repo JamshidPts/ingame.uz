@@ -1,4 +1,4 @@
-import PcICon from '../assets/banner/banner_pc.png';
+import PcICon from '../assets/banner/banner_PC.png';
 
 
 export const slides = [
