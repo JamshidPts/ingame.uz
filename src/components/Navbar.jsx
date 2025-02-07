@@ -36,7 +36,7 @@ function Navbar() {
 
   return (
     <>
-    <nav className="bg-[#1A1A1A] h-[8vh] w-full fixed top-0 left-0 z-50">
+    <nav className="bg-[#1A1A1A] h-[10vh] w-full fixed top-0 left-0 z-50">
       <div className="container mx-auto h-full flex justify-between items-center px-4 xl:px-3">
         <div className="flex items-center gap-8 xl:pl-[20px] h-full">
           <NavLink to="/">
@@ -157,7 +157,7 @@ function Navbar() {
       
       {/* Поиск панель*/}
       <div
-        className={`bg-[#D3176D] h-[60px] fixed w-full top-[77px] transform transition-all duration-500 ease-in-out ${
+        className={`bg-[#D3176D] h-[60px] absolute w-full z-50 top-full transform transition-all duration-500 ease-in-out ${
           isSearchOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
         } origin-top`}
       >
