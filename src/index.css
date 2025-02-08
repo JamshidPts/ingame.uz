@@ -7,3 +7,25 @@
   margin: 0;
   padding: 0;
 }
+
+/* Уменьшить ширину */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Фон скроллбара */
+::-webkit-scrollbar-track {
+  background: #1A1A1A;
+  border-radius: 10px;
+}
+
+/* Ползунок */
+::-webkit-scrollbar-thumb {
+  background: #D3176D;
+  border-radius: 10px;
+}
+
+/* При наведении */
+::-webkit-scrollbar-thumb:hover {
+  background: #b1145b;
+}
