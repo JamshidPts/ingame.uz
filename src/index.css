@@ -28,3 +28,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #b1145b;
 }
+
+.swiper-wrapper {
+  gap: 0px;
+}
+
+.swiper-wrapper:not:last-child {
+  gap: 0;
+}
