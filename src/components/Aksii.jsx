@@ -8,7 +8,7 @@ function Aksii() {
   return (
     <section className='bg-[#1A1A1A] text-white py-[50px]'>
         <div className='container mx-auto min-h-[67vh]'>
-            <h2 className='text-[40px] font-[600] mb-[40px] px-4'>Новинки</h2>
+            <h2 className='text-[40px] font-[600] mb-[40px] px-4'>Акции</h2>
             <Swiper 
                 modules={[Navigation]} 
                 navigation
