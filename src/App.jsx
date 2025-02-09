@@ -4,6 +4,7 @@ import OurPC from './components/OurPC'
 import Novinkiy from './components/Novinkiy'
 import Catalog from './components/Catalog'
 import Aksii from './components/Aksii'
+import AboutUs from './components/AboutUs'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <OurPC />
       <Novinkiy />
       <Aksii />
+      <AboutUs />
     </>
   )
 }

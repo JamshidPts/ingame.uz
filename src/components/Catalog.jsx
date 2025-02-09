@@ -7,7 +7,7 @@ function Catalog() {
       <div className="container mx-auto py-[50px]">
         <div className='flex flex-col items-center mb-[40px]'>
           <h2 className='uppercase text-[40px] font-[600]'>КАТАЛОГ INGAME.UZ</h2>
-          <p className='mt-[10px] mb-[16px] text-[22px font-[500]'>Выберите себе в каталоге  для максимально комфортной игры</p>
+          <p className='mt-[10px] mb-[16px] text-[22px] font-[400]'>Выберите себе в каталоге  для максимально комфортной игры</p>
           <p className='w-[130px]  border-[1.6px] border-top border-[#d3176d]'></p>
         </div>
         <div className="max-w-[950px] mx-auto flex flex-wrap justify-center items-center gap-5">
