@@ -16,7 +16,6 @@
 /* Фон скроллбара */
 ::-webkit-scrollbar-track {
   background: #1A1A1A;
-  border-radius: 10px;
 }
 
 /* Ползунок */
