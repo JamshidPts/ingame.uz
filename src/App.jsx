@@ -5,6 +5,7 @@ import Novinkiy from './components/Novinkiy'
 import Catalog from './components/Catalog'
 import Aksii from './components/Aksii'
 import AboutUs from './components/AboutUs'
+import Uslugi from './components/Uslugi'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <OurPC />
       <Novinkiy />
       <Aksii />
+      <Uslugi />
       <AboutUs />
     </>
   )
