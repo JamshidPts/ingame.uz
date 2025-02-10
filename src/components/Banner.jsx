@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import spark from '../assets/banner/banner_spark.png'
+import sparkMobile from '../assets/banner/banner_sparkMobile.png'
 import btnOutline from '../assets/banner/banner_btn.png';
 import { slides } from '../data/BannerSlider';
 
@@ -23,18 +24,18 @@ function Banner() {
       {slides.map((slide, id) => (
         <SwiperSlide key={id}>
           <section className='relative bg-black text-white flex justify-center items-center h-screen overflow-hidden'>
-            <img className='absolute right-0 bottom-0 z-10 w-auto h-auto' src={spark} alt="image" />
-
-            <div className="container mt-[160px] flex justify-between lg:justify-evenly lg:mt-[100px] md:mt-[20px] items-start max-[860px]:flex-col-reverse max-[860px]:items-center max-[860px]:mt-[10px]  relative z-20">
-              <div className='max-[860px]:text-center'>
-                <h1 className='text-[60px] font-[600] lg:text-[44px] md:text-[38px] max-[860px]:text-[36px]'>{slide.title}</h1>
-                <p className='mb-[30px] font-[100] text-[22px] max-w-[630px] lg:max-w-[530px] lg:text-[20px] md:text-[18px] max-[860px]:text-[18px] max-[860px]:font-[600] max-[860px]:w-[480px] max-[570px]:w-[320px] max-[570px]:mx-auto max-[570px]:text-[17px]'>{slide.description}</p>
-                <p className='mb-[24px] font-[100] text-[22px] lg:text-[20px] md:text-[18px] max-[860px]:text-[19px] max-[570px]:text-[16px]'>{slide.subText}</p>
+            <img className='md:absolute md:right-0 md:bottom-0 z-10 w-auto h-auto hidden md:block' src={spark} alt="image" />
+            <div className="container mt-[160px] flex justify-between lg:mt-[100px] md:mt-[20px] items-start max-[860px]:flex-col-reverse max-[860px]:items-center max-[860px]:mt-[10px]  relative z-20">
+              <div className='max-[860px]:text-center px-3 mt-5'>
+                <h1 className='text-[25px] font-orbitron md:text-[30px] lg:text-[55px] pt-5 md:pt-0'>{slide.title}</h1>
+                <p className='text-[18px] py-4'>{slide.description}</p>
+                <p className='mb-[24px] font-[100] text-[22px] lg:text-[20px] md:text-[18px] max-[860px]:text-[19px] max-[570px]:text-[16px] hidden md:block'>{slide.subText}</p>
                 <button className='w-[200px] h-[60px] text-[25px] font-[600] bg-cover bg-center lg:text-[22px] md:text-[20px]'
                   style={{ backgroundImage: `url(${btnOutline})` }}>Подробнее</button>
               </div>
-              <div className='relative z-20'>
-                <img className="w-[500px] md:w-[500px] xl:w-[500px] max-[860px]:mb-[30px] max-[860px]:!w-[350px]" src={slide.img} alt="PC image" />
+              <img src={sparkMobile} alt="spark" className='block absolute top-[5%] w-full z-10 sm:hidden'/>
+              <div className='relative z-10 px-3 mt-10'>
+                <img className="w-[290px] md:w-[400px] lg:w-[500px]" src={slide.img} alt="PC image" />
               </div>
             </div>
           </section>
