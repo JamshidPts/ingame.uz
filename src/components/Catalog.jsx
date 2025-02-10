@@ -20,7 +20,6 @@ function Catalog() {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   )
