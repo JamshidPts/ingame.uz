@@ -16,7 +16,7 @@ function Aksii() {
                     640: { slidesPerView: 1.5 },
                     768: { slidesPerView: 2 },
                     1024: { slidesPerView: 3 },
-                    1280: {slidesPerView: 4},
+                    1280: { slidesPerView: 4 },
                 }} 
                 className='p-2 gap-10'>
                 {Novinki.map((item) => (
