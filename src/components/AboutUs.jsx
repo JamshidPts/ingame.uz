@@ -24,7 +24,7 @@ function AboutUs() {
       </div>
 
       {/* Обертка для Swiper */}
-      <div className="relative pl-[110px]">
+      <div className="relative pl-[50px] md:pl-[110px]">
         <Swiper
           modules={[Navigation, Pagination]}
           slidesPerView={'auto'}
