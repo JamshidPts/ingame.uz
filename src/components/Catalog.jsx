@@ -10,13 +10,13 @@ function Catalog() {
           <p className='mt-[10px] mb-[16px] text-[22px] font-[400] max-[765px]:text-[20px] max-[765px]:max-w-[500px] max-[765px]:text-center max-[510px]:text-[18px] max-[510px]:max-w-[360px]'>Выберите себе в каталоге  для максимально комфортной игры</p>
           <p className='w-[130px]  border-[1.6px] border-top border-[#d3176d]'></p>
         </div>
-        <div className="max-w-[950px] mx-auto flex flex-wrap justify-center items-center gap-5">
+        <div className="max-w-[950px] mx-auto flex flex-wrap justify-center items-center gap-5 ">
           {CatalogItems.map((item) => (
-            <div className="p-5 text-center flex flex-col items-center" key={item.id}>
-              <div className="w-40 h-30 px-5 flex justify-center">
+            <div className="p-5 text-center flex flex-col items-center justify-between h-full max-[420px]:p-1" key={item.id}>
+              <div className="w-40 h-32 flex justify-center max-[420px]:w-21 max-[356px]:w-[100px]">
                 <img src={item.image} alt={item.text} className="max-w-full max-h-full object-contain" />
               </div>
-              <p className="text-lg font-normal">{item.text}</p>
+              <p className="text-lg font-normal max-[420px]:text-md">{item.text}</p>
             </div>
           ))}
         </div>
