@@ -25,16 +25,16 @@ function Banner() {
           <section className='relative bg-black text-white flex justify-center items-center h-screen overflow-hidden'>
             <img className='absolute right-0 bottom-0 z-10 w-auto h-auto' src={spark} alt="image" />
 
-            <div className="container mt-[160px] flex justify-between items-start relative z-20">
-              <div>
-                <h1 className='text-[60px] font-[600]'>{slide.title}</h1>
-                <p className='mb-[30px] font-[100] text-[22px] w-[630px]'>{slide.description}</p>
-                <p className='mb-[24px] font-[100] text-[22px]'>{slide.subText}</p>
-                <button className='w-[200px] h-[60px] text-[25px] font-[600] bg-cover bg-center'
+            <div className="container mt-[160px] flex justify-between lg:justify-evenly lg:mt-[100px] md:mt-[20px] items-start max-[860px]:flex-col-reverse max-[860px]:items-center max-[860px]:mt-[10px]  relative z-20">
+              <div className='max-[860px]:text-center'>
+                <h1 className='text-[60px] font-[600] lg:text-[44px] md:text-[38px] max-[860px]:text-[36px]'>{slide.title}</h1>
+                <p className='mb-[30px] font-[100] text-[22px] max-w-[630px] lg:max-w-[530px] lg:text-[20px] md:text-[18px] max-[860px]:text-[18px] max-[860px]:font-[600] max-[860px]:w-[480px] max-[570px]:w-[320px] max-[570px]:mx-auto max-[570px]:text-[17px]'>{slide.description}</p>
+                <p className='mb-[24px] font-[100] text-[22px] lg:text-[20px] md:text-[18px] max-[860px]:text-[19px] max-[570px]:text-[16px]'>{slide.subText}</p>
+                <button className='w-[200px] h-[60px] text-[25px] font-[600] bg-cover bg-center lg:text-[22px] md:text-[20px]'
                   style={{ backgroundImage: `url(${btnOutline})` }}>Подробнее</button>
               </div>
               <div className='relative z-20'>
-                <img className='max-w-[500px]' src={slide.img} alt="PC image" />
+                <img className="w-[500px] md:w-[500px] xl:w-[500px] max-[860px]:mb-[30px] max-[860px]:!w-[350px]" src={slide.img} alt="PC image" />
               </div>
             </div>
           </section>
