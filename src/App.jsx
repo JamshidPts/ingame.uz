@@ -5,6 +5,7 @@ import Novinkiy from './components/Novinkiy'
 import Catalog from './components/Catalog'
 import Aksii from './components/Aksii'
 import AboutUs from './components/AboutUs'
+import Question from './components/Question'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Novinkiy />
       <Aksii />
       <AboutUs />
+      <Question />
     </>
   )
 }
