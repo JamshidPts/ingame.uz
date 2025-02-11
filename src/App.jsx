@@ -8,6 +8,7 @@ import AboutUs from './components/AboutUs'
 import Uslugi from './components/Uslugi'
 import Question from './components/Question'
 import News from './components/News'
+import Footer from './components/Footer'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <AboutUs />
       <Question />
       <News />
+      <Footer />
     </>
   )
 }
