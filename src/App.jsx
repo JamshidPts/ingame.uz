@@ -7,6 +7,7 @@ import Aksii from './components/Aksii'
 import AboutUs from './components/AboutUs'
 import Question from './components/Question'
 import News from './components/News'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <AboutUs />
       <Question />
       <News />
+      <Footer />
     </>
   )
 }
