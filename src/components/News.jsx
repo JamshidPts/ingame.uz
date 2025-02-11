@@ -5,7 +5,7 @@ function News() {
     <section className='bg-[#1A1A1A] text-white py-[50px]'>
         <div className='container mx-auto min-h-[68vh]'>
             <h2 className='text-[40px] font-[600] mb-[40px] px-4'>Блог и новости</h2>
-            <div className='flex justify-center space-x-[41px] items-center'>
+            <div className='flex justify-center flex-wrap gap-10 items-center'>
             {news.map((item) => (
                 <div key={item.id} className='relative'>
                     <img src={item.img1} alt="image"  className='w-[470px] h-[364px] '/>
