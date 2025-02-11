@@ -23,7 +23,7 @@ function Question() {
                     {data.map((item, index) => (
                         <div className='border-b-[1px] px-[50px]'>
                             <ul key={item.id} className='flex  w-full justify-between items-center'>
-                                <li className='font-semibold text-[22px] py-[20px] list-disc'>{item.title}</li>
+                                <li className='font-semibold text-[18px] lg:text-[22px] py-[20px] list-disc'>{item.title}</li>
                                 <button onClick={() => handleOpen(index)}><img src={icon} alt="icon" /></button>
                             </ul>
                             {open === index && (
