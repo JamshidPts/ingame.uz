@@ -17,10 +17,12 @@ function Navbar() {
   const [currency, setCurrency] = useState("usd"); // Состояние для валюты
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false)
+  const [isMobileMenu, setIsMobileMenu] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     setIsSearchOpen(false);
+    setIsMobileMenu(false);
   };
 
   const toggleSearch = () => {
@@ -34,23 +36,27 @@ function Navbar() {
     setIsSearchOpen(false)
   }
 
+  const mobileToggleProducts = () => {
+    setIsMobileMenu(!isMobileMenu);
+  }
+
   return (
     <>
       <nav className="bg-[#1A1A1A] h-[10vh] w-full fixed top-0 left-0 z-50">
         <div className="container mx-auto h-full flex justify-between items-center px-4 xl:px-3">
-          <div className="flex items-center gap-8 xl:pl-[20px] h-full">
+          <div className="flex items-center gap-8 xl:pl-[20px] h-full cursor-pointer">
             <NavLink to="/">
               <img src={logo} alt="ingame" className="w-[140px] xl:w-[150px] p-2" />
             </NavLink>
-            <div className="hidden lg:flex text-white space-x-6">
-              <NavLink to="/products" className={({isActive}) => `flex items-center text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
-                Продукция <img src={vector} alt="vector" className="ml-2
-              git w-[19px]" onClick={toggleProducts} />
+            <div className="relative hidden lg:flex text-white space-x-8">
+              <NavLink to="/products" className={({isActive}) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
+                Продукция
               </NavLink>
-              <NavLink to="/services" className={({isActive}) => `flex items-center text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
+              <img src={vector} alt="vector" className="absolute top-[32%] left-[24%] ml-2 w-[19px]" onClick={toggleProducts} />
+              <NavLink to="/services" className={({isActive}) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
                 Услуги
               </NavLink>
-              <NavLink to="/brand" className={({isActive}) => `flex items-center text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
+              <NavLink to="/brand" className={({isActive}) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
                 O бренде
               </NavLink>
             </div>
@@ -58,9 +64,9 @@ function Navbar() {
 
           <div className="text-white flex items-center h-full lg:gap-3 cursor-pointer">
             <div className="hidden lg:flex gap-5">
-              <Link to="#" className="border border-white py-1 px-3 text-[18px]">
+              <button className="border border-white py-1 px-3 text-[18px] transition-all duration-300 ease-in-out hover:rounded active:scale-95">
                 Связаться
-              </Link>
+              </button>
               <select
                 className="bg-[#1A1A1A] font-orbitron "
                 onChange={(e) => setLanguage(e.target.value)}
@@ -89,16 +95,16 @@ function Navbar() {
 
             <div className="flex items-center gap-3">
               <Link to="/compare">
-                <img className="p-2" src={compareBtn} alt="compare" />
+                <img className="p-2 transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={compareBtn} alt="compare" />
               </Link>
-              <img className="p-2 transition-transform duration-300 transform hover:scale-110" src={searchBtn} alt="search" onClick={toggleSearch} />
+              <img className="p-2 transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={searchBtn} alt="search" onClick={toggleSearch} />
               <Link to="/korzina">
-                <img className="p-2 hidden lg:flex" src={korzinaBtn} alt="korzina" />
+                <img className="p-2 hidden lg:flex transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={korzinaBtn} alt="korzina" />
               </Link>
             </div>
 
             {/* Бургер-иконка */}
-            <img className="lg:hidden w-[50px] p-2 transition-transform duration-300 transform hover:scale-110" src={modal_nav} alt="menu" onClick={toggleMenu} />
+            <img className="lg:hidden w-[50px] p-2 transition-transform duration-300 transform hover:scale-95 active:scale-105" src={modal_nav} alt="menu" onClick={toggleMenu} />
           </div>
         </div>
 
@@ -108,16 +114,17 @@ function Navbar() {
             }`}
         >
           <div className="flex justify-end p-4">
-            <img src={closeBtn} alt="close" className="w-[30px] pr-[10px] py-[10px] cursor-pointer transition-transform duration-300 transform hover:scale-110" onClick={toggleMenu} />
+            <img src={closeBtn} alt="close" className="w-[30px] pr-[10px] py-[10px] cursor-pointer transition-transform duration-300 transform hover:scale-95 active:scale-105" onClick={toggleMenu} />
           </div>
-          <div className="flex flex-col items-center space-y-6 text-white mt-4">
-            <NavLink className="flex items-center justify-between text-[18px] border-b-2 border-[#252525] pb-3 w-[250px]">
-              Продукция <img onClick={toggleProducts} src={vector} alt="vector" className="w-[20px]" />
+          <div className="flex flex-col items-center relative font-medium space-y-6 text-white mt-4 cursor-pointer">
+            <NavLink to="/products" className={({isActive}) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
+              Продукция
             </NavLink>
-            <NavLink className="flex items-center justify-between text-[18px] border-b-2 border-[#252525] pb-3 w-[250px]">
+            <img src={vector} alt="vector" className="absolute top-[-7%] left-[80%] ml-2 w-[19px]" onClick={mobileToggleProducts} />
+            <NavLink to="/services" className={({isActive}) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
               Услуги
             </NavLink>
-            <NavLink to="/brand" className="flex items-center justify-between text-[18px] border-b-2 border-[#252525] pb-3 w-[250px]">
+            <NavLink to="/brand" className={({isActive}) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
               O бренде
             </NavLink>
 
@@ -148,9 +155,9 @@ function Navbar() {
                 </option>
               </select>
             </div>
-            <Link to="#" className="border-b border-white py-1 text-[18px]">
+            <button className="border-b border-white py-1 text-[18px] transition-all duration-300 ease-in-out active:scale-95">
               Связаться
-            </Link>
+            </button>
           </div>
         </div>
 
@@ -165,7 +172,7 @@ function Navbar() {
               type="text"
             />
             <img src={searchBtnBlack} alt="search_black" className="px-[20px]" />
-            <img src={closeBtnBlack} alt="close_black" className="w-[60px] sm:w-[50px] md:w-[35px] transition-transform duration-300 transform hover:scale-110" onClick={toggleSearch} />
+            <img src={closeBtnBlack} alt="close_black" className="w-[60px] sm:w-[50px] md:w-[35px] transition-transform duration-300 transform hover:scale-95 active:scale-100" onClick={toggleSearch} />
           </div>
         </div>
 
