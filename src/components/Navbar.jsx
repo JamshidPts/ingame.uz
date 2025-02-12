@@ -44,11 +44,12 @@ function Navbar() {
           </NavLink>
           <div className="hidden lg:flex text-white space-x-6">
             <NavLink className="flex items-center text-[22px]">
-              Продукция <img src={vector} alt="vector" className="ml-1 w-[19px]" onClick={toggleProducts}/>
+              Продукция <img src={vector} alt="vector" className="ml-2
+              git w-[19px]" onClick={toggleProducts}/>
             </NavLink>
             
             <NavLink className="flex items-center text-[22px] p-2">
-              Услуги <img src={vector} alt="vector" className="ml-1 w-[19px]" />
+              Услуги
             </NavLink>
             <NavLink className="flex items-center text-[22px] p-2">
               O бренде
@@ -116,7 +117,7 @@ function Navbar() {
             Продукция <img onClick={toggleProducts} src={vector} alt="vector" className="w-[20px]" />
           </NavLink>
           <NavLink className="flex items-center justify-between text-[18px] border-b-2 border-[#252525] pb-3 w-[250px]">
-            Услуги <img src={vector} alt="vector" className="w-[20px]" />
+            Услуги
           </NavLink>
           <NavLink className="flex items-center justify-between text-[18px] border-b-2 border-[#252525] pb-3 w-[250px]">
             O бренде
