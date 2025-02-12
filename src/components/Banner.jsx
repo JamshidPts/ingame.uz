@@ -16,7 +16,7 @@ function Banner() {
       pagination={{
         clickable: true,
       }}
-      autoplay={{ delay: 4000 }}
+      autoplay={{ delay: 40000000000000000000 }}
       speed={600}
       loop
       className="w-full h-screen"
@@ -25,8 +25,7 @@ function Banner() {
         <SwiperSlide key={id}>
           <section className='relative bg-black text-white flex justify-center items-center h-screen overflow-hidden'>
             <img className='absolute right-0 bottom-0 z-10 w-auto h-auto hidden min-[861px]:block' src={spark} alt="image" />
-            <img src={sparkMobile} alt="spark" className='absolute top-[80px] w-full h-auto z-10 sm:hidden'/>
-            <div className="container mt-[160px] flex justify-between lg:mt-[100px] md:mt-[20px] items-start max-[860px]:flex-col-reverse max-[860px]:items-center max-[860px]:mt-[10px]  relative z-20">
+            <div className="container mt-[160px] flex justify-between lg:mt-[100px] md:mt-[20px] items-start max-[860px]:flex-col-reverse max-[860px]:items-center max-[860px]:mt-[10px] relative z-20">
               <div className='max-[860px]:text-center px-3 mt-5'>
                 <h1 className='text-[25px] font-bold font-orbitron md:text-[30px] lg:text-[40px] xl:text-[60px] pt-5 md:pt-0'>{slide.title}</h1>
                 <p className='text-[16px] md:text-[17px] xl:text-[22px] tracking-wide py-4 px-4 md:px-0 font-orbitron'>{slide.description}</p>
@@ -37,6 +36,7 @@ function Banner() {
               <div className='relative z-10 px-3 mt-5'>
                 <img className="w-[290px] md:w-[400px] min-[861px]:w-[900px] lg:w-[550px]" src={slide.img} alt="PC image" />
               </div>
+              <img src={sparkMobile} alt="spark" className='absolute top-0 w-full h-auto z-0 sm:hidden'/>
             </div>
           </section>
         </SwiperSlide>
