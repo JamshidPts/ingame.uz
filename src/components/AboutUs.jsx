@@ -56,6 +56,25 @@ function AboutUs() {
               </div>
             </SwiperSlide>
           ))}
+          <style jsx="true">{`
+      .swiper-pagination{
+      margin-bottom:16px;
+      }
+      .swiper-pagination-bullet {
+      background-color: #ffffff;
+      border-radius: 0%;
+      opacity: 0.8;
+      width: 11px;
+      height: 11px;
+      margin-right: 12px !important;
+      }
+      .swiper-pagination-bullet-active {
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      background-color: #BD1863;
+      }`}
+          </style>
         </Swiper>
 
         {/* Своя кнопка для переключения слайдов */}
