@@ -1,12 +1,12 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Header from '../components/Header'
+import MainPage from '../pages/MainPage/MainPage'
 
 function AppRouter() {
   return (
     <>
      <Routes>
-        <Route path='/' element={<Header />}/>
+        <Route path='/' element={<MainPage />}/>
     </Routes>   
     </>
   )
