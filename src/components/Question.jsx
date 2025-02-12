@@ -20,13 +20,13 @@ function Question() {
                 </div>
 
                 <div>
-                    {data.map((item, index) => (
-                        <div className='border-b-[1px] px-[50px]'>
-                            <ul key={item.id} className='flex  w-full justify-between items-center'>
+                    {data.map((item) => (
+                        <div key={item.id} className='border-b-[1px] px-[50px]'>
+                            <ul className='flex  w-full justify-between items-center'>
                                 <li className='font-semibold text-[18px] lg:text-[22px] py-[20px] list-disc'>{item.title}</li>
-                                <button onClick={() => handleOpen(index)}><img src={icon} alt="icon" /></button>
+                                <button onClick={() => handleOpen(item.id)}><img src={icon} alt="icon" /></button>
                             </ul>
-                            {open === index && (
+                            {open === item.id && (
                                 <p className='text-[18px] text-gray-300  py-4 px-4'>{item.answer}</p>
                             )}
                         </div>
