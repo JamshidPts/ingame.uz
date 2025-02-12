@@ -43,15 +43,14 @@ function Navbar() {
               <img src={logo} alt="ingame" className="w-[140px] xl:w-[150px] p-2" />
             </NavLink>
             <div className="hidden lg:flex text-white space-x-6">
-              <NavLink className="flex items-center text-[22px]">
+              <NavLink to="/products" className={({isActive}) => `flex items-center text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
                 Продукция <img src={vector} alt="vector" className="ml-2
               git w-[19px]" onClick={toggleProducts} />
               </NavLink>
-
-              <NavLink className="flex items-center text-[22px] p-2">
+              <NavLink to="/services" className={({isActive}) => `flex items-center text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
                 Услуги
               </NavLink>
-              <NavLink to="/brand" className="flex items-center text-[22px] p-2">
+              <NavLink to="/brand" className={({isActive}) => `flex items-center text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
                 O бренде
               </NavLink>
             </div>
