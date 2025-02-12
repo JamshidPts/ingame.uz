@@ -4,7 +4,7 @@ import 'swiper/css';
 import { Navigation } from 'swiper/modules';
 import { Novinki } from '../data/NovinkiySlider';
 
-function Aksii() {
+function Novinkiy() {
   return (
     <section className='bg-[#1A1A1A] text-white py-[50px]'>
         <div className='container mx-auto min-h-[67vh]'>
@@ -49,4 +49,4 @@ function Aksii() {
   )
 }
 
-export default Aksii
+export default Novinkiy
