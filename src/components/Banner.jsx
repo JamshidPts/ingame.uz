@@ -16,7 +16,7 @@ function Banner() {
       pagination={{
         clickable: true,
       }}
-      autoplay={{ delay: 40000000000000000000 }}
+      autoplay={{ delay: 4000 }}
       speed={600}
       loop
       className="w-full h-screen"
