@@ -36,9 +36,9 @@ function Aksii() {
                             <p className="text-white text-xl font-bold line-through">{item.price}</p>
                             <p className='text-[#D3176D] text-2xl font-bold'>{item.forSale}</p>
                             <p className='py-4 font-light'>{item.descr}</p>
-                            <div className='flex items-center justify-end gap-3'>
+                            <div className='flex items-center justify-end gap-3 cursor-pointer'>
                                 <button className='text-[18px] active:bg-[#D3176D] hover:bg-[#D3176D] transition-transform duration-300 transform hover:scale-110 active:scale-100 font-bold px-4 py-2 border border-[#D3176D]'>{item.buy}</button>
-                                <img src={item.korzina} alt="korzina" className='border border-white p-2'/>
+                                <img src={item.korzina} alt="korzina" className='border border-white p-2 transition-transform duration-300 transform hover:scale-110 active:scale-100'/>
                             </div>
                         </div>
                     </SwiperSlide>
