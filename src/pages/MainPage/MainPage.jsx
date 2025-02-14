@@ -13,16 +13,16 @@ import Footer from '../../components/Footer'
 function MainPage() {
   return (
     <>
-        <Header />
-        <Catalog />
-        <OurPC />
-        <Novinkiy />
-        <Aksii />
-        <Uslugi />
-        <AboutUs />
-        <Question />
-        <News />
-        <Footer />
+      <Header />
+      <Catalog />
+      <OurPC />
+      <Novinkiy />
+      <Aksii />
+      <Uslugi />
+      <AboutUs title="Почему стоит выбрать нас?" text="Об этом лучше всего расскажут сами наши клиенты!" />
+      <Question />
+      <News />
+      <Footer />
     </>
   )
 }
