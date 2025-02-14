@@ -1,5 +1,5 @@
 import React from 'react'
-import companyCar from '../../assets/aboutCompany/company1.png'
+import companyCar from '../../assets/brand/company1.png'
 function AboutCompany() {
   return (
     <section className='bg-[#1a1a1a] min-h-[100vh] pt-[120px] pb-[50px] text-white'>
