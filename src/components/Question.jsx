@@ -13,7 +13,7 @@ function Question() {
         <section className='bg-[#1A1A1A] text-white py-[50px]'>
             <div className='container mx-auto min-h-[67vh]'>
                 <div className="flex flex-col items-center text-center mb-[70px]">
-                    <h3 className="uppercase text-[24px] sm:text-[35px] md:text-[40px] px-4 font-[600] mb-[25px]">
+                    <h3 className=" text-[24px] sm:text-[35px] md:text-[40px] px-4 font-[600] mb-[25px]">
                         Часто задаваемые вопросы
                     </h3>
                     <span className="w-[130px] border-[1.6px] border-[#d3176d]"></span>
