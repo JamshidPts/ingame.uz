@@ -5,6 +5,9 @@ import AboutCompany from '../../components/Brand/AboutCompany'
 import AboutUsCom from '../../components/Brand/AboutUsCom'
 import Choice from '../../components/Brand/Choice'
 import Order from '../../components/Brand/Order'
+import Question from '../../components/Question'
+import Footer from '../../components/Footer'
+import Guarantees from '../../components/Brand/Guarantees'
 
 function BrandPage() {
   return (
@@ -17,6 +20,9 @@ function BrandPage() {
       <Choice />
       <AboutUs title="Отзывы наших клиентов" text="Об этом лучше всего расскажут сами наши клиенты!" />
       <Order />
+      <Guarantees />
+      <Question />
+      <Footer />
     </>
   )
 }
