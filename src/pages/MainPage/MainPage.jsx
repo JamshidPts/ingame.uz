@@ -9,6 +9,7 @@ import AboutUs from '../../components/AboutUs'
 import Question from '../../components/Question'
 import News from '../../components/News'
 import Meneger from '../../components/Meneger'
+import Footer from '../../components/Footer'
 
 function MainPage() {
   return (
@@ -23,6 +24,7 @@ function MainPage() {
       <Question />
       <News />
       <Meneger />
+      <Footer />
     </>
   )
 }
