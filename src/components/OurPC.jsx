@@ -6,18 +6,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Pagination, Autoplay } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 
 function OurPC() {
   return (
-    <section className="bg-[#1A1A1A] text-white pt-[40px] pb-[0px]">
+    <section className="bg-[#1A1A1A] text-white pt-[40px] pb-[40px]">
       <div className="container mx-auto min-h-[85vh]">
         <h1 className="text-[40px] font-[600] mb-[40px] px-4">Наши ПК</h1>
         <div className="block max-[810px]:mx-[20px] max-[780px]:mx-[100px] max-[638px]:mx-[60px] max-[520px]:mx-[20px]">
-          <Swiper modules={[Pagination, Autoplay]}
-            pagination={{
-              clickable: true,
-            }}
+          <Swiper modules={[Autoplay]}
             autoplay={{ delay: 3000 }}
             speed={600}
             spaceBetween={20}
@@ -100,13 +97,6 @@ function OurPC() {
                 </div>
               </SwiperSlide>
             ))}
-            <style jsx="true">{`
-              .swiper-pagination{
-                margin-top:40px;
-                position:relative;
-                }
-              `}
-            </style>
           </Swiper>
         </div >
       </div >
