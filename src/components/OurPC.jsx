@@ -3,21 +3,25 @@ import { Card } from "../data/OurPC";
 import btnImg from "../assets/ourPc/images/ourPcBtn.png";
 import compare from "../assets/navbar/compare_btn.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Pagination, Autoplay } from 'swiper/modules';
 
 function OurPC() {
   return (
-    <section className="bg-[#1A1A1A] text-white py-[50px]">
+    <section className="bg-[#1A1A1A] text-white pt-[40px] pb-[0px]">
       <div className="container mx-auto min-h-[85vh]">
         <h1 className="text-[40px] font-[600] mb-[40px] px-4">Наши ПК</h1>
         <div className="block max-[810px]:mx-[20px] max-[780px]:mx-[100px] max-[638px]:mx-[60px] max-[520px]:mx-[20px]">
-          <Swiper modules={[Navigation]}
+          <Swiper modules={[Pagination, Autoplay]}
+            pagination={{
+              clickable: true,
+            }}
+            autoplay={{ delay: 3000 }}
+            speed={600}
             spaceBetween={20}
-            navigation
-            loop={false}
+            loop={true}
             breakpoints={{
               780: { slidesPerView: 1 },
               800: { slidesPerView: 2 },
@@ -29,7 +33,7 @@ function OurPC() {
                 key={item.id}
                 className="w-[359px] min-h-[600px] bg-[#1E1E1E] py-[20px] px-[16px]  "
               >
-                <img src={item.image} alt="PC" className="mx-auto"/>
+                <img src={item.image} alt="PC" className="mx-auto" />
                 <div className="flex justify-between items-center mt-[20px] mb-[10px]" >
                   <p className="w-[118px] min-h-[24px] text-center text-[10px] bg-[#d3176d] p-[5px] rounded-[20px] font-[600] ">
                     {item.set}
@@ -96,6 +100,13 @@ function OurPC() {
                 </div>
               </SwiperSlide>
             ))}
+            <style jsx="true">{`
+      .swiper-pagination{
+      margin-top:40px;
+      position:relative;
+      }
+     `}
+            </style>
           </Swiper>
         </div >
       </div >
