@@ -6,7 +6,7 @@ import AboutUsCom from '../../components/Brand/AboutUsCom'
 import Choice from '../../components/Brand/Choice'
 import Order from '../../components/Brand/Order'
 import Question from '../../components/Question'
-import Footer from '../../components/Footer'
+import Meneger from '../../components/Meneger'
 import Guarantees from '../../components/Brand/Guarantees'
 
 function BrandPage() {
@@ -22,7 +22,7 @@ function BrandPage() {
       <Order />
       <Guarantees />
       <Question />
-      <Footer />
+      <Meneger />
     </>
   )
 }
