@@ -3,7 +3,7 @@ import React from 'react'
 function Guarantees() {
   return (
     <section className='bg-[#0f0f0f] min-h-[64vh] pt-[30px] pb-[60px] text-[#b2b2b2] '>
-      <div className="container mx-auto w-[1120px] ">
+      <div className="container mx-auto px-[20px] max-w-[1400px] xl:w-[1120px]">
         <div className='flex flex-col items-center mb-[40px]'>
           <h2 className='text-[40px] font-[600] max-[510px]:text-[30px] mb-[20px] text-white'>Гарантии</h2>
           <p className='w-[130px]  border-[1.6px] border-top border-[#d3176d]'></p>
