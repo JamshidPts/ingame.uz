@@ -8,6 +8,7 @@ import Order from '../../components/Brand/Order'
 import Question from '../../components/Question'
 import Meneger from '../../components/Meneger'
 import Guarantees from '../../components/Brand/Guarantees'
+import Footer from '../../components/Footer'
 
 function BrandPage() {
   return (
@@ -23,6 +24,7 @@ function BrandPage() {
       <Guarantees />
       <Question />
       <Meneger />
+      <Footer />
     </>
   )
 }

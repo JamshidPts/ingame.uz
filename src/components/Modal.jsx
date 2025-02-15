@@ -27,7 +27,7 @@ function Modal({ isOpen, onClose }) {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-[#0F0F0F] p-10 shadow-lg max-w-[350px] sm:max-w-[500px] relative">
-                <button onClick={onClose} className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"> ✕ </button>
+                <button onClick={onClose} className="absolute top-2 right-[5%] text-[25px] transition-all duration-300 ease-in-out text-white hover:text-[#D3176D]"> ✕ </button>
                 <h5 className="text-white text-center text-[20px] sm:text-[25px] font-bold"><span className="text-[#D3176D]">Оставьте заявку</span> и наш менеджер свяжется с Вами</h5>
                 <form action="" className="text-white flex flex-col max-w-[250px] sm:max-w-[300px] mx-auto py-5">
                     <label htmlFor="name" className="font-semibold py-2">Как Зовут?</label>
@@ -36,7 +36,7 @@ function Modal({ isOpen, onClose }) {
                     <input type="text" value={phone} onChange={handleChange} maxLength="17" id="phone" placeholder="+998" className="p-2 border border-[#D0D5DD] focus:rounded focus:outline-none text-[#444444] font-semibold"/>
                     <input type="submit" className="bg-[#D3176D] cursor-pointer mt-5 py-2 text-[20px] font-bold active:bg-[#af316a]"/>
                 </form>
-                <p className="text-[#D3176D] text-center">Либо свяжитесь с нами в <a href="" className="text-white">Telegram</a></p>
+                <p className="text-[#D3176D] text-center font-bold text-[18px] sm:text-[22px] max-w-[250px] sm:max-w-[300px] mx-auto">Либо свяжитесь с нами в <a href="" className="text-white border-b border-b-white ">Telegram</a></p>
             </div>
         </div>
     )
