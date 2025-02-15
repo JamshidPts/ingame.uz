@@ -8,7 +8,7 @@ import Uslugi from '../../components/Uslugi'
 import AboutUs from '../../components/AboutUs'
 import Question from '../../components/Question'
 import News from '../../components/News'
-import Footer from '../../components/Footer'
+import Meneger from '../../components/Meneger'
 
 function MainPage() {
   return (
@@ -22,7 +22,7 @@ function MainPage() {
       <AboutUs title="Почему стоит выбрать нас?" text="Об этом лучше всего расскажут сами наши клиенты!" />
       <Question />
       <News />
-      <Footer />
+      <Meneger />
     </>
   )
 }
