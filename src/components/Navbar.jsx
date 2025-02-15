@@ -10,6 +10,7 @@ import closeBtn from "../assets/navbar/close_modal.svg";
 import closeBtnBlack from "../assets/navbar/close_btn.svg";
 import vectorProduct from "../assets/navbar/vector_products.svg"
 import { Link, NavLink } from "react-router-dom";
+import Modal from "./Modal";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +19,7 @@ function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [isMobileMenu, setIsMobileMenu] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -40,9 +42,15 @@ function Navbar() {
     setIsMobileMenu(!isMobileMenu);
   }
 
+  const modalToggle = () => {
+    setIsModalOpen(true);
+    setIsMenuOpen(false)
+  }
+
   return (
     <>
-      <nav className="bg-[#1A1A1A] h-[10vh] w-full fixed top-0 left-0 z-50">
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
+      <nav className="bg-[#1A1A1A] h-[10vh] w-full fixed top-0 left-0 z-30">
         <div className="container mx-auto h-full flex justify-between items-center px-4 xl:px-3">
           <div className="flex items-center gap-8 xl:pl-[20px] h-full cursor-pointer">
             <NavLink to="/">
@@ -64,7 +72,7 @@ function Navbar() {
 
           <div className="text-white flex items-center h-full lg:gap-3 cursor-pointer">
             <div className="hidden lg:flex gap-5">
-              <button className="border border-white py-1 px-3 text-[18px] transition-all duration-300 ease-in-out hover:rounded active:scale-95">
+              <button onClick={modalToggle} className="border border-white py-1 px-3 text-[18px] transition-all duration-300 ease-in-out hover:rounded active:scale-95">
                 Связаться
               </button>
               <select
@@ -155,7 +163,7 @@ function Navbar() {
                 </option>
               </select>
             </div>
-            <button className="border-b border-white py-1 text-[18px] transition-all duration-300 ease-in-out active:scale-95">
+            <button onClick={modalToggle} className="border-b border-white py-1 text-[18px] transition-all duration-300 ease-in-out active:scale-95">
               Связаться
             </button>
           </div>
