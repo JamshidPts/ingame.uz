@@ -101,11 +101,11 @@ function OurPC() {
               </SwiperSlide>
             ))}
             <style jsx="true">{`
-      .swiper-pagination{
-      margin-top:40px;
-      position:relative;
-      }
-     `}
+              .swiper-pagination{
+                margin-top:40px;
+                position:relative;
+                }
+              `}
             </style>
           </Swiper>
         </div >
