@@ -6,19 +6,21 @@ import News from '../../components/News'
 import Meneger from '../../components/Meneger'
 import Footer from '../../components/Footer'
 import Usluga from '../../components/Services/Usluga'
+import WeCan from '../../components/Services/WeCan'
 
 function ServicesPage() {
   return (
     <>
-        <header>
-            <Navbar />
-        </header>
-        <Usluga />
-        <AboutUs title="Отзывы наших клиентов" text="Об этом лучше всего расскажут сами наши клиенты!"/>
-        <Question />
-        <News />
-        <Meneger />
-        <Footer />
+      <header>
+        <Navbar />
+      </header>
+      <Usluga />
+      <WeCan />
+      <AboutUs title="Отзывы наших клиентов" text="Об этом лучше всего расскажут сами наши клиенты!" />
+      <Question />
+      <News />
+      <Meneger />
+      <Footer />
     </>
   )
 }
