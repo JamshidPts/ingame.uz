@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'custom': '440px',
+      },
       fontFamily: {
         orbitron: ["Orbitron", "sans-serif"], // Добавляем шрифт
       },
