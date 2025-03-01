@@ -3,7 +3,7 @@ import { WeCanCards } from '../../data/WeCan'
 
 function WeCan() {
   return (
-    <section className='bg-[#1a1a1a] min-h-screen py-[170px] pb-[60px] text-white'>
+    <section className='bg-[#1a1a1a] min-h-screen py-[70px] custom:py-[180px] pb-[60px] text-white'>
       <div className="container font-orbitron mx-auto px-[20px]">
         <div className='flex flex-col items-center mb-[40px]'>
           <h2 className=' text-[40px] font-[600] max-[510px]:text-[30px] mb-[20px]'>Что мы можем лучше остальных?</h2>
