@@ -14,7 +14,7 @@ function WeCan() {
           {WeCanCards.map((item) => (
             <div className='max-w-[504px] min-h-[220px] p-[20px] flex items-start gap-[16px] bg-black' key={item.id}>
               <div>
-                <img className='w-[136px] h-[160px]' src={item.image} alt={item.image} />
+                <img className='w-[200px] sm:w-[136px] sm:h-[160px]' src={item.image} alt={item.image} />
               </div>
               <div className=' max-w-[310px] text-[#C7C7C7]'>
                 <h3 className='text-white font-[600] mb-[8px]'>{item.title}</h3>
