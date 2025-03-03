@@ -42,7 +42,7 @@ function Banner() {
                 <p className='text-[16px] md:text-[19px] sm:w-[550px] md:w-[350px] lg:w-full xl:text-[18px] 2xl:text-[22px] tracking-wide py-4 px-4 md:px-0 font-orbitron'>{slide.description}</p>
                 <button className='w-[200px] h-[60px] text-[25px] font-[600] bg-cover bg-center lg:text-[22px] md:text-[20px]'
                   style={{ backgroundImage: `url(${btnOutline})` }}><a href={slide.url}></a>Подробнее</button>
-              </div>
+              </div>()
               <div className='relative z-10 px-3 mt-5'>
                 <img className="w-[290px] md:w-[400px] min-[861px]:w-[700px] lg:w-[550px]" src={slide.image} alt="PC image" />
               </div>
