@@ -1,5 +1,5 @@
-import React from "react";
-import { aboutUsSlider } from "../data/AboutUsSlider";
+import React, { useEffect, useState } from "react";
+// import { aboutUsSlider } from "../data/AboutUsSlider";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -7,8 +7,19 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import arrow from '../assets/aboutUs/arrow.svg';
 import play from '../assets/aboutUs/playIcon.svg';
+import { reviews } from "../api/front/review";
 
 function AboutUs({ title, text }) {
+  const [review, setReview] = useState([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const data = await reviews();
+      setReview(data);
+    };
+    fetchReviews();
+  }, [])
+
   return (
     <section className="min-h-[87.3vh] py-[50px] bg-[#0f0f0f] text-white">
       <div className="container mx-auto">
@@ -37,19 +48,19 @@ function AboutUs({ title, text }) {
             clickable: true,
             el: ".custom-pagination",
           }}>
-          {aboutUsSlider.map((item) => (
-            <SwiperSlide key={item.id} className="!w-[261px] overflow-visible">
+          {review.map((item, id) => (
+            <SwiperSlide key={id} className="!w-[261px] overflow-visible">
               <div className="relative">
                 <p className="absolute top-0 px-[10px] font-bold py-[8px] bg-[#bd1863] rounded-t-[10px]">
-                  {item.title}
+                  {item.comment}
                 </p>
-                <img src={item.img} alt={item.img} className="h-[500px] w-full object-cover rounded-md" />
+                <img src={item.image} alt={item.img} className="h-[500px] w-full object-cover rounded-md" />
                 <div className="absolute bottom-[20px] left-[20px] text-start">
-                  <h5 className="text-[16px] font-[700]">{item.clientName}</h5>
+                  <h5 className="text-[16px] font-[700]">{item.fullname}</h5>
                   <p className="text-[13px] mt-[4px] mb-[10px]">{item.profession}</p>
-                  <button className="relative pr-[14px] font-[600] text-[16px] w-[80px] h-[30px] rounded-md bg-[#d3176d] ">
-                    {item.btn}
-                    <img className="absolute right-[16px] bottom-[7px]" src={play} alt="play icon" />
+                  <button className="relative pr-[14px] font-orbitron font-[600] text-[16px] w-[80px] h-[30px] rounded-md bg-[#d3176d] ">
+                    Play
+                    <img className="absolute right-[10px] bottom-[7px]" src={play} alt="play icon" />
                   </button>
                 </div>
               </div>
