@@ -12,6 +12,7 @@ function Catalog() {
     };
     fetchCatalogs();
   }, []);
+
   return (
     <section className='min-h-[59.2vh] bg-[#0f0f0f] text-white'>
       <div className="container mx-auto py-[50px]">
@@ -24,7 +25,7 @@ function Catalog() {
           {catalogs.map((item, id) => (
             <div className="p-5 text-center flex flex-col items-center justify-between h-full max-[420px]:p-1 cursor-pointer" key={id}>
               <div className="w-40 mb-4 h-32 flex justify-center max-[420px]:w-21 max-[356px]:w-[100px]">
-                <img src={item.icon} alt={item.text} className="max-w-full max-h-full object-contain" />
+                <img src={item.icon?.url || ""} alt={item.name} className="max-w-full max-h-full object-contain" />
               </div>
               <p className="text-lg font-normal max-[420px]:text-md">{item.name}</p>
             </div>
