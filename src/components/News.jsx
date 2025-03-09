@@ -23,7 +23,7 @@ function News() {
         <section className="bg-[#1A1A1A] text-white py-[50px]">
             <div className="container mx-auto min-h-[68vh]">
                 <h2 className="text-[40px] font-[600] mb-[40px] px-4">Блог и новости</h2>
-                <div className="flex justify-center lg:justify-between flex-wrap items-center">
+                <div className="flex justify-center lg:justify-start flex-wrap items-center">
                     {news.map((item, id) => (
                         <div key={id} className="py-4">
                             <div className="relative w-[350px] sm:w-[400px]">

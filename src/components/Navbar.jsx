@@ -101,13 +101,10 @@ function Navbar() {
               </select>
             </div>
 
-            <div className="flex items-center gap-3">
-              <Link to="/compare">
-                <img className="p-2 transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={compareBtn} alt="compare" />
-              </Link>
+            <div className="flex items-center pr-2">
               <img className="p-2 transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={searchBtn} alt="search" onClick={toggleSearch} />
               <Link to="/korzina">
-                <img className="p-2 hidden lg:flex transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={korzinaBtn} alt="korzina" />
+                <img className="p-2 lg:flex transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={korzinaBtn} alt="korzina" />
               </Link>
             </div>
 

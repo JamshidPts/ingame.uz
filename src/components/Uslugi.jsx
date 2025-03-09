@@ -15,7 +15,7 @@ function Uslugi() {
 
   return (
     <section className='bg-[#1A1A1A] text-white py-[50px]'>
-      <div className='container mx-auto min-h-[100vh]'>
+      <div className='container mx-auto min-h-[70vh]'>
         <h2 className='text-[40px] font-[600] mb-[40px] px-4'>Услуги</h2>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 place-items-center'>
           {service.map((item, id) => (
