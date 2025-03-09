@@ -27,7 +27,7 @@ function Banner() {
       pagination={{
         clickable: true,
       }}
-      autoplay={{ delay: 4000 }}
+      // autoplay={{ delay: 4000 }}
       speed={600}
       loop
       className="w-full h-screen"
@@ -40,11 +40,12 @@ function Banner() {
               <div className='max-[860px]:text-center px-3 mt-5'>
                 <h1 className='text-[25px] font-bold font-orbitron md:text-[30px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] pt-5 md:pt-0'>{slide.name}</h1>
                 <p className='text-[16px] md:text-[19px] sm:w-[550px] md:w-[350px] lg:w-full xl:text-[18px] 2xl:text-[22px] tracking-wide py-4 px-4 md:px-0 font-orbitron'>{slide.description}</p>
-                <button className='w-[200px] h-[60px] text-[25px] font-[600] bg-cover bg-center lg:text-[22px] md:text-[20px]'
-                  style={{ backgroundImage: `url(${btnOutline})` }}><a href={slide.url}></a>Подробнее</button>
-              </div>()
+                <button className='w-[200px] h-[60px] text-[25px] font-[600] bg-cover bg-center lg:text-[22px] md:text-[20px]' style={{ backgroundImage: `url(${btnOutline})` }}>
+                  <a href={slide.url}>Подробнее</a>
+                </button>
+              </div>
               <div className='relative z-10 px-3 mt-5'>
-                <img className="w-[290px] md:w-[400px] min-[861px]:w-[700px] lg:w-[550px]" src={slide.image} alt="PC image" />
+                <img className="w-[290px] md:w-[400px] min-[861px]:w-[700px] lg:w-[550px]" src={slide.image.url} alt="PC image" />
               </div>
               <img src={sparkMobile} alt="spark" className='absolute top-0 w-full h-auto z-0 sm:hidden'/>
             </div>
