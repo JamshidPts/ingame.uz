@@ -70,6 +70,7 @@ function AboutUs({ title, text }) {
                       controls
                       autoPlay
                       onEnded={() => setPlayingId(null)} // Сброс после завершения
+                      controlsList="nodownload"
                     />
                   ) : (
                     <img
