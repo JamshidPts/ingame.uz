@@ -40,7 +40,7 @@ function Banner() {
                 <h1 className='text-[25px] font-bold font-orbitron md:text-[30px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] pt-5 md:pt-0'>{slide.name}</h1>
                 <p className='text-[16px] md:text-[19px] sm:w-[550px] md:w-[350px] lg:w-full xl:text-[18px] 2xl:text-[22px] tracking-wide py-4 px-4 md:px-0 font-orbitron'>{slide.description}</p>
                 <button className='w-[200px] h-[60px] text-[25px] font-[600] bg-cover bg-center lg:text-[22px] md:text-[20px]' style={{ backgroundImage: `url(${btnOutline})` }}>
-                  <a href={slide.url}>Подробнее</a>
+                  <a href={slide.url} target='_blank'>Подробнее</a>
                 </button>
               </div>
               <div className='relative z-10 px-3 mt-5'>
