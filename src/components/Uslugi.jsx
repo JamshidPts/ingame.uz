@@ -18,11 +18,8 @@ function Uslugi() {
   }, [i18n.language]);
 
   const getTranslation = (item, field) => {
-    if (!item.translations) return item[field] || "";
-    return item.translations.find((trans) => trans.locale === i18n.language)?.[field] || item[field] || "";
+    return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
   };
-
-
 
 
   return (
@@ -60,7 +57,6 @@ function Uslugi() {
                       <li key={index}>{serviceItem}</li>
                     ))}
                   </ul>
-
 
                   <div className='flex justify-end px-2 pt-5'>
                     <button className='border-2 border-white px-5 py-1 rounded transition-all duration-300 ease-in-out hover:bg-white hover:text-black'>
