@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "../data/OurPC";
 import btnImg from "../assets/ourPc/images/ourPcBtn.png";
 import compare from "../assets/navbar/compare_btn.svg";
@@ -7,8 +7,24 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay } from 'swiper/modules';
+import { useTranslation } from 'react-i18next';
+import { getOurPC } from '../api/front/ourPC';
 
 function OurPC() {
+  const { t, i18n } = useTranslation();
+  const [pc, setPC] = useState([]);
+
+  useEffect(() => {
+    const fetchPC = async () => {
+      const data = await getOurPC();
+      setPC(data);
+    };
+    fetchPC();
+  }, []);
+  const getTranslation = (item) => {
+    return item.translations?.find((trans) => trans.locale === i18n.language)?.name || item.name;
+  };
+
   return (
     <section className="bg-[#1A1A1A] text-white pt-[40px] pb-[40px]">
       <div className="container mx-auto min-h-[85vh]">
