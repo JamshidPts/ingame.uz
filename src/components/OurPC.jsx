@@ -15,7 +15,7 @@ function OurPC() {
         <h1 className="text-[40px] font-[600] mb-[40px] px-4">Наши ПК</h1>
         <div className="block max-[810px]:mx-[20px] max-[780px]:mx-[100px] max-[638px]:mx-[60px] max-[520px]:mx-[20px]">
           <Swiper modules={[Autoplay]}
-            autoplay={{ delay: 3000 }}
+            // autoplay={{ delay: 3000 }}
             speed={600}
             spaceBetween={20}
             loop={true}
@@ -28,7 +28,7 @@ function OurPC() {
             {Card.map((item) => (
               <SwiperSlide
                 key={item.id}
-                className="w-[359px] min-h-[600px] bg-[#1E1E1E] py-[20px] px-[16px]  "
+                className="w-[320px] min-h-[600px] bg-[#1E1E1E] py-[20px] px-[16px]  "
               >
                 <img src={item.image} alt="PC" className="mx-auto" />
                 <div className="flex justify-between items-center mt-[20px] mb-[10px]" >
