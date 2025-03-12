@@ -1,4 +1,4 @@
-import i18n from "i18next";
+import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import axios from "axios";
 
@@ -12,7 +12,7 @@ const loadTranslations = async (lang) => {
   }
 };
 
-i18n
+i18next
   .use(initReactI18next)
   .init({
     lng: "ru", // Язык по умолчанию
@@ -24,8 +24,8 @@ i18n
 
 export const changeLanguage = async (lang) => {
   const translations = await loadTranslations(lang);
-  i18n.addResourceBundle(lang, "translation", translations, true, true);
-  await i18n.changeLanguage(lang);
+  i18next.addResourceBundle(lang, "translation", translations, true, true);
+  await i18next.changeLanguage(lang);
 };
 
-export default i18n;
+export default i18next;
