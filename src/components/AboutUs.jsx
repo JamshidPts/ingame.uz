@@ -14,7 +14,6 @@ function AboutUs({ title, text }) {
   const { t, i18n } = useTranslation();
   const [playingId, setPlayingId] = useState(null); // Храним ID активного видео
 
-
   useEffect(() => {
     const fetchReview = async () => {
       const data = await getReview();
