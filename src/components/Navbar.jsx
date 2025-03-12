@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { changeLanguage } from "../i18n";
 import logo from "../assets/navbar/logo_navbar.svg";
 import vector from "../assets/navbar/navbar_icon.svg";
 import searchBtn from "../assets/navbar/search_btn.svg";
@@ -13,14 +15,41 @@ import { Link, NavLink } from "react-router-dom";
 import Modal from "./Modal";
 
 function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [language, setLanguage] = useState("ru"); // Состояние для языка
+  // Состояние для языка
   const [currency, setCurrency] = useState("usd"); // Состояние для валюты
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [language, setLanguage] = useState("ru");
+  const [languages, setLanguages] = useState([]);
+  useEffect(() => {
+    const fetchLanguages = async () => {
+      try {
+        const response = await axios.get("https://ingame1.azeme.uz/api/user/langs");
+        console.log("API Response:", response.data); // Проверяем структуру
 
+        if (Array.isArray(response.data.data)) {
+          setLanguages(response.data.data); // Берем массив из `data`
+        } else {
+          console.error("Некорректный формат API:", response.data);
+          setLanguages([]); // Если API снова поменяется, не ломаем код
+        }
+      } catch (error) {
+        console.error("Ошибка загрузки языков:", error);
+        setLanguages([]);
+      }
+    };
+
+    fetchLanguages();
+  }, []);
+  const handleLanguageChange = async (event) => {
+    const lang = event.target.value;
+    setLanguage(lang);
+    await changeLanguage(lang);
+  };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     setIsSearchOpen(false);
@@ -49,7 +78,7 @@ function Navbar() {
 
   return (
     <>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <nav className="bg-[#1A1A1A] h-[10vh] w-full fixed top-0 left-0 z-30">
         <div className="container mx-auto h-full flex justify-between items-center px-4 xl:px-3">
           <div className="flex items-center gap-8 xl:pl-[20px] h-full cursor-pointer">
@@ -57,14 +86,14 @@ function Navbar() {
               <img src={logo} alt="ingame" className="w-[140px] xl:w-[150px] p-2" />
             </NavLink>
             <div className="relative hidden lg:flex text-white space-x-8">
-              <NavLink to="/products" className={({isActive}) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
+              <NavLink to="/products" className={({ isActive }) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
                 Продукция
               </NavLink>
               <img src={vector} alt="vector" className="absolute top-[32%] left-[24%] ml-2 w-[19px]" onClick={toggleProducts} />
-              <NavLink to="/services" className={({isActive}) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
+              <NavLink to="/services" className={({ isActive }) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
                 Услуги
               </NavLink>
-              <NavLink to="/brand" className={({isActive}) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
+              <NavLink to="/brand" className={({ isActive }) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
                 O бренде
               </NavLink>
             </div>
@@ -75,17 +104,16 @@ function Navbar() {
               <button onClick={modalToggle} className="border border-white py-1 px-3 text-[18px] transition-all duration-300 ease-in-out hover:rounded active:scale-95">
                 Связаться
               </button>
-              <select
-                className="bg-[#1A1A1A] font-orbitron "
-                onChange={(e) => setLanguage(e.target.value)}
-                value={language}
-              >
-                <option className="bg-[#0A0A0A]" value="ru">
-                  RU
-                </option>
-                <option className="bg-[#0A0A0A]" value="uz">
-                  UZ
-                </option>
+              <select className="bg-[#1A1A1A]" onChange={handleLanguageChange} value={language}>
+                {languages.length > 0 ? (
+                  languages.map((lang) => (
+                    <option key={lang.id} value={lang.locale}>
+                      {lang.locale.toUpperCase()}
+                    </option>
+                  ))
+                ) : (
+                  <option value="ru">Загрузка...</option>
+                )}
               </select>
               <select
                 className="bg-[#1A1A1A] font-orbitron "
@@ -122,30 +150,25 @@ function Navbar() {
             <img src={closeBtn} alt="close" className="w-[30px] pr-[10px] py-[10px] cursor-pointer transition-transform duration-300 transform hover:scale-95 active:scale-105" onClick={toggleMenu} />
           </div>
           <div className="flex flex-col items-center relative font-medium space-y-6 text-white mt-4 cursor-pointer">
-            <NavLink to="/products" className={({isActive}) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
+            <NavLink to="/products" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
               Продукция
             </NavLink>
             <img src={vector} alt="vector" className="absolute top-[-7%] left-[80%] ml-2 w-[19px]" onClick={mobileToggleProducts} />
-            <NavLink to="/services" className={({isActive}) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
+            <NavLink to="/services" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
               Услуги
             </NavLink>
-            <NavLink to="/brand" className={({isActive}) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
+            <NavLink to="/brand" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
               O бренде
             </NavLink>
 
             {/* Мобилный language and currency */}
             <div className="lg:hidden flex items-center justify-evenly w-[200px]">
-              <select
-                className="bg-[#0A0A0A] w-[70px] text-center border border-white py-1"
-                onChange={(e) => setLanguage(e.target.value)}
-                value={language}
-              >
-                <option className="bg-[#0A0A0A]" value="ru">
-                  RU
-                </option>
-                <option className="bg-[#0A0A0A]" value="uz">
-                  UZ
-                </option>
+              <select className="bg-[#0A0A0A] w-[70px] text-center border border-white py-1" onChange={handleLanguageChange} value={language}>
+                {languages.map((lang) => (
+                  <option key={lang.id} value={lang.locale} className="bg-[#0A0A0A]">
+                    {lang.locale.toUpperCase()}
+                  </option>
+                ))}
               </select>
               <select
                 className="bg-[#0A0A0A] w-[70px] text-center border border-white py-1"

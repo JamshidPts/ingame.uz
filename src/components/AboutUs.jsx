@@ -6,19 +6,26 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import arrow from '../assets/aboutUs/arrow.svg';
 import play from '../assets/aboutUs/playIcon.svg';
-import { reviews } from "../api/front/review";
+import { useTranslation } from 'react-i18next';
+import { getReview } from '../api/front/review';
 
 function AboutUs({ title, text }) {
   const [review, setReview] = useState([]);
+  const { t, i18n } = useTranslation();
   const [playingId, setPlayingId] = useState(null); // Храним ID активного видео
 
+
   useEffect(() => {
-    const fetchReviews = async () => {
-      const data = await reviews();
+    const fetchReview = async () => {
+      const data = await getReview();
       setReview(data);
     };
-    fetchReviews();
-  }, []);
+    fetchReview();
+  }, [i18n.language]);
+
+  const getTranslation = (item, field) => {
+    return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
+  };
 
   return (
     <section className="min-h-[87.3vh] py-[50px] bg-[#0f0f0f] text-white">
@@ -59,7 +66,7 @@ function AboutUs({ title, text }) {
               <SwiperSlide key={id} className="!w-[261px] overflow-visible">
                 <div className="relative">
                   <p className="absolute top-0 px-[10px] font-bold py-[8px] bg-[#bd1863] rounded-t-[10px]">
-                    {item.comment}
+                    {getTranslation(item, "comment")}
                   </p>
 
                   {/* Если активное видео - показываем его, иначе картинку */}
@@ -82,7 +89,7 @@ function AboutUs({ title, text }) {
 
                   <div className="absolute bottom-[20px] left-[20px] text-start">
                     <h5 className="text-[16px] font-[700]">{item.fullname}</h5>
-                    <p className="text-[13px] mt-[4px] mb-[10px]">{item.profession}</p>
+                    <p className="text-[13px] mt-[4px] mb-[10px]">{getTranslation(item, "profession")}</p>
 
                     {video && playingId !== id && (
                       <button
