@@ -5,6 +5,7 @@ import BrandPage from '../pages/BrandPage/BrandPage'
 import ServicesPage from '../pages/Services/ServicesPage'
 import AdminPage from '../pages/admin/AdminPage'
 import ProductPage from '../pages/ProductPage/ProductPage'
+import OrderPage from '../pages/OrderPage/OrderPage'
 
 function AppRouter() {
   return (
@@ -15,6 +16,7 @@ function AppRouter() {
         <Route path='/brand' element={<BrandPage />} />
         <Route path='/services' element={<ServicesPage />} />
         <Route path='/products' element={<ProductPage />} />
+        <Route path='/order' element={<OrderPage />} />
         <Route path="*" element={<h2 className='text-center'>404 Not Found</h2>} />
       </Routes>
     </>

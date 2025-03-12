@@ -131,7 +131,7 @@ function Navbar() {
 
             <div className="flex items-center pr-2">
               <img className="p-2 transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={searchBtn} alt="search" onClick={toggleSearch} />
-              <Link to="/korzina">
+              <Link to="/order">
                 <img className="p-2 lg:flex transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={korzinaBtn} alt="korzina" />
               </Link>
             </div>
