@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 function Banner() {
   const [slides, setSlides] = useState([]);
   const { i18n } = useTranslation();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBanners = async () => {
@@ -22,9 +21,7 @@ function Banner() {
         setSlides(data);
       } catch (error) {
         console.error("Ошибка загрузки баннеров:", error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
     fetchBanners();
   }, [i18n.language]);
@@ -38,14 +35,13 @@ function Banner() {
       autoplay={{ delay: 4000 }}
       speed={600}
       loop
-      className="w-full h-screen"
+      className="w-full min-h-screen"
     >
       {slides.map((slide, id) => {
         const translation = slide.translations?.find((t) => t.locale === i18n.language) || slide;
-
         return (
           <SwiperSlide key={id}>
-            <section className='relative bg-black text-white flex justify-center items-center h-screen overflow-hidden'>
+            <section className='relative bg-black text-white flex justify-center items-center min-h-screen overflow-hidden'>
               <img className='absolute right-0 bottom-0 z-10 w-auto h-auto hidden min-[861px]:block' src={spark} alt="image" />
               <div className="container mt-[160px] flex justify-between lg:mt-[100px] md:mt-[20px] items-center max-[860px]:flex-col-reverse max-[860px]:items-center max-[860px]:mt-[10px] relative z-20">
                 <div className='max-[860px]:text-center px-3 mt-5'>

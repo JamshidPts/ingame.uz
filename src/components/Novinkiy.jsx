@@ -18,7 +18,7 @@ function Novinkiy() {
                     1024: { slidesPerView: 3 },
                     1280: { slidesPerView: 4 },
                 }} 
-                className='p-2 gap-10'>
+                className='p-2'>
                 {Novinki.map((item) => (
                     <SwiperSlide key={item.id} className='py-6'>
                         <div className='min-h-[500px] w-[280px] md:w-[280px] lg:w-[300px] 2xl:w-[320px] mx-auto px-5 py-10 bg-[#1E1E1E] relative'>

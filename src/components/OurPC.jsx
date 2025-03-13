@@ -1,123 +1,75 @@
-import React, { useEffect, useState } from "react";
-import { Card } from "../data/OurPC";
-import btnImg from "../assets/ourPc/images/ourPcBtn.png";
-import compare from "../assets/navbar/compare_btn.svg";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Autoplay } from 'swiper/modules';
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
-import { getOurPC } from '../api/front/ourPC';
+import { getDesktops } from '../api/front/desktop';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/autoplay';
 
 function OurPC() {
+  const [desktop, setDesktop] = useState([]);
   const { t, i18n } = useTranslation();
-  const [pc, setPC] = useState([]);
 
   useEffect(() => {
-    const fetchPC = async () => {
-      const data = await getOurPC();
-      setPC(data);
+    const fetchDesktops = async () => {
+      const data = await getDesktops();
+      // console.log("Полученные данные:", data); // ✅ Проверяем в консоли
+      setDesktop(Array.isArray(data) ? data : []); // ✅ Гарантируем, что это массив
     };
-    fetchPC();
-  }, []);
-  const getTranslation = (item) => {
-    return item.translations?.find((trans) => trans.locale === i18n.language)?.name || item.name;
+    fetchDesktops();
+  }, [])
+
+  const getTranslation = (item, field) => {
+      return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
   };
+
 
   return (
     <section className="bg-[#1A1A1A] text-white pt-[40px] pb-[40px]">
-      <div className="container mx-auto min-h-[85vh]">
+      <div className="container mx-auto min-h-[80vh]">
         <h1 className="text-[40px] font-[600] mb-[40px] px-4">Наши ПК</h1>
-        <div className="block max-[810px]:mx-[20px] max-[780px]:mx-[100px] max-[638px]:mx-[60px] max-[520px]:mx-[20px]">
+        <div className='p-4 flex justify-between'>
           <Swiper modules={[Autoplay]}
-            // autoplay={{ delay: 3000 }}
-            speed={600}
-            spaceBetween={20}
-            loop={true}
-            breakpoints={{
-              780: { slidesPerView: 1 },
-              800: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-          >
-            {Card.map((item) => (
-              <SwiperSlide
-                key={item.id}
-                className="w-[320px] min-h-[600px] bg-[#1E1E1E] py-[20px] px-[16px]  "
-              >
-                <img src={item.image} alt="PC" className="mx-auto" />
-                <div className="flex justify-between items-center mt-[20px] mb-[10px]" >
-                  <p className="w-[118px] min-h-[24px] text-center text-[10px] bg-[#d3176d] p-[5px] rounded-[20px] font-[600] ">
-                    {item.set}
-                  </p>
-                  <button
-                    className="w-[189px] min-h-[42px] bg-cover bg-center text-[18px] font-[600] "
-                    style={{ backgroundImage: `url(${btnImg})` }}
-                  >
-                    {item.price}
-                  </button>
-                </div>
-                <p className="text-right text-[14px] text-[#d3176d] mb-[10px]">
-                  {item.discount}
-                </p>
-                <hr className="mb-[10px] opacity-20" />
-                <h3 className="text-[#d3176d] text-[20px] font-[600]">
-                  {item.heading}
-                </h3>
-                <p className="text-[14px] font-[500] mb-[15px]">
-                  {item.subtitle}
-                </p>
-                {item.icons.map((iconItem) => (
-                  <div key={iconItem.id} className="flex mb-[17px]">
-                    <img src={iconItem.icon} alt={iconItem.title} />
-                    <div className="ml-[10px]">
-                      <h4 className="text-[15px] font-[500] text-[#aaa7a7]">
-                        {iconItem.title}
-                      </h4>
-                      <p className="text-[14px]">{iconItem.subtitle}</p>
+          // autoplay={{ delay: 3000 }}
+          speed={600}
+          spaceBetween={20}
+          loop
+          breakpoints={{
+            640: { slidesPerView: 1.5 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}>
+            {desktop.length > 0 ? (
+              desktop.map((item) => (
+                <SwiperSlide key={item.id} className="min-h-[400px] w-[350px] bg-[#1E1E1E] p-4">
+                  <img src={item.image?.url} alt={item.name} className="mx-auto w-[350px] h-[200px] object-cover" />
+                  <h3 className="text-[#d3176d] text-[20px] font-[600] mt-3">{getTranslation(item, "name")}</h3>
+                  <p className="text-[14px] font-[500]">{getTranslation(item, "description")}</p>
+                  <p className="text-right text-[14px] text-[#d3176d] mt-2">Скидка: {item.discount}%</p>
+                  <p className="text-[16px] font-bold mt-1">Цена: {item.price} $</p>
+                  {item.attributes && item.attributes.length > 0 && (
+                    <div className="mt-3 p-2 border border-gray-600 rounded">
+                      <h4 className="text-[#d3176d] font-[600] mb-2">Характеристики:</h4>
+                      <ul className="text-[14px]">
+                        {item.attributes.map((attr) => (
+                          <li key={attr.id} className="flex justify-between border-b border-gray-500 py-1">
+                            <span className="text-gray-400">{getTranslation(attr, "name")}</span>
+                            <span className="text-white">{attr.value}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
-                ))}
-                <h3 className="mb-[10px]">{item.tableTitle}</h3>
-                <table className="table-auto border-collapse w-full mb-[20px]">
-                  <tbody>
-                    <tr>
-                      <td className="border-t border-b border-l px-4 py-2 ">
-                        {item.tableName}
-                      </td>
-                      <td className="border-t border-b px-4 py-2">
-                        {item.tableQuality}
-                      </td>
-                      <td className="border-t border-b border-r px-4 py-2">
-                        {item.tableSecondQuality}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border-t border-b border-l px-4 py-2 ">
-                        {item.game}
-                      </td>
-                      <td className="border-t border-b px-6 py-2">
-                        {item.gameFps}
-                      </td>
-                      <td className="border-t border-b border-r px-7 py-2">
-                        {item.gameFps2}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="flex justify-between max-w-[290px] items-center ml-auto">
-                  <button className="w-[121px] h-[30px] text-[14px] border-[3px] border-white">Подробнее</button>
-                  <button className="w-[121px] h-[30px] text-[14px] border-[3px] border-[#d3176d]">Купить</button>
-                  <img className="cursor-pointer" src={compare} alt="Compare icon" />
-                </div>
-              </SwiperSlide>
-            ))}
+                  )}
+                </SwiperSlide>
+              ))
+            ) : (
+              <p className="text-center text-gray-400">Загрузка данных...</p>
+            )}
           </Swiper>
-        </div >
-      </div >
-    </section >
-  );
+        </div>
+      </div>
+    </section>
+  )
 }
 
-export default OurPC;
+export default OurPC
