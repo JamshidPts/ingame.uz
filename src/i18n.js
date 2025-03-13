@@ -17,7 +17,7 @@ i18next
   .init({
     lng: "ru", // Язык по умолчанию
     fallbackLng: "en",
-    debug: true,
+    debug: false,
     interpolation: { escapeValue: false },
     resources: {},
   });

@@ -13,24 +13,29 @@ import closeBtnBlack from "../assets/navbar/close_btn.svg";
 import vectorProduct from "../assets/navbar/vector_products.svg"
 import { Link, NavLink } from "react-router-dom";
 import Modal from "./Modal";
+import { getDesktopTypes } from '../api/front/desktopTypes';
 
 function Navbar() {
-  // Состояние для языка
   const [currency, setCurrency] = useState("usd"); // Состояние для валюты
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [language, setLanguage] = useState("ru");
   const [languages, setLanguages] = useState([]);
+  const [types, setTypes] = useState([]);
+
   useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setLanguage(storedLanguage);
+      changeLanguage(storedLanguage);
+    }
     const fetchLanguages = async () => {
       try {
         const response = await axios.get("https://ingame1.azeme.uz/api/user/langs");
-        console.log("API Response:", response.data); // Проверяем структуру
-
+        // console.log("API Response:", response.data); // Проверяем структуру
         if (Array.isArray(response.data.data)) {
           setLanguages(response.data.data); // Берем массив из `data`
         } else {
@@ -42,12 +47,18 @@ function Navbar() {
         setLanguages([]);
       }
     };
-
+    const fetchDesktopTypes = async () => {
+      const data = await getDesktopTypes();
+      setTypes(Array.isArray(data) ? data : []);
+    };
     fetchLanguages();
+    fetchDesktopTypes();
   }, []);
+  
   const handleLanguageChange = async (event) => {
     const lang = event.target.value;
     setLanguage(lang);
+    localStorage.setItem("language", lang); // Сохраняем в localStorage
     await changeLanguage(lang);
   };
   const toggleMenu = () => {
@@ -112,7 +123,7 @@ function Navbar() {
                     </option>
                   ))
                 ) : (
-                  <option value="ru">Загрузка...</option>
+                  <option value="ru"></option>
                 )}
               </select>
               <select
@@ -153,6 +164,17 @@ function Navbar() {
             <NavLink to="/products" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
               Продукция
             </NavLink>
+            {/* <div className={`text-white z-50 transform transition-[opacity,transform] duration-500 ease-in-out ${isMobileMenu ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+              } origin-top`}>
+              <div className="py-2 flex flex-col justify-between">
+                {types.map((item, id) => (
+                  <Link to="/product" key={id} className="flex items-center gap-20">
+                    <p className="text-[20px] font-bold p-2">{item.name}</p>
+                    <img src={vectorProduct} alt="vector" className="w-[15px]" />
+                  </Link>
+                ))}
+              </div>
+            </div> */}
             <img src={vector} alt="vector" className="absolute top-[-7%] left-[80%] ml-2 w-[19px]" onClick={mobileToggleProducts} />
             <NavLink to="/services" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
               Услуги
@@ -205,17 +227,23 @@ function Navbar() {
         </div>
 
         {/* Продукт панель */}
-        <div className={`bg-[#0A0A0A] h-[370px] transform text-white transition-all duration-500 ease-in-out ${isProductsOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
+        <div className={`bg-[#0A0A0A] transform text-white transition-all duration-500 ease-in-out ${isProductsOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
           } origin-top`}>
           <div className="container mx-auto px-20 py-10 flex flex-col gap-4">
-            <Link className="flex items-center gap-24">
+            {types.map((item, id) => (
+              <Link to="/products" key={id} className="flex items-center gap-20">
+                <p className="text-[20px] font-bold p-2">{item.name}</p>
+                <img src={vectorProduct} alt="vector" className="w-[15px]" />
+              </Link>
+            ))}
+            {/* <Link className="flex items-center gap-24">
               <p className="flex flex-col text-[20px]">Игровые ПК<span className="text-[#9D9D9D] text-[18px]">Лучшее времяпрепровождение</span></p>
               <img src={vectorProduct} alt="vector" className="w-[15px]" />
-            </Link>
-            <Link className="flex items-center gap-24">
+            </Link> */}
+            {/* <Link className="flex items-center gap-24">
               <p className="flex flex-col text-[20px]">Ноутбуки<span className="text-[#9D9D9D] text-[18px]">Лучшее времяпрепровождение</span></p>
               <img src={vectorProduct} alt="vector" className="w-[15px]" />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </nav>

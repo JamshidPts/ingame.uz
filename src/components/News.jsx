@@ -12,7 +12,6 @@ function News() {
     useEffect(() => {
         const fetchBlogs = async () => {
             const data = await getBlogs();
-
             const formattedData = data.map(item => ({
                 ...item,
                 created_at: new Date(item.created_at).toISOString().split("T")[0],
