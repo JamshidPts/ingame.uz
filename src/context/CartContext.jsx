@@ -26,7 +26,6 @@ export const CartProvider = ({ children }) => {
         quantity: 1,
         image: product.image || product.images?.[0]?.url || "https://via.placeholder.com/150"
       }];
-
     });
   };
 
@@ -44,7 +43,11 @@ export const CartProvider = ({ children }) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  // Функция для получения общего количества товаров
+  // Функция для полной очистки корзины
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const getCartCount = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
@@ -64,16 +67,14 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     const loadCurrencies = async () => {
       const data = await fetchCurrencies();
-      console.log(data);
       if (data.length > 0) {
         setCurrencies(Array.isArray(data) ? data : []);
 
-        // Если в localStorage есть сохранённая валюта, используем её, иначе первую из списка
         const savedCurrency = localStorage.getItem("selectedCurrency");
         if (savedCurrency) {
           setSelectedCurrency(JSON.parse(savedCurrency));
         } else {
-          setSelectedCurrency(data[0]); // По умолчанию первая валюта
+          setSelectedCurrency(data[0]);
         }
       }
     };
@@ -81,7 +82,19 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateQuantity, removeFromCart, getCartCount, currencies, selectedCurrency, setSelectedCurrency }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        updateQuantity,
+        removeFromCart,
+        clearCart, // Добавляем clearCart в контекст
+        getCartCount,
+        currencies,
+        selectedCurrency,
+        setSelectedCurrency,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

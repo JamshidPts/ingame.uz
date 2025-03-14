@@ -204,17 +204,14 @@ function Navbar() {
                   </option>
                 ))}
               </select>
-              <select
-                className="bg-[#0A0A0A] w-[70px] text-center border border-white py-1"
-                onChange={(e) => setCurrency(e.target.value)}
-                value={currency}
-              >
-                <option className="bg-[#0A0A0A]" value="usz">
-                  USZ
-                </option>
-                <option className="bg-[#0A0A0A]" value="usd">
-                  USD
-                </option>
+              <select className="bg-[#1A1A1A]" onChange={(e) => {
+                const newCurrency = currencies.find(c => c.currency === e.target.value);
+                setSelectedCurrency(newCurrency);
+                localStorage.setItem("selectedCurrency", JSON.stringify(newCurrency)); // Сохраняем валюту в localStorage
+              }} value={selectedCurrency?.currency}>
+                {currencies.map((cur) => (
+                  <option key={cur.id} value={cur.currency}>{cur.currency}</option>
+                ))}
               </select>
             </div>
             <button onClick={modalToggle} className="border-b border-white py-1 text-[18px] transition-all duration-300 ease-in-out active:scale-95">
