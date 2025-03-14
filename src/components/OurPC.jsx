@@ -20,7 +20,7 @@ function OurPC() {
   }, [])
 
   const getTranslation = (item, field) => {
-      return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
+    return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
   };
 
 
@@ -30,15 +30,15 @@ function OurPC() {
         <h1 className="text-[40px] font-[600] mb-[40px] px-4">Наши ПК</h1>
         <div className='p-4 flex justify-between'>
           <Swiper modules={[Autoplay]}
-          // autoplay={{ delay: 3000 }}
-          speed={600}
-          spaceBetween={20}
-          loop
-          breakpoints={{
-            640: { slidesPerView: 1.5 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}>
+            // autoplay={{ delay: 3000 }}
+            speed={600}
+            spaceBetween={20}
+            loop
+            breakpoints={{
+              640: { slidesPerView: 1.5 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}>
             {desktop.length > 0 ? (
               desktop.map((item) => (
                 <SwiperSlide key={item.id} className="min-h-[400px] bg-[#1E1E1E] p-4">
@@ -61,25 +61,26 @@ function OurPC() {
                     </div>
                   )}
                   {Array.isArray(item.desktop_fps) && item.desktop_fps.length > 0 && (
-                    <div className="mt-3 p-2 border border-gray-600 rounded">
-                      <p>Perfomance</p>
-                      <ul>
-                      {item.desktop_fps.map((fpsItem, id) => (
-                        <li key={id} className='flex justify-between px-4'>
-                          {fpsItem.game.name}
-                          <ul>
-                            {fpsItem.fps &&
-                              Object.entries(fpsItem.fps).map(([resolution, fpsValue]) => (
-                                <li key={resolution}>
-                                  {resolution}: FPS: {fpsValue}
-                                </li>
-                              ))}
-                          </ul>
-                        </li>
-                      ))}
+                    <div className="mt-3 p-2 border border-gray-600 rounded w-full min-h-[120px] flex flex-col justify-between">
+                      <p className="font-bold text-center">Performance</p>
+                      <ul className="flex flex-col gap-2">
+                        {item.desktop_fps.map((fpsItem, id) => (
+                          <li key={id} className="flex justify-between px-4">
+                            <span className="font-semibold">{fpsItem.game.name}</span>
+                            <ul className="text-right">
+                              {fpsItem.fps &&
+                                Object.entries(fpsItem.fps).map(([resolution, fpsValue]) => (
+                                  <li key={resolution} className="text-sm">
+                                    {resolution}: <span className="font-bold">FPS: {fpsValue}</span>
+                                  </li>
+                                ))}
+                            </ul>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   )}
+
                 </SwiperSlide>
               ))
             ) : (

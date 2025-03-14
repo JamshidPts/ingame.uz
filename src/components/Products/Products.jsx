@@ -1,38 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import ProductSidebar from './ProductSidebar'
-import { PCproducts } from '../../data/Products'
+import React, { useEffect, useState, useContext } from 'react';
+import ProductSidebar from './ProductSidebar';
 import { getProducts } from '../../api/front/products';
-import korzinaBtn from "../../assets/navbar/korzina_btn.svg"
+import korzinaBtn from "../../assets/navbar/korzina_btn.svg";
 import { useTranslation } from 'react-i18next';
+import { CartContext } from '../../context/CartContext';
+import { Link } from 'react-router-dom';
 
 function Products() {
-  // Состояние для текущей страницы
   const [currentPage, setCurrentPage] = useState(1);
   const [product, setProduct] = useState([]);
-  const { i18n } = useTranslation()
+  const { i18n } = useTranslation();
+  const { addToCart } = useContext(CartContext);
 
-  const itemsPerPage = 12;  // Количество товаров
-  // Вычисление индексов для текущего отображаемого блока товаров
+  const itemsPerPage = 12;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  //отображение на текущей "странице"
-  const currentItems = PCproducts.slice(indexOfFirstItem, indexOfLastItem);
-  // Функция для переключения страниц
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  // Вычисление общего количества страниц
-  const totalPages = Math.ceil(PCproducts.length / itemsPerPage);
+  const currentItems = product.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(product.length / itemsPerPage);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const data = await getProducts();
       // console.log("Полученные данные:", data); // ✅ Проверяем в консоли
       setProduct(Array.isArray(data) ? data : []); // ✅ Гарантируем, что это массив
+      try {
+        const data = await getProducts();
+        console.log("Полученные данные:", data);
+        setProduct(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Ошибка загрузки продуктов:", error);
+      }
     };
     fetchProducts();
   }, []);
 
   const getTranslation = (item, field) => {
-      return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
+    return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
   };
 
   return (
@@ -44,26 +47,41 @@ function Products() {
           </div>
           <div className='w-[84%] pl-[40px]'>
             <h2 className='text-[40px] font-[600] mb-[30px]'>Игровые ПК</h2>
-            <div className='flex flex-wrap justify-around'>
-              {product.map((item, id) => (
-                <div className='relative max-w-[300px] min-h-[490px] bg-[#1e1e1e] p-[20px] mb-[40px]' key={id}>
-                  {/* <div className='absolute top-[-14px] left-[20px]'>
-                    <img src={item.fireIcon} alt={item.fireIcon} />
-                  </div> */}
+            <div className='flex flex-wrap justify-start gap-[20px] mx-auto'>
+              {currentItems.map((item, id) => (
+                <div className='relative w-[290px] min-h-[390px] bg-[#1e1e1e] p-[30px] flex flex-col justify-between' key={id}>
                   <div className='flex justify-end'>
-                    <img className='cursor-pointer' src={item.icon} alt={item.icon} />
+                    {item.icon && <img className='cursor-pointer' src={item.icon} alt="Иконка" />}
                   </div>
-                  <img className='mb-[50px]' src={item.images[0]?.url} alt={item.name} />
+                  <div className='text-center'>
+                    {item.images?.[0]?.url && (
+                      <img className='mb-[50px] w-[40%] mx-auto' src={item.images[0].url} alt={item.name} />
+                    )}
+                  </div>
+
                   <div>
                     <h3 className='text-[20px] font-[600] mb-[20px]'>{getTranslation(item, "name")}</h3>
-                    <p className='line-through text-[18px]'>{item.discount}</p>
-                    <p className='text-[20px] text-[#D3176D] font-[600] mb-[20px]'>{item.price}</p>
+                    <p className='line-through text-[18px]'>{item.discount} сум</p>
+                    <p className='text-[20px] text-[#D3176D] font-[600] mb-[20px]'>{item.price} сум</p>
                     <p className='text-[15px]'>{getTranslation(item, "description")}</p>
-                    <div className='flex items-center justify-end space-x-[20px]'>
-                      <button className='py-[4px] px-[18px] border-[1px] border-[#D3176D]'>Купить</button>
-                      <button className='py-[6px] px-[8px] border-[1px] border-[#D3176D]'>
-                        <img src={korzinaBtn} alt={korzinaBtn} />
+                    <div className='flex items-center justify-end space-x-[20px] mt-[30px]'>
+                      <button
+                        className='py-[4px] px-[18px] border-[1px] border-[#D3176D]'
+                        onClick={() => addToCart({
+                          id: item.id,
+                          name: getTranslation(item, "name"),
+                          description: getTranslation(item, "description"),
+                          price: item.price,
+                          img: item.images?.[0]?.url || "",
+                        })}
+                      >
+                        Купить
                       </button>
+                      <Link to="/order">
+                        <button className='py-[6px] px-[8px] border-[1px] border-[#D3176D]'>
+                          <img src={korzinaBtn} alt="Добавить в корзину" />
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -80,11 +98,10 @@ function Products() {
                 Назад
               </button>
 
-              {/* Кнопки пагинации */}
               {[...Array(totalPages)].map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => paginate(index + 1)}
+                  onClick={() => setCurrentPage(index + 1)}
                   className={`py-2 px-4 mx-2 ${currentPage === index + 1 ? 'bg-[#D3176D]' : 'bg-transparent'} text-white border-[1px] border-[#D3176D]`}
                 >
                   {index + 1}
