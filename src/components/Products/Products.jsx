@@ -20,6 +20,9 @@ function Products() {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      const data = await getProducts();
+      // console.log("Полученные данные:", data); // ✅ Проверяем в консоли
+      setProduct(Array.isArray(data) ? data : []); // ✅ Гарантируем, что это массив
       try {
         const data = await getProducts();
         console.log("Полученные данные:", data);
