@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
-import car from '../../assets/orderCarPlace/car.svg'
-import locate from '../../assets/orderCarPlace/locate.svg'
-import key from '../../assets/orderCarPlace/key.svg'
-import laptop from '../../assets/orderCarPlace/laptop.png'
+import React, { useState, useContext } from 'react';
+import { CartContext } from '../../context/CartContext';
+import car from '../../assets/orderCarPlace/car.svg';
+import locate from '../../assets/orderCarPlace/locate.svg';
+import key from '../../assets/orderCarPlace/key.svg';
 
 function OrderCarPlace() {
+  const { cart } = useContext(CartContext);
   const [selected, setSelected] = useState(null);
 
   const deliveryMethods = [
@@ -12,6 +13,9 @@ function OrderCarPlace() {
     { id: 2, icon: locate, title: "Бесплатная доставка по Ташкенту", description: "1 день" },
     { id: 3, icon: key, title: "Доставка в регионы", description: "По тарифу экспресс-почты BTS или Fargo" },
   ];
+
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
     <section className='bg-[#1a1a1a] min-h-[100vh] pt-[140px] pb-[50px] text-white'>
@@ -45,28 +49,28 @@ function OrderCarPlace() {
             {/* Корзина товаров */}
             <div className='w-[244px] min-h-[100px] border border-[#D3176D] px-[10px] py-[20px] flex flex-col justify-center text-white'>
               <div className='flex justify-between mb-[40px]'>
-                <span>Товаров:</span> <span className="font-semibold">3</span>
+                <span>Товаров:</span> <span className="font-semibold">{totalItems}</span>
               </div>
               <div className='flex justify-between'>
-                <span>Итого:</span> <span className="font-semibold">22 343 444 сум</span>
+                <span>Итого:</span> <span className="font-semibold">{totalPrice} сум</span>
               </div>
             </div>
           </div>
 
           {/* Черный блок с товарами */}
           <div className="absolute right-0 top-0 w-[32%] min-h-[400px] text-white bg-[#131212] px-[20px] pt-[40px] overflow-auto rounded-md">
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="flex items-center mb-[20px]">
+            {cart.length > 0 ? cart.map((item) => (
+              <div key={item.id} className="flex items-center mb-[20px]">
                 <div className="bg-gray-800 p-[20px] rounded-md">
-                  <img src={laptop} alt="Товар" className="w-[50px] h-[50px]" />
+                  <img src={item.img || "/fallback-image.jpg"} alt={item.name} className="w-[50px] h-[50px]" />
                 </div>
                 <div className="ml-[10px]">
-                  <h4 className="text-sm font-bold">Название товара</h4>
-                  <p className="text-[15px] font-[600] text-gray-400">Кол-во: 1</p>
-                  <p className="text-[15px] font-[600]">2 343 444 сум/мес</p>
+                  <h4 className="text-sm font-bold">{item.name}</h4>
+                  <p className="text-[15px] font-[600] text-gray-400">Кол-во: {item.quantity}</p>
+                  <p className="text-[15px] font-[600]">{item.price * item.quantity} сум</p>
                 </div>
               </div>
-            ))}
+            )) : <p className="text-center">Корзина пуста</p>}
           </div>
         </div>
 
@@ -130,7 +134,7 @@ function OrderCarPlace() {
 
       </div>
     </section>
-  )
+  );
 }
 
-export default OrderCarPlace
+export default OrderCarPlace;
