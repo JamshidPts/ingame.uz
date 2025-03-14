@@ -20,7 +20,12 @@ export const CartProvider = ({ children }) => {
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, {
+        ...product,
+        quantity: 1,
+        image: product.image || product.images?.[0]?.url || "https://via.placeholder.com/150"
+      }];
+
     });
   };
 
@@ -38,8 +43,13 @@ export const CartProvider = ({ children }) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
+  // Функция для получения общего количества товаров
+  const getCartCount = () => {
+    return cart.reduce((total, item) => total + item.quantity, 0);
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateQuantity, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, updateQuantity, removeFromCart, getCartCount }}>
       {children}
     </CartContext.Provider>
   );

@@ -20,9 +20,6 @@ function Products() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const data = await getProducts();
-      // console.log("Полученные данные:", data); // ✅ Проверяем в консоли
-      setProduct(Array.isArray(data) ? data : []); // ✅ Гарантируем, что это массив
       try {
         const data = await getProducts();
         console.log("Полученные данные:", data);
@@ -31,6 +28,7 @@ function Products() {
         console.error("Ошибка загрузки продуктов:", error);
       }
     };
+
     fetchProducts();
   }, []);
 
@@ -72,7 +70,7 @@ function Products() {
                           name: getTranslation(item, "name"),
                           description: getTranslation(item, "description"),
                           price: item.price,
-                          img: item.images?.[0]?.url || "",
+                          image: item.images?.[0]?.url || "",
                         })}
                       >
                         Купить

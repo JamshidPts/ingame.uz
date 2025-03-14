@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
-import trashIcon from "../../assets/order/trash.svg"; 
+import trashIcon from "../../assets/order/trash.svg";
 import { Link } from 'react-router-dom';
 
 function Order() {
@@ -26,7 +26,8 @@ function Order() {
                 <div className='flex items-start' key={item.id}>
                   <div className='w-[55%] flex mb-[30px] gap-[20px]'>
                     <div className='bg-[#2d2d2d] p-[14px]'>
-                      <img src={item.img || "/fallback-image.jpg"} alt={item.name} />
+                      <img className='w-[100px]' src={item.image || "https://via.placeholder.com/150"} alt={item.name} />
+
                     </div>
                     <div>
                       <h3 className='font-[600]'>{item.name}</h3>
