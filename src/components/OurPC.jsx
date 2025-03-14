@@ -13,7 +13,7 @@ function OurPC() {
   useEffect(() => {
     const fetchDesktops = async () => {
       const data = await getDesktops();
-      // console.log("Полученные данные:", data); // ✅ Проверяем в консоли
+      console.log("Полученные данные:", data); // ✅ Проверяем в консоли
       setDesktop(Array.isArray(data) ? data : []); // ✅ Гарантируем, что это массив
     };
     fetchDesktops();
@@ -41,12 +41,12 @@ function OurPC() {
           }}>
             {desktop.length > 0 ? (
               desktop.map((item) => (
-                <SwiperSlide key={item.id} className="min-h-[400px] w-[350px] bg-[#1E1E1E] p-4">
+                <SwiperSlide key={item.id} className="min-h-[400px] bg-[#1E1E1E] p-4">
                   <img src={item.image?.url} alt={item.name} className="mx-auto w-[350px] h-[200px] object-cover" />
                   <h3 className="text-[#d3176d] text-[20px] font-[600] mt-3">{getTranslation(item, "name")}</h3>
                   <p className="text-[14px] font-[500]">{getTranslation(item, "description")}</p>
-                  <p className="text-right text-[14px] text-[#d3176d] mt-2">Скидка: {item.discount}%</p>
-                  <p className="text-[16px] font-bold mt-1">Цена: {item.price} $</p>
+                  <p className="text-right text-[16px] font-bold mt-1 line-through">Цена: {item.price} $</p>
+                  <p className="text-right text-[14px] text-[#d3176d] mt-2">Скидка: {item.discount} $</p>
                   {item.attributes && item.attributes.length > 0 && (
                     <div className="mt-3 p-2 border border-gray-600 rounded">
                       <h4 className="text-[#d3176d] font-[600] mb-2">Характеристики:</h4>
@@ -57,6 +57,26 @@ function OurPC() {
                             <span className="text-white">{attr.value}</span>
                           </li>
                         ))}
+                      </ul>
+                    </div>
+                  )}
+                  {Array.isArray(item.desktop_fps) && item.desktop_fps.length > 0 && (
+                    <div className="mt-3 p-2 border border-gray-600 rounded">
+                      <p>Perfomance</p>
+                      <ul>
+                      {item.desktop_fps.map((fpsItem, id) => (
+                        <li key={id} className='flex justify-between px-4'>
+                          {fpsItem.game.name}
+                          <ul>
+                            {fpsItem.fps &&
+                              Object.entries(fpsItem.fps).map(([resolution, fpsValue]) => (
+                                <li key={resolution}>
+                                  {resolution}: FPS: {fpsValue}
+                                </li>
+                              ))}
+                          </ul>
+                        </li>
+                      ))}
                       </ul>
                     </div>
                   )}
