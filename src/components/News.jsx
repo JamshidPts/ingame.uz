@@ -50,7 +50,7 @@ function News() {
                             <div className="p-4">
                                 <div className="relative w-[350px] sm:w-[400px] mx-auto">
                                     <img
-                                        src={item.image || "https://via.placeholder.com/400x300"}
+                                        src={item.image || ""}
                                         alt="Preview"
                                         className="w-[400px] h-[290.14px] rounded-t-md"
                                     />
