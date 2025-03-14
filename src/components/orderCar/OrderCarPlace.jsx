@@ -5,13 +5,19 @@ import locate from '../../assets/orderCarPlace/locate.svg';
 import key from '../../assets/orderCarPlace/key.svg';
 
 function OrderCarPlace() {
-  const { cart } = useContext(CartContext);
-  const [selected, setSelected] = useState(null);
+  const { cart, clearCart } = useContext(CartContext); // Добавляем clearCart
   const { selectedCurrency } = useContext(CartContext);
+  const [selected, setSelected] = useState(null);
+
+  // Состояния для формы
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [comment, setComment] = useState('');
 
   const convertPrice = (price) => {
-      if (!selectedCurrency) return price;
-      return (price * selectedCurrency.conversions).toFixed(2);
+    if (!selectedCurrency) return price;
+    return (price * selectedCurrency.conversions).toFixed(2);
   };
 
   const deliveryMethods = [
@@ -23,10 +29,50 @@ function OrderCarPlace() {
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
+  // Функция для отправки заказа
+  const handleSubmit = async () => {
+    const orderData = {
+      fullname: fullName,
+      phone: phone,
+      delivery_method_id: selected,
+      address: address,
+      comment: comment,
+      items: cart.map(item => ({
+        item_id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+    };
+
+    try {
+      const response = await fetch('https://ingame1.azeme.uz/api/user/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Ошибка при отправке заказа');
+      }
+
+      const result = await response.json();
+      console.log('Заказ успешно отправлен:', result);
+
+      // Очищаем корзину после успешного оформления
+      clearCart();
+      alert('Заказ успешно оформлен!');
+    } catch (error) {
+      console.error('Ошибка:', error);
+      alert('Произошла ошибка при оформлении заказа.');
+    }
+  };
+
   return (
     <section className='bg-[#1a1a1a] min-h-[100vh] pt-[140px] pb-[50px] text-white'>
       <div className="container mx-auto px-4 max-w-[1400px]">
-
         {/* Блок с формой и корзиной */}
         <div className="relative flex justify-between mb-[30px]">
           <div className="w-[60%] flex justify-between">
@@ -38,6 +84,8 @@ function OrderCarPlace() {
                   <input
                     type="text"
                     id="name"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     className="w-full bg-transparent border-b border-gray-500 focus:outline-none focus:border-[#D3176D] text-white px-2 py-1"
                   />
                 </div>
@@ -46,6 +94,8 @@ function OrderCarPlace() {
                   <input
                     type="tel"
                     id="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     className="w-full bg-transparent border-b border-gray-500 focus:outline-none focus:border-[#D3176D] text-white px-2 py-1"
                   />
                 </div>
@@ -115,29 +165,33 @@ function OrderCarPlace() {
         {/* Адрес доставки */}
         <div className="flex items-center bg-[#2d2d2d] p-3 rounded-md w-[540px] mb-[30px]">
           <label className="w-[200px] text-white" htmlFor="address">Адрес доставки*</label>
-          <input type="text" id="address" className="w-full bg-transparent border-b border-gray-500 focus:outline-none focus:border-[#D3176D] text-white px-2 py-1" />
-        </div>
-
-        {/* Условия доставки */}
-        <div className='mb-[30px]'>
-          <h3 className='mb-[10px] uppercase font-bold'>СТОИМОСТЬ И УСЛОВИЯ ДОСТАВКИ:</h3>
-          <ul className='mb-[20px] list-disc text-[14px]'>
-            <li>Доставка в течении 1 дня бесплатная.</li>
-            <li>Доставка осуществляется по городу Ташкент до локации.</li>
-            <li>Доставка мебели по городу Ташкент 100.000 сум (внутри ТКАД)</li>
-            <li>Доставка в регионы по тарифу экспресс-почты BTS или Fargo.</li>
-          </ul>
+          <input
+            type="text"
+            id="address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="w-full bg-transparent border-b border-gray-500 focus:outline-none focus:border-[#D3176D] text-white px-2 py-1"
+          />
         </div>
 
         {/* Комментарий к заказу */}
         <div className='mb-[30px]'>
           <h3 className='mb-[10px] font-bold'>Комментарий к заказу</h3>
-          <textarea className='w-[644px] min-h-[105px] p-[10px] border border-gray-500 rounded-md bg-transparent text-white focus:border-[#D3176D] focus:outline-none' placeholder="Введите ваш комментарий..."></textarea>
+          <textarea
+            className='w-[644px] min-h-[105px] p-[10px] border border-gray-500 rounded-md bg-transparent text-white focus:border-[#D3176D] focus:outline-none'
+            placeholder="Введите ваш комментарий..."
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          ></textarea>
         </div>
 
         {/* Кнопка оформления */}
-        <button className='w-[350px] bg-[#D3176D] p-[10px] font-bold'>Оформить заказ</button>
-
+        <button
+          className='w-[350px] bg-[#D3176D] p-[10px] font-bold'
+          onClick={handleSubmit}
+        >
+          Оформить заказ
+        </button>
       </div>
     </section>
   );
