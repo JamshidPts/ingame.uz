@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
-import trashIcon from "../../assets/order/trash.svg"; // Проверь правильный путь
+import trashIcon from "../../assets/order/trash.svg"; 
 import { Link } from 'react-router-dom';
 
 function Order() {
