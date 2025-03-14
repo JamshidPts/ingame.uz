@@ -12,6 +12,12 @@ function Aksii() {
     const { i18n } = useTranslation();
     const [product, setProduct] = useState([]);
     const { addToCart } = useContext(CartContext); // Используем контекст корзины
+    const { selectedCurrency } = useContext(CartContext);
+        
+    const convertPrice = (price) => {
+        if (!selectedCurrency) return price;
+        return (price * selectedCurrency.conversions).toFixed(2);
+    };
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -65,7 +71,7 @@ function Aksii() {
                                     <span className="absolute inset-0 m-auto z-0 shadow-custom-white bg-white-transparent w-[20px] h-[20px] rounded-[10px]"></span>
                                 </div>
                                 <p className='text-[22px] font-bold py-[15px]'>{getTranslation(item, "name")}</p>
-                                <p className="text-white text-xl font-bold">{item.price} сум</p>
+                                <p className="text-white text-xl font-bold">{convertPrice(item.price)} {selectedCurrency?.currency}</p>
                                 <p className='py-4 font-light'>{getTranslation(item, "description")}</p>
                                 <div className='flex items-center justify-end gap-3 cursor-pointer'>
                                     <button

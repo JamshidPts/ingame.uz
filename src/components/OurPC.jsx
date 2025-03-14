@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { getDesktops } from '../api/front/desktop';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/autoplay';
+import { CartContext } from '../context/CartContext';
 
 function OurPC() {
   const [desktop, setDesktop] = useState([]);
   const { t, i18n } = useTranslation();
+  const { selectedCurrency } = useContext(CartContext);
+    
+  const convertPrice = (price) => {
+      if (!selectedCurrency) return price;
+      return (price * selectedCurrency.conversions).toFixed(2);
+  };
 
   useEffect(() => {
     const fetchDesktops = async () => {
@@ -45,8 +52,8 @@ function OurPC() {
                   <img src={item.image?.url} alt={item.name} className="mx-auto w-[350px] h-[200px] object-cover" />
                   <h3 className="text-[#d3176d] text-[20px] font-[600] mt-3">{getTranslation(item, "name")}</h3>
                   <p className="text-[14px] font-[500]">{getTranslation(item, "description")}</p>
-                  <p className="text-right text-[16px] font-bold mt-1 line-through">Цена: {item.price} $</p>
-                  <p className="text-right text-[14px] text-[#d3176d] mt-2">Скидка: {item.discount} $</p>
+                  <p className="text-right text-[16px] font-bold mt-1 line-through">Цена: {convertPrice(item.price)} {selectedCurrency?.currency}</p>
+                  <p className="text-right text-[14px] text-[#d3176d] mt-2">Скидка: {convertPrice(item.discount)} {selectedCurrency?.currency} $</p>
                   {item.attributes && item.attributes.length > 0 && (
                     <div className="mt-3 p-2 border border-gray-600 rounded">
                       <h4 className="text-[#d3176d] font-[600] mb-2">Характеристики:</h4>
