@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { changeLanguage } from "../i18n";
 import logo from "../assets/navbar/logo_navbar.svg";
@@ -14,7 +14,7 @@ import vectorProduct from "../assets/navbar/vector_products.svg"
 import { Link, NavLink } from "react-router-dom";
 import Modal from "./Modal";
 import { getDesktopTypes } from '../api/front/desktopTypes';
-
+import { CartContext } from "../context/CartContext";
 function Navbar() {
   const [currency, setCurrency] = useState("usd"); // Состояние для валюты
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +25,10 @@ function Navbar() {
   const [language, setLanguage] = useState("ru");
   const [languages, setLanguages] = useState([]);
   const [types, setTypes] = useState([]);
+  const { cart } = useContext(CartContext); // Достаем корзину из контекста
+
+  // Подсчет общего количества товаров в корзине
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
@@ -54,7 +58,7 @@ function Navbar() {
     fetchLanguages();
     fetchDesktopTypes();
   }, []);
-  
+
   const handleLanguageChange = async (event) => {
     const lang = event.target.value;
     setLanguage(lang);
@@ -140,13 +144,20 @@ function Navbar() {
               </select>
             </div>
 
-            <div className="flex items-center pr-2">
-              <img className="p-2 transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={searchBtn} alt="search" onClick={toggleSearch} />
+            <div className="flex items-center pr-2 relative">
               <Link to="/order">
-                <img className="p-2 lg:flex transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105" src={korzinaBtn} alt="korzina" />
+                <img
+                  className="p-2 lg:flex transition-all duration-300 ease-in-out transform hover:scale-95 active:scale-105"
+                  src={korzinaBtn}
+                  alt="korzina"
+                />
+                {totalItems > 0 && (
+                  <span className="absolute top-1 right-1 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
               </Link>
             </div>
-
             {/* Бургер-иконка */}
             <img className="lg:hidden w-[50px] p-2 transition-transform duration-300 transform hover:scale-95 active:scale-105" src={modal_nav} alt="menu" onClick={toggleMenu} />
           </div>

@@ -62,7 +62,7 @@ function OrderCarPlace() {
             {cart.length > 0 ? cart.map((item) => (
               <div key={item.id} className="flex items-center mb-[20px]">
                 <div className="bg-gray-800 p-[20px] rounded-md">
-                  <img src={item.img || "/fallback-image.jpg"} alt={item.name} className="w-[50px] h-[50px]" />
+                  <img src={item.image || "/fallback-image.jpg"} alt={item.name} className="w-[50px] h-[50px]" />
                 </div>
                 <div className="ml-[10px]">
                   <h4 className="text-sm font-bold">{item.name}</h4>
