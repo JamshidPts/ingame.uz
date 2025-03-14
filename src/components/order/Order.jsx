@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
 import trashIcon from "../../assets/order/trash.svg"; // Проверь правильный путь
+import { Link } from 'react-router-dom';
 
 function Order() {
   const { cart, updateQuantity, removeFromCart } = useContext(CartContext);
@@ -69,7 +70,9 @@ function Order() {
                 <p className='font-[600]'>{cart.reduce((total, item) => total + item.price * item.quantity, 0)} сум</p>
               </div>
               <div className='text-center'>
-                <button className='bg-[#D3176D] w-[100%] p-[10px]'>Продолжить</button>
+                <Link to="/orderCar">
+                  <button className='bg-[#D3176D] w-[100%] p-[10px]'>Продолжить</button>
+                </Link>
               </div>
             </div>
           </div>
