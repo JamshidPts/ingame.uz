@@ -13,7 +13,7 @@ function OurPC() {
   useEffect(() => {
     const fetchDesktops = async () => {
       const data = await getDesktops();
-      console.log("Полученные данные:", data); // ✅ Проверяем в консоли
+      // console.log("Полученные данные:", data); // ✅ Проверяем в консоли
       setDesktop(Array.isArray(data) ? data : []); // ✅ Гарантируем, что это массив
     };
     fetchDesktops();

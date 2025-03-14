@@ -1,10 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css';
 import { Navigation } from 'swiper/modules';
-import { Novinki } from '../data/NovinkiySlider';
+// import { Novinki } from '../data/NovinkiySlider';
+import { useTranslation } from 'react-i18next';
+import korzinaBtn from "../assets/navbar/korzina_btn.svg"
+import { getProducts } from '../api/front/products';
 
 function Novinkiy() {
+    const { i18n } = useTranslation();
+    const [product, setProduct] = useState([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const data = await getProducts();
+            // console.log("Полученные данные:", data); // ✅ Проверяем в консоли
+            const filteredProducts = Array.isArray(data) 
+            ? data.filter(item => 
+                item.statuses?.some(status => 
+                    status.translations?.some(trans => 
+                        trans.name === "Новинка" || trans.name === "Yangi"
+                    )
+                )
+            ) 
+            : [];
+
+        setProduct(filteredProducts);
+        };
+        fetchProducts();
+    }, []);
+    
+    const getTranslation = (item, field) => {
+        return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
+    };
   return (
     <section className='bg-[#1A1A1A] text-white py-[50px]'>
         <div className='container mx-auto min-h-[67vh]'>
@@ -19,26 +47,19 @@ function Novinkiy() {
                     1280: { slidesPerView: 4 },
                 }} 
                 className='p-2'>
-                {Novinki.map((item) => (
-                    <SwiperSlide key={item.id} className='py-6'>
+                {product.map((item, id) => (
+                    <SwiperSlide key={id} className='py-6'>
                         <div className='min-h-[500px] w-[280px] md:w-[280px] lg:w-[300px] 2xl:w-[320px] mx-auto px-5 py-10 bg-[#1E1E1E] relative'>
-                            {item.status && (
-                                <span className="absolute top-[-1.5rem] left-[0.3rem] border border-[#D3176D] px-3 py-1 font-bold text-lg">
-                                    {item.status}
-                                </span>
-                            )}
-                            <img src={item.toLike} alt="like" className='absolute right-[2rem] md:right-[1rem] w-[30px] h-[30px] cursor-pointer'/>
-                            <div className='w-[150px] m-auto relative'>
-                                <img src={item.img} alt="stul" className='relative z-[1] w-[100px] h-[180px] mx-auto lg:h-[230px] lg:w-[150px]'/>
+                            <div className='m-auto relative'>
+                                <img src={item.images[0]?.url} alt="stul" className='relative z-[1] w-[100px] h-[180px] mx-auto lg:h-[230px] lg:w-[150px] object-contain'/>
                                 <span className="absolute inset-0 m-auto z-0 shadow-custom-white bg-white-transparent w-[20px] h-[20px] rounded-[10px]"></span>
                             </div>
-                            <p className='text-[22px] font-bold py-[15px]'>{item.title}</p>
-                            <p className="text-white text-xl font-bold line-through">{item.price}</p>
-                            <p className='text-[#D3176D] text-2xl font-bold'>{item.forSale}</p>
-                            <p className='py-4 font-light'>{item.descr}</p>
+                            <p className='text-[22px] font-bold py-[15px]'>{getTranslation(item, "name")}</p>
+                            <p className="text-white text-xl font-bold">{item.price}</p>
+                            <p className='py-4 font-light'>{getTranslation(item, "description")}</p>
                             <div className='flex items-center justify-end gap-3 cursor-pointer'>
-                                <button className='text-[18px] active:bg-[#D3176D] hover:bg-[#D3176D] transition-transform duration-300 transform hover:scale-110 active:scale-100 font-bold px-4 py-2 border border-[#D3176D]'>{item.buy}</button>
-                                <img src={item.korzina} alt="korzina" className='border border-white p-2 transition-transform duration-300 transform hover:scale-110 active:scale-100'/>
+                                <button className='text-[18px] active:bg-[#D3176D] hover:bg-[#D3176D] transition-transform duration-300 transform hover:scale-110 active:scale-100 font-bold px-4 py-2 border border-[#D3176D]'>Купить</button>
+                                <img src={korzinaBtn} alt="korzina" className='border border-white p-2 transition-transform duration-300 transform hover:scale-110 active:scale-100'/>
                             </div>
                         </div>
                     </SwiperSlide>
