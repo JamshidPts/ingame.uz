@@ -11,6 +11,12 @@ function Products() {
   const [product, setProduct] = useState([]);
   const { i18n } = useTranslation();
   const { addToCart } = useContext(CartContext);
+  const { selectedCurrency } = useContext(CartContext);
+
+  const convertPrice = (price) => {
+    if (!selectedCurrency) return price;
+    return (price * selectedCurrency.conversions).toFixed(2);
+  };
 
   const itemsPerPage = 12;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -59,8 +65,8 @@ function Products() {
 
                   <div>
                     <h3 className='text-[20px] font-[600] mb-[20px]'>{getTranslation(item, "name")}</h3>
-                    <p className='line-through text-[18px]'>{item.discount} сум</p>
-                    <p className='text-[20px] text-[#D3176D] font-[600] mb-[20px]'>{item.price} сум</p>
+                    <p className='line-through text-[18px]'>{item.discount}</p>
+                    <p className='text-[20px] text-[#D3176D] font-[600] mb-[20px]'>{convertPrice(item.price)} {selectedCurrency?.currency}</p>
                     <p className='text-[15px]'>{getTranslation(item, "description")}</p>
                     <div className='flex items-center justify-end space-x-[20px] mt-[30px]'>
                       <button

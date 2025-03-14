@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { fetchCurrencies } from "../api/front/currency";
 
 export const CartContext = createContext();
 
@@ -48,8 +49,39 @@ export const CartProvider = ({ children }) => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const [currencies, setCurrencies] = useState([]);
+  const [selectedCurrency, setSelectedCurrency] = useState(() => {
+    const savedCurrency = localStorage.getItem("selectedCurrency");
+    return savedCurrency ? JSON.parse(savedCurrency) : null;
+  });
+
+  useEffect(() => {
+    if (selectedCurrency) {
+      localStorage.setItem("selectedCurrency", JSON.stringify(selectedCurrency));
+    }
+  }, [selectedCurrency]);
+
+  useEffect(() => {
+    const loadCurrencies = async () => {
+      const data = await fetchCurrencies();
+      console.log(data);
+      if (data.length > 0) {
+        setCurrencies(Array.isArray(data) ? data : []);
+
+        // Если в localStorage есть сохранённая валюта, используем её, иначе первую из списка
+        const savedCurrency = localStorage.getItem("selectedCurrency");
+        if (savedCurrency) {
+          setSelectedCurrency(JSON.parse(savedCurrency));
+        } else {
+          setSelectedCurrency(data[0]); // По умолчанию первая валюта
+        }
+      }
+    };
+    loadCurrencies();
+  }, []);
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateQuantity, removeFromCart, getCartCount }}>
+    <CartContext.Provider value={{ cart, addToCart, updateQuantity, removeFromCart, getCartCount, currencies, selectedCurrency, setSelectedCurrency }}>
       {children}
     </CartContext.Provider>
   );

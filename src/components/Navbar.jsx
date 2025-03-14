@@ -15,6 +15,7 @@ import { Link, NavLink } from "react-router-dom";
 import Modal from "./Modal";
 import { getDesktopTypes } from '../api/front/desktopTypes';
 import { CartContext } from "../context/CartContext";
+import { fetchCurrencies } from "../api/front/currency";
 function Navbar() {
   const [currency, setCurrency] = useState("usd"); // Состояние для валюты
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +26,9 @@ function Navbar() {
   const [language, setLanguage] = useState("ru");
   const [languages, setLanguages] = useState([]);
   const [types, setTypes] = useState([]);
+  // const [currencies, setCurrencies] = useState([]);
   const { cart } = useContext(CartContext); // Достаем корзину из контекста
+  const { currencies, selectedCurrency, setSelectedCurrency } = useContext(CartContext);
 
   // Подсчет общего количества товаров в корзине
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -51,6 +54,7 @@ function Navbar() {
         setLanguages([]);
       }
     };
+    
     const fetchDesktopTypes = async () => {
       const data = await getDesktopTypes();
       setTypes(Array.isArray(data) ? data : []);
@@ -130,17 +134,14 @@ function Navbar() {
                   <option value="ru"></option>
                 )}
               </select>
-              <select
-                className="bg-[#1A1A1A] font-orbitron "
-                onChange={(e) => setCurrency(e.target.value)}
-                value={currency}
-              >
-                <option className="bg-[#0A0A0A]" value="usz">
-                  USZ
-                </option>
-                <option className="bg-[#0A0A0A]" value="usd">
-                  USD
-                </option>
+              <select className="bg-[#1A1A1A]" onChange={(e) => {
+                const newCurrency = currencies.find(c => c.currency === e.target.value);
+                setSelectedCurrency(newCurrency);
+                localStorage.setItem("selectedCurrency", JSON.stringify(newCurrency)); // Сохраняем валюту в localStorage
+              }} value={selectedCurrency?.currency}>
+                {currencies.map((cur) => (
+                  <option key={cur.id} value={cur.currency}>{cur.currency}</option>
+                ))}
               </select>
             </div>
 

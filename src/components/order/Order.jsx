@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom';
 
 function Order() {
   const { cart, updateQuantity, removeFromCart } = useContext(CartContext);
+  const { selectedCurrency } = useContext(CartContext);
+    
+  const convertPrice = (price) => {
+      if (!selectedCurrency) return price;
+      return (price * selectedCurrency.conversions).toFixed(2);
+  };
 
   return (
     <section className='bg-[#1a1a1a] min-h-[100vh] pt-[170px] pb-[50px] text-white'>
@@ -57,7 +63,7 @@ function Order() {
                         onClick={() => removeFromCart(item.id)} />
                     </div>
                     <div>
-                      <p>{item.price * item.quantity} сум</p>
+                      <p>{convertPrice(item.price)} {selectedCurrency?.currency} * {item.quantity}</p>
                     </div>
                   </div>
                 </div>
@@ -68,7 +74,10 @@ function Order() {
             <div className='bg-black w-[430px] h-[158px] p-[40px]'>
               <div className='flex justify-between mb-[20px] text-[20px]'>
                 <p>Итого:</p>
-                <p className='font-[600]'>{cart.reduce((total, item) => total + item.price * item.quantity, 0)} сум</p>
+                <p className='font-[600]'>{cart.reduce((total, item) => {
+                    const itemTotal = convertPrice(item.price) * item.quantity;
+                    return total + itemTotal;
+                  }, 0).toFixed(2)} {selectedCurrency?.currency}</p>
               </div>
               <div className='text-center'>
                 <Link to="/orderCar">

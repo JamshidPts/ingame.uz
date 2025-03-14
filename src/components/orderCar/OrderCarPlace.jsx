@@ -7,6 +7,12 @@ import key from '../../assets/orderCarPlace/key.svg';
 function OrderCarPlace() {
   const { cart } = useContext(CartContext);
   const [selected, setSelected] = useState(null);
+  const { selectedCurrency } = useContext(CartContext);
+
+  const convertPrice = (price) => {
+      if (!selectedCurrency) return price;
+      return (price * selectedCurrency.conversions).toFixed(2);
+  };
 
   const deliveryMethods = [
     { id: 1, icon: car, title: "Стандартная доставка", description: "1 день" },
@@ -52,7 +58,7 @@ function OrderCarPlace() {
                 <span>Товаров:</span> <span className="font-semibold">{totalItems}</span>
               </div>
               <div className='flex justify-between'>
-                <span>Итого:</span> <span className="font-semibold">{totalPrice} сум</span>
+                <span>Итого:</span> <span className="font-semibold">{convertPrice(totalPrice)} {selectedCurrency?.currency} сум</span>
               </div>
             </div>
           </div>
@@ -67,7 +73,7 @@ function OrderCarPlace() {
                 <div className="ml-[10px]">
                   <h4 className="text-sm font-bold">{item.name}</h4>
                   <p className="text-[15px] font-[600] text-gray-400">Кол-во: {item.quantity}</p>
-                  <p className="text-[15px] font-[600]">{item.price * item.quantity} сум</p>
+                  <p className="text-[15px] font-[600]">{convertPrice(item.price)} {selectedCurrency?.currency} * {item.quantity}</p>
                 </div>
               </div>
             )) : <p className="text-center">Корзина пуста</p>}
