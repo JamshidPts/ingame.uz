@@ -3,11 +3,15 @@ import { CartContext } from '../../context/CartContext';
 import car from '../../assets/orderCarPlace/car.svg';
 import locate from '../../assets/orderCarPlace/locate.svg';
 import key from '../../assets/orderCarPlace/key.svg';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function OrderCarPlace() {
   const { cart, clearCart } = useContext(CartContext); // Добавляем clearCart
   const { selectedCurrency } = useContext(CartContext);
   const [selected, setSelected] = useState(null);
+  const navigate = useNavigate();
 
   // Состояния для формы
   const [fullName, setFullName] = useState('');
@@ -31,6 +35,7 @@ function OrderCarPlace() {
 
   // Функция для отправки заказа
   const handleSubmit = async () => {
+    // console.log('Функция handleSubmit вызвана'); 
     const orderData = {
       fullname: fullName,
       phone: phone,
@@ -44,7 +49,7 @@ function OrderCarPlace() {
         price: item.price,
       })),
     };
-
+  
     try {
       const response = await fetch('https://ingame1.azeme.uz/api/user/orders', {
         method: 'POST',
@@ -53,25 +58,55 @@ function OrderCarPlace() {
         },
         body: JSON.stringify(orderData),
       });
-
+  
       if (!response.ok) {
         throw new Error('Ошибка при отправке заказа');
       }
-
+  
       const result = await response.json();
       console.log('Заказ успешно отправлен:', result);
-
+  
       // Очищаем корзину после успешного оформления
       clearCart();
-      alert('Заказ успешно оформлен!');
+      // console.log('Показываем toast');
+      toast.success('Заказ успешно оформлен!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 7000);
     } catch (error) {
       console.error('Ошибка:', error);
-      alert('Произошла ошибка при оформлении заказа.');
+      toast.error('Произошла ошибка при оформлении заказа.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   return (
     <section className='bg-[#1a1a1a] min-h-[100vh] pt-[140px] pb-[50px] text-white'>
+      <ToastContainer
+      style={{ zIndex: 9999 }} 
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      closeOnClick
+      pauseOnHover
+      draggable
+      theme="dark"
+      />
       <div className="container mx-auto px-4 max-w-[1400px]">
         {/* Блок с формой и корзиной */}
         <div className="relative flex flex-col md:flex-row justify-between mb-[30px]">
@@ -85,6 +120,7 @@ function OrderCarPlace() {
                     type="text"
                     id="name"
                     value={fullName}
+                    required
                     onChange={(e) => setFullName(e.target.value)}
                     className="w-full bg-transparent border-b border-gray-500 focus:outline-none focus:border-[#D3176D] text-white px-2 py-1"
                   />
@@ -95,6 +131,7 @@ function OrderCarPlace() {
                     type="tel"
                     id="phone"
                     value={phone}
+                    required
                     onChange={(e) => setPhone(e.target.value)}
                     className="w-full bg-transparent border-b border-gray-500 focus:outline-none focus:border-[#D3176D] text-white px-2 py-1"
                   />
@@ -168,6 +205,7 @@ function OrderCarPlace() {
             type="text"
             id="address"
             value={address}
+            required
             onChange={(e) => setAddress(e.target.value)}
             className="w-full bg-transparent border-b border-gray-500 focus:outline-none focus:border-[#D3176D] text-white px-2 py-1"
           />
@@ -180,6 +218,7 @@ function OrderCarPlace() {
             className='w-[100%] md:w-[644px] min-h-[105px] p-[10px] border border-gray-500 rounded-md bg-transparent text-white focus:border-[#D3176D] focus:outline-none'
             placeholder="Введите ваш комментарий..."
             value={comment}
+            required
             onChange={(e) => setComment(e.target.value)}>
           </textarea>
         </div>
