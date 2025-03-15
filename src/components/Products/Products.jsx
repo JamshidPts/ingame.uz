@@ -46,12 +46,12 @@ function Products() {
     <section className='pt-[140px] pb-[40px] min-h-[1100px] bg-[#1A1A1A] text-white'>
       <div className="container mx-auto px-4">
         <div className='flex'>
-          <div className='w-[16%]'>
+          <div className='w-[16%] hidden lg:block'>
             <ProductSidebar />
           </div>
-          <div className='w-[84%] pl-[40px]'>
+          <div className='w-[100%] pl-[0px] lg:pl-[40px] lg:w-[84%]'>
             <h2 className='text-[40px] font-[600] mb-[30px]'>Игровые ПК</h2>
-            <div className='flex flex-wrap justify-start gap-[20px] mx-auto'>
+            <div className='flex flex-wrap justify-center xl:justify-start gap-[20px] mx-auto'>
               {currentItems.map((item, id) => (
                 <div className='relative w-[290px] min-h-[390px] bg-[#1e1e1e] p-[30px] flex flex-col justify-between' key={id}>
                   <div className='flex justify-end'>
