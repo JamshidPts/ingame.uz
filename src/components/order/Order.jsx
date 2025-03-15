@@ -6,41 +6,41 @@ import { Link } from 'react-router-dom';
 function Order() {
   const { cart, updateQuantity, removeFromCart } = useContext(CartContext);
   const { selectedCurrency } = useContext(CartContext);
-    
+
   const convertPrice = (price) => {
-      if (!selectedCurrency) return price;
-      return (price * selectedCurrency.conversions).toFixed(2);
+    if (!selectedCurrency) return price;
+    return (price * selectedCurrency.conversions).toFixed(2);
   };
 
   return (
     <section className='bg-[#1a1a1a] min-h-[100vh] pt-[170px] pb-[50px] text-white'>
       <div className="container mx-auto px-4 max-w-[1300px]">
-        <div className='flex justify-between '>
-          <div>
-            <div className='w-[800px] h-[40px] mb-[20px] px-[20px] flex justify-between bg-[#2d2d2d] items-center'>
+        <div className='flex flex-col xl:flex-row xl:justify-between '>
+          <div className='mx-auto xl:mx-0 mb-[60px] lg:mb-0'>
+            <div className='hidden md:flex w-[700px] lg:w-[870px] xl:w-[800px] h-[40px] mb-[20px] px-[20px] justify-between bg-[#2d2d2d] items-center'>
               <div className='w-[55%]'>
                 <h4>Товар</h4>
               </div>
               <div className='flex w-[55%] justify-between'>
-                <h4>Наличие</h4>
-                <h4 className='mr-[50px]'>Количество</h4>
+                <h4 className='ml-0 lg:ml-[28px] xl:ml-0'>Наличие</h4>
+                <h4 className='mr-[0px] xl:mr-[50px]'>Количество</h4>
                 <h4>Цена</h4>
               </div>
             </div>
             <div>
               {cart.length > 0 ? cart.map((item) => (
-                <div className='flex items-start' key={item.id}>
-                  <div className='w-[55%] flex mb-[30px] gap-[20px]'>
-                    <div className='bg-[#2d2d2d] p-[14px]'>
-                      <img className='w-[100px]' src={item.image || "https://via.placeholder.com/150"} alt={item.name} />
+                <div className='flex flex-col items-center mb-[60px] md:mb-0 md:flex-row md:items-start w-[100%] md:w-[700px] lg:w-[860px] xl:w-[100%]' key={item.id}>
+                  <div className='w-[55%] flex flex-col items-center md:flex-row md:items-start mb-[30px] gap-[20px]'>
+                    <div className='bg-[#2d2d2d] p-[14px] mx-auto md:mx-0'>
+                      <img className='w-[240px] sm:w-[100px] md:w-[50px]' src={item.image || "https://via.placeholder.com/150"} alt={item.name} />
 
                     </div>
-                    <div>
+                    <div className='text-center md:text-start'>
                       <h3 className='font-[600]'>{item.name}</h3>
                       <p className='text-[14px] text-[#a8a8a8]'>{item.description}</p>
                     </div>
                   </div>
-                  <div className='w-[55%] flex justify-between items-center'>
+                  <div className='w-[100%] md:w-[70%] lg:w-[55%] gap-[40px] flex flex-col sm:flex-row  justify-between items-center'>
                     <div className='text-center'>
                       <h5 className='font-[600]'>В наличии</h5>
                       <p className='text-[#a8a8a8]'>Отправка за 2-3 дня</p>
@@ -70,14 +70,14 @@ function Order() {
               )) : <p>Корзина пуста</p>}
             </div>
           </div>
-          <div>
-            <div className='bg-black w-[430px] h-[158px] p-[40px]'>
+          <div className='mx-auto xl:mx-0'>
+            <div className='bg-black w-[300px] sm:w-[430px] h-[158px] p-[20px] sm:p-[40px]'>
               <div className='flex justify-between mb-[20px] text-[20px]'>
                 <p>Итого:</p>
                 <p className='font-[600]'>{cart.reduce((total, item) => {
-                    const itemTotal = convertPrice(item.price) * item.quantity;
-                    return total + itemTotal;
-                  }, 0).toFixed(2)} {selectedCurrency?.currency}</p>
+                  const itemTotal = convertPrice(item.price) * item.quantity;
+                  return total + itemTotal;
+                }, 0).toFixed(2)} {selectedCurrency?.currency}</p>
               </div>
               <div className='text-center'>
                 <Link to="/orderCar">

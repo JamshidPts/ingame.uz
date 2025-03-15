@@ -14,7 +14,7 @@ function ProductPage() {
         <Navbar />
       </header>
       <Products />
-      <AboutUs />
+      <AboutUs title="Отзывы наших клиентов" text="Об этом лучше всего расскажут сами наши клиенты!" />
       <Question />
       <News />
       <Meneger />
