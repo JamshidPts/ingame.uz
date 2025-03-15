@@ -34,7 +34,7 @@ function OurPC() {
   return (
     <section className="bg-[#1A1A1A] text-white pt-[40px] pb-[40px]">
       <div className="container mx-auto min-h-[80vh]">
-        <h1 className="text-[40px] font-[600] mb-[40px] px-4">Наши ПК</h1>
+        <h1 className="text-[40px] font-[600] mb-[40px] px-4">{t('ourPcTitle')}</h1>
         <div className='p-4 flex justify-between'>
           <Swiper modules={[Autoplay]}
             // autoplay={{ delay: 3000 }}
@@ -52,11 +52,11 @@ function OurPC() {
                   <img src={item.image?.url} alt={item.name} className="mx-auto w-[350px] h-[200px] object-cover" />
                   <h3 className="text-[#d3176d] text-[20px] font-[600] mt-3">{getTranslation(item, "name")}</h3>
                   <p className="text-[14px] font-[500]">{getTranslation(item, "description")}</p>
-                  <p className="text-right text-[16px] font-bold mt-1 line-through">Цена: {convertPrice(item.price)} {selectedCurrency?.currency}</p>
-                  <p className="text-right text-[14px] text-[#d3176d] mt-2">Скидка: {convertPrice(item.discount)} {selectedCurrency?.currency} $</p>
+                  <p className="text-right text-[16px] font-bold mt-1 line-through">{t('price')}: {convertPrice(item.price)} {selectedCurrency?.currency}</p>
+                  <p className="text-right text-[14px] text-[#d3176d] mt-2">{t('discount')}: {convertPrice(item.discount)} {selectedCurrency?.currency}</p>
                   {item.attributes && item.attributes.length > 0 && (
                     <div className="mt-3 p-2 border border-gray-600 rounded">
-                      <h4 className="text-[#d3176d] font-[600] mb-2">Характеристики:</h4>
+                      <h4 className="text-[#d3176d] font-[600] mb-2">{t('system')}:</h4>
                       <ul className="text-[14px]">
                         {item.attributes.map((attr) => (
                           <li key={attr.id} className="flex justify-between border-b border-gray-500 py-1">

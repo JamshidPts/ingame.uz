@@ -31,10 +31,10 @@ function AboutUs({ title, text }) {
       <div className="container mx-auto">
         <div className="flex flex-col items-center mb-[40px] text-center">
           <h3 className="text-[22px] sm:text-[30px] md:text-[40px] font-[600] px-4">
-            {title}
+            {t('ReviewTitle')}
           </h3>
           <p className="mt-[10px] mb-[16px] w-[300px] md:w-full px-2 text-[#959494] text-[16px] sm:text-[18px] md:text-[22px] font-[400]">
-            {text}
+            {t('ReviewDescr')}
           </p>
           <div className="w-[130px] border-[1.6px] border-[#d3176d]"></div>
         </div>

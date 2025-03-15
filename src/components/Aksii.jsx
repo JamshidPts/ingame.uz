@@ -9,7 +9,7 @@ import { CartContext } from '../context/CartContext'; // Импортируем 
 import { Link } from 'react-router-dom';
 
 function Aksii() {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [product, setProduct] = useState([]);
     const { addToCart } = useContext(CartContext); // Используем контекст корзины
     const { selectedCurrency } = useContext(CartContext);
@@ -48,7 +48,7 @@ function Aksii() {
     return (
         <section className='bg-[#1A1A1A] text-white py-[50px]'>
             <div className='container mx-auto min-h-[67vh]'>
-                <h2 className='text-[40px] font-[600] mb-[40px] px-4'>Акции</h2>
+                <h2 className='text-[40px] font-[600] mb-[40px] px-4'>{t('AksiiTitle')}</h2>
                 <Swiper
                     modules={[Navigation]}
                     navigation
@@ -71,7 +71,7 @@ function Aksii() {
                                     <span className="absolute inset-0 m-auto z-0 shadow-custom-white bg-white-transparent w-[20px] h-[20px] rounded-[10px]"></span>
                                 </div>
                                 <p className='text-[22px] font-bold py-[15px]'>{getTranslation(item, "name")}</p>
-                                <p className="text-white text-xl font-bold">{convertPrice(item.price)} {selectedCurrency?.currency}</p>
+                                <p className="text-white text-xl font-bold">{t('price')}: {convertPrice(item.price)} {selectedCurrency?.currency}</p>
                                 <p className='py-4 font-light'>{getTranslation(item, "description")}</p>
                                 <div className='flex items-center justify-end gap-3 cursor-pointer'>
                                     <button
@@ -84,7 +84,7 @@ function Aksii() {
                                             image: item.images?.[0]?.url || "",
                                         })}
                                     >
-                                        Купить
+                                        {t('buy')}
                                     </button>
                                     <Link to="/order">
                                         <img

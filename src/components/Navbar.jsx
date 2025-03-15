@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { changeLanguage } from "../i18n";
+import i18next, { changeLanguage } from "../i18n";
 import logo from "../assets/navbar/logo_navbar.svg";
 import vector from "../assets/navbar/navbar_icon.svg";
 import searchBtn from "../assets/navbar/search_btn.svg";
@@ -16,8 +16,9 @@ import Modal from "./Modal";
 import { getDesktopTypes } from '../api/front/desktopTypes';
 import { CartContext } from "../context/CartContext";
 import { fetchCurrencies } from "../api/front/currency";
+import { useTranslation } from "react-i18next";
+
 function Navbar() {
-  const [currency, setCurrency] = useState("usd"); // Состояние для валюты
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false)
@@ -32,6 +33,7 @@ function Navbar() {
 
   // Подсчет общего количества товаров в корзине
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
@@ -106,14 +108,14 @@ function Navbar() {
             </NavLink>
             <div className="relative hidden lg:flex text-white space-x-8">
               <NavLink to="/products" className={({ isActive }) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
-                Продукция
+              {t('navbarProduct')}
               </NavLink>
-              <img src={vector} alt="vector" className="absolute top-[32%] left-[24%] ml-2 w-[19px]" onClick={toggleProducts} />
+              <img src={vector} alt="vector" className="absolute top-[32%] left-[99px] ml-2 w-[19px]" onClick={toggleProducts} />
               <NavLink to="/services" className={({ isActive }) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
-                Услуги
+                {t('navbarUsluga')}
               </NavLink>
               <NavLink to="/brand" className={({ isActive }) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
-                O бренде
+                {t('navbarBrand')}
               </NavLink>
             </div>
           </div>
@@ -121,7 +123,7 @@ function Navbar() {
           <div className="text-white flex items-center h-full lg:gap-3 cursor-pointer">
             <div className="hidden lg:flex gap-5">
               <button onClick={modalToggle} className="border border-white py-1 px-3 text-[18px] transition-all duration-300 ease-in-out hover:rounded active:scale-95">
-                Связаться
+                {t('navbarSvyaz')}
               </button>
               <select className="bg-[#1A1A1A]" onChange={handleLanguageChange} value={language}>
                 {languages.length > 0 ? (
@@ -174,7 +176,7 @@ function Navbar() {
           </div>
           <div className="flex flex-col items-center relative font-medium space-y-6 text-white mt-4 cursor-pointer">
             <NavLink to="/products" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
-              Продукция
+            {t('navbarProduct')}
             </NavLink>
             {/* <div className={`text-white z-50 transform transition-[opacity,transform] duration-500 ease-in-out ${isMobileMenu ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
               } origin-top`}>
@@ -189,10 +191,10 @@ function Navbar() {
             </div> */}
             <img src={vector} alt="vector" className="absolute top-[-7%] left-[80%] ml-2 w-[19px]" onClick={mobileToggleProducts} />
             <NavLink to="/services" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
-              Услуги
+            {t('navbarUsluga')}
             </NavLink>
             <NavLink to="/brand" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
-              O бренде
+            {t('navbarBrand')}
             </NavLink>
 
             {/* Мобилный language and currency */}
@@ -215,7 +217,7 @@ function Navbar() {
               </select>
             </div>
             <button onClick={modalToggle} className="border-b border-white py-1 text-[18px] transition-all duration-300 ease-in-out active:scale-95">
-              Связаться
+            {t('navbarSvyaz')}
             </button>
           </div>
         </div>
