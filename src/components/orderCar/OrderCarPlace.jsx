@@ -4,7 +4,7 @@ import car from '../../assets/orderCarPlace/car.svg';
 import locate from '../../assets/orderCarPlace/locate.svg';
 import key from '../../assets/orderCarPlace/key.svg';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function OrderCarPlace() {
@@ -35,7 +35,78 @@ function OrderCarPlace() {
 
   // Функция для отправки заказа
   const handleSubmit = async () => {
-    // console.log('Функция handleSubmit вызвана'); 
+    // Валидация ФИО
+    if (!fullName.trim()) {
+      toast.error('Пожалуйста, введите ваше ФИО.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+  
+    // Валидация номера телефона
+    const phoneRegex = /^\+998\d{9}$/; // Формат: +998 и 9 цифр
+    if (!phoneRegex.test(phone)) {
+      toast.error('Пожалуйста, введите корректный номер телефона в формате +998XXXXXXXXX.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+  
+    // Валидация адреса доставки
+    if (!address.trim()) {
+      toast.error('Пожалуйста, введите адрес доставки.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+  
+    // Валидация метода доставки
+    if (!selected) {
+      toast.error('Пожалуйста, выберите способ доставки.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+  
+    // Валидация комментария (если заполнен)
+    if (comment.length > 500) {
+      toast.error('Комментарий не должен превышать 500 символов.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+  
+    // Если все проверки пройдены, отправляем заказ
     const orderData = {
       fullname: fullName,
       phone: phone,
@@ -68,7 +139,8 @@ function OrderCarPlace() {
   
       // Очищаем корзину после успешного оформления
       clearCart();
-      // console.log('Показываем toast');
+  
+      // Показываем toast
       toast.success('Заказ успешно оформлен!', {
         position: "top-right",
         autoClose: 5000,
@@ -78,9 +150,10 @@ function OrderCarPlace() {
         draggable: true,
         progress: undefined,
       });
-      setTimeout(() => {
-        navigate("/");
-      }, 7000);
+  
+      // Сразу выполняем навигацию
+      navigate("/");
+  
     } catch (error) {
       console.error('Ошибка:', error);
       toast.error('Произошла ошибка при оформлении заказа.', {
@@ -97,16 +170,6 @@ function OrderCarPlace() {
 
   return (
     <section className='bg-[#1a1a1a] min-h-[100vh] pt-[140px] pb-[50px] text-white'>
-      <ToastContainer
-      style={{ zIndex: 9999 }} 
-      position="top-right"
-      autoClose={5000}
-      hideProgressBar={false}
-      closeOnClick
-      pauseOnHover
-      draggable
-      theme="dark"
-      />
       <div className="container mx-auto px-4 max-w-[1400px]">
         {/* Блок с формой и корзиной */}
         <div className="relative flex flex-col md:flex-row justify-between mb-[30px]">
