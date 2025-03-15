@@ -31,7 +31,7 @@ function News() {
     return (
         <section className="bg-[#1A1A1A] text-white py-[50px]">
             <div className="container mx-auto min-h-[68vh]">
-                <h2 className="text-[40px] font-[600] mb-[40px] px-4">Блог и новости</h2>
+                <h2 className="text-[40px] font-[600] mb-[40px] px-4">{t('NewsTitle')}</h2>
                 {/* <div className="flex justify-center lg:justify-between items-center"> */}
                 <Swiper
                     modules={[FreeMode, Autoplay]}
@@ -62,7 +62,7 @@ function News() {
                                     <h5 className="pt-8 font-bold text-[22px] pb-1 pr-2 break-words overflow-y-auto">{getTranslation(item, "name")}</h5>
                                     <p className="text-[14px] font-medium pb-3 pr-2 break-words overflow-y-auto min-h-[80px] max-h-[85px]">{getTranslation(item, "description")}</p>
                                     <Link to={item.video_url || "#"} target="_blank" className="text-[#9A9A9A] border-b border-b-[#9A9A9A] my-3">
-                                        Читать дальше
+                                        {t('read')}
                                     </Link>
                                 </div>
                             </div>

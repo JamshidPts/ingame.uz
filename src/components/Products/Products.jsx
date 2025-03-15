@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 function Products() {
   const [currentPage, setCurrentPage] = useState(1);
   const [product, setProduct] = useState([]);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { addToCart } = useContext(CartContext);
   const { selectedCurrency } = useContext(CartContext);
 
@@ -50,7 +50,7 @@ function Products() {
             <ProductSidebar />
           </div>
           <div className='w-[100%] pl-[0px] lg:pl-[40px] lg:w-[84%]'>
-            <h2 className='text-[40px] font-[600] mb-[30px]'>Игровые ПК</h2>
+            <h2 className='text-[40px] font-[600] mb-[30px]'>{t("productTitle")}</h2>
             <div className='flex flex-wrap justify-center xl:justify-start gap-[20px] mx-auto'>
               {currentItems.map((item, id) => (
                 <div className='relative w-[290px] min-h-[390px] bg-[#1e1e1e] p-[30px] flex flex-col justify-between' key={id}>
@@ -66,7 +66,7 @@ function Products() {
                   <div>
                     <h3 className='text-[20px] font-[600] mb-[20px]'>{getTranslation(item, "name")}</h3>
                     <p className='line-through text-[18px]'>{item.discount}</p>
-                    <p className='text-[20px] text-[#D3176D] font-[600] mb-[20px]'>{convertPrice(item.price)} {selectedCurrency?.currency}</p>
+                    <p className='text-[20px] text-[#D3176D] font-[600] mb-[20px]'>{t('price')}: {convertPrice(item.price)} {selectedCurrency?.currency}</p>
                     <p className='text-[15px]'>{getTranslation(item, "description")}</p>
                     <div className='flex items-center justify-end space-x-[20px] mt-[30px]'>
                       <button
@@ -79,7 +79,7 @@ function Products() {
                           image: item.images?.[0]?.url || "",
                         })}
                       >
-                        Купить
+                        {t('buy')}
                       </button>
                       <Link to="/order">
                         <button className='py-[6px] px-[8px] border-[1px] border-[#D3176D]'>
@@ -99,7 +99,7 @@ function Products() {
                 className="py-2 px-4 mx-2 rounded-full bg-transparent text-white border-[1px] border-[#D3176D]"
                 disabled={currentPage === 1}
               >
-                Назад
+                {t('prev')}
               </button>
 
               {[...Array(totalPages)].map((_, index) => (
@@ -117,7 +117,7 @@ function Products() {
                 className="py-2 px-4 mx-2 rounded-full bg-transparent text-white border-[1px] border-[#D3176D]"
                 disabled={currentPage === totalPages}
               >
-                Вперед
+                {t('next')}
               </button>
             </div>
           </div>

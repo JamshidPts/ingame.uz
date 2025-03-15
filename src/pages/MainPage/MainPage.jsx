@@ -20,7 +20,7 @@ function MainPage() {
       <Novinkiy />
       <Aksii />
       <Uslugi />
-      <AboutUs title="Почему стоит выбрать нас?" text="Об этом лучше всего расскажут сами наши клиенты!" />
+      <AboutUs />
       <Question />
       <News />
       <Meneger />

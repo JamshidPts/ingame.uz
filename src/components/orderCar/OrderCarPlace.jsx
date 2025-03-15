@@ -6,12 +6,14 @@ import key from '../../assets/orderCarPlace/key.svg';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
 
 function OrderCarPlace() {
   const { cart, clearCart } = useContext(CartContext); // Добавляем clearCart
   const { selectedCurrency } = useContext(CartContext);
   const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // Состояния для формы
   const [fullName, setFullName] = useState('');
@@ -25,9 +27,9 @@ function OrderCarPlace() {
   };
 
   const deliveryMethods = [
-    { id: 1, icon: car, title: "Стандартная доставка", description: "1 день" },
-    { id: 2, icon: locate, title: "Бесплатная доставка по Ташкенту", description: "1 день" },
-    { id: 3, icon: key, title: "Доставка в регионы", description: "По тарифу экспресс-почты BTS или Fargo" },
+    { id: 1, icon: car, title: "deliveryTitle1", description: "deliveryDescr1" },
+    { id: 2, icon: locate, title: "deliveryTitle2", description: "deliveryDescr2" },
+    { id: 3, icon: key, title: "deliveryTitle3", description: "deliveryDescr3" },
   ];
 
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
@@ -37,7 +39,7 @@ function OrderCarPlace() {
   const handleSubmit = async () => {
     // Валидация ФИО
     if (!fullName.trim()) {
-      toast.error('Пожалуйста, введите ваше ФИО.', {
+      toast.error(`${t('fio')}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -52,7 +54,7 @@ function OrderCarPlace() {
     // Валидация номера телефона
     const phoneRegex = /^\+998\d{9}$/; // Формат: +998 и 9 цифр
     if (!phoneRegex.test(phone)) {
-      toast.error('Пожалуйста, введите корректный номер телефона в формате +998XXXXXXXXX.', {
+      toast.error(`${t('phone')}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -66,7 +68,7 @@ function OrderCarPlace() {
   
     // Валидация адреса доставки
     if (!address.trim()) {
-      toast.error('Пожалуйста, введите адрес доставки.', {
+      toast.error(`${t('address')}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -80,7 +82,7 @@ function OrderCarPlace() {
   
     // Валидация метода доставки
     if (!selected) {
-      toast.error('Пожалуйста, выберите способ доставки.', {
+      toast.error(`${t('selected')}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -94,7 +96,7 @@ function OrderCarPlace() {
   
     // Валидация комментария (если заполнен)
     if (comment.length > 500) {
-      toast.error('Комментарий не должен превышать 500 символов.', {
+      toast.error(`${t('comment')}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -141,7 +143,7 @@ function OrderCarPlace() {
       clearCart();
   
       // Показываем toast
-      toast.success('Заказ успешно оформлен!', {
+      toast.success(`${t('success')}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -156,7 +158,7 @@ function OrderCarPlace() {
   
     } catch (error) {
       console.error('Ошибка:', error);
-      toast.error('Произошла ошибка при оформлении заказа.', {
+      toast.error(`${t('error')}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -175,10 +177,10 @@ function OrderCarPlace() {
         <div className="relative flex flex-col md:flex-row justify-between mb-[30px]">
           <div className="w-[100%] md:w-[60%] flex flex-col xl:flex-row justify-between">
             <div className='mb-[40px] xl:mb-0'>
-              <h3 className="text-[24px] font-bold mb-4">Оформить заказ</h3>
+              <h3 className="text-[24px] font-bold mb-4">{t('order')}</h3>
               <form className="space-y-4 text-[15px]">
                 <div className="flex items-center bg-[#2d2d2d] p-3 rounded-md">
-                  <label className="w-[120px] text-white" htmlFor="name">Ф.И.О.*</label>
+                  <label className="w-[120px] text-white" htmlFor="name">{t('name')}</label>
                   <input
                     type="text"
                     id="name"
@@ -189,7 +191,7 @@ function OrderCarPlace() {
                   />
                 </div>
                 <div className="flex items-center bg-[#2d2d2d] p-3 rounded-md">
-                  <label className="w-[200px] text-white" htmlFor="phone">Номер телефона*</label>
+                  <label className="w-[200px] text-white" htmlFor="phone">{t('number')}</label>
                   <input
                     type="tel"
                     id="phone"
@@ -205,10 +207,10 @@ function OrderCarPlace() {
             {/* Корзина товаров */}
             <div className='w-[280px] sm:w-[444px] md:w-[244px] mx-auto md:mx-0 min-h-[100px] mb-[40px] md:mb-0 border border-[#D3176D] px-[10px] py-[20px] flex flex-col justify-center text-white'>
               <div className='flex justify-between mb-[40px]'>
-                <span>Товаров:</span> <span className="font-semibold">{totalItems}</span>
+                <span>{t('tovari')}:</span> <span className="font-semibold">{totalItems}</span>
               </div>
               <div className='flex justify-between'>
-                <span>Итого:</span> <span className="font-semibold">{convertPrice(totalPrice)} {selectedCurrency?.currency} сум</span>
+                <span>{t('last')}:</span> <span className="font-semibold">{convertPrice(totalPrice)} {selectedCurrency?.currency}</span>
               </div>
             </div>
           </div>
@@ -222,24 +224,24 @@ function OrderCarPlace() {
                 </div>
                 <div className="ml-[40px] md:ml-[10px]">
                   <h4 className="text-sm font-bold">{item.name}</h4>
-                  <p className="text-[15px] font-[600] text-gray-400">Кол-во: {item.quantity}</p>
+                  <p className="text-[15px] font-[600] text-gray-400">{t('availability')}: {item.quantity}</p>
                   <p className="text-[15px] font-[600]">{convertPrice(item.price)} {selectedCurrency?.currency} * {item.quantity}</p>
                 </div>
               </div>
-            )) : <p className="text-center">Корзина пуста</p>}
+            )) : <p className="text-center">{t('korzina')}</p>}
           </div>
         </div>
 
         <div className="text-white mb-[20px] flex flex-col items-center md:static md:items-start">
-          <h3 className="mb-[10px] font-bold">Способы получения заказа</h3>
+          <h3 className="mb-[10px] font-bold">{t('deliveryTitle')}</h3>
           <div className='flex items-center gap-[30px]'>
             <label className="flex items-center cursor-pointer">
               <input type="radio" name="delivery" value="delivery" className="w-[16px] h-[16px] mr-[10px]" />
-              Доставка
+              {t('kuryer')}
             </label>
             <label className="flex items-center cursor-pointer">
               <input type="radio" name="delivery" value="pickup" className="w-[16px] h-[16px] mr-[10px]" />
-              Самовывоз
+              {t("samovivoz")}
             </label>
           </div>
         </div>
@@ -254,8 +256,8 @@ function OrderCarPlace() {
               onClick={() => setSelected(method.id)}>
               <img src={method.icon} alt={method.title} className="w-[30px] h-[30px]" />
               <div className="ml-[20px]">
-                <p className="font-semibold">{method.title}</p>
-                <p className="text-gray-400">{method.description}</p>
+                <p className="font-semibold">{t(method.title)}</p>
+                <p className="text-gray-400">{t(method.description)}</p>
               </div>
             </div>
           ))}
@@ -263,7 +265,7 @@ function OrderCarPlace() {
 
         {/* Адрес доставки */}
         <div className="flex items-center bg-[#2d2d2d] p-3 rounded-md w-[100%] md:w-[540px] mb-[30px]">
-          <label className="w-[200px] text-white" htmlFor="address">Адрес доставки*</label>
+          <label className="w-[200px] text-white" htmlFor="address">{t("addressDelivery")}</label>
           <input
             type="text"
             id="address"
@@ -276,10 +278,10 @@ function OrderCarPlace() {
 
         {/* Комментарий к заказу */}
         <div className='mb-[30px]'>
-          <h3 className='mb-[10px] font-bold'>Комментарий к заказу</h3>
+          <h3 className='mb-[10px] font-bold'>{t('commentary')}</h3>
           <textarea
             className='w-[100%] md:w-[644px] min-h-[105px] p-[10px] border border-gray-500 rounded-md bg-transparent text-white focus:border-[#D3176D] focus:outline-none'
-            placeholder="Введите ваш комментарий..."
+            placeholder={t('placeholder')}
             value={comment}
             required
             onChange={(e) => setComment(e.target.value)}>
@@ -291,7 +293,7 @@ function OrderCarPlace() {
           <button
             className='w-[350px] bg-[#D3176D] p-[10px] font-bold'
             onClick={handleSubmit}>
-            Оформить заказ
+            {t('order')}
           </button>
         </div>
 

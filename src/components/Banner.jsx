@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 
 function Banner() {
   const [slides, setSlides] = useState([]);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const fetchBanners = async () => {
@@ -48,7 +48,7 @@ function Banner() {
                   <h1 className='text-[25px] font-bold font-orbitron md:text-[30px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] pt-5 md:pt-0'>{translation.name || "Без названия"}</h1>
                   <p className='text-[16px] md:text-[19px] sm:w-[550px] md:w-[350px] lg:w-full xl:text-[18px] 2xl:text-[22px] tracking-wide py-4 px-4 md:px-0 font-orbitron'>{translation.description || "Описание отсутствует"}</p>
                   <button className='w-[200px] h-[60px] text-[25px] font-[600] bg-cover bg-center lg:text-[22px] md:text-[20px]' style={{ backgroundImage: `url(${btnOutline})` }}>
-                    <a href={slide.url} target='_blank'>Подробнее</a>
+                    <a href={slide.url} target='_blank'>{t('full')}</a>
                   </button>
                 </div>
                 <div className='relative z-10 px-3 mt-5'>

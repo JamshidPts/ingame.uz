@@ -25,7 +25,7 @@ function Uslugi() {
   return (
     <section className='bg-[#1A1A1A] text-white py-[50px]'>
       <div className='container mx-auto min-h-[70vh]'>
-        <h2 className='text-[40px] font-[600] mb-[40px] px-4'>Услуги</h2>
+        <h2 className='text-[40px] font-[600] mb-[40px] px-4'>{t('navbarUsluga')}</h2>
         <Swiper
           modules={[FreeMode, Autoplay]}
           autoplay={{ delay: 4000 }}
@@ -60,7 +60,7 @@ function Uslugi() {
 
                   <div className='flex justify-end px-2 pt-5'>
                     <button className='border-2 border-white px-5 py-1 rounded transition-all duration-300 ease-in-out hover:bg-white hover:text-black'>
-                      Подробнее
+                      {t('full')}
                     </button>
                   </div>
                 </div>

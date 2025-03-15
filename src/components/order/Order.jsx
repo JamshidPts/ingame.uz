@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
 import trashIcon from "../../assets/order/trash.svg";
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Order() {
   const { cart, updateQuantity, removeFromCart } = useContext(CartContext);
   const { selectedCurrency } = useContext(CartContext);
+  const { t } = useTranslation();
 
   const convertPrice = (price) => {
     if (!selectedCurrency) return price;
@@ -19,12 +21,12 @@ function Order() {
           <div className='mx-auto xl:mx-0 mb-[60px] lg:mb-0'>
             <div className='hidden md:flex w-[700px] lg:w-[870px] xl:w-[800px] h-[40px] mb-[20px] px-[20px] justify-between bg-[#2d2d2d] items-center'>
               <div className='w-[55%]'>
-                <h4>Товар</h4>
+                <h4>{t('tovar')}</h4>
               </div>
               <div className='flex w-[55%] justify-between'>
-                <h4 className='ml-0 lg:ml-[28px] xl:ml-0'>Наличие</h4>
-                <h4 className='mr-[0px] xl:mr-[50px]'>Количество</h4>
-                <h4>Цена</h4>
+                <h4 className='ml-0 lg:ml-[28px] xl:ml-0'>{t('sklad')}</h4>
+                <h4 className='mr-[0px] xl:mr-[50px]'>{t('availability')}</h4>
+                <h4>{t('price')}</h4>
               </div>
             </div>
             <div>
@@ -42,8 +44,8 @@ function Order() {
                   </div>
                   <div className='w-[100%] md:w-[70%] lg:w-[55%] gap-[40px] flex flex-col sm:flex-row  justify-between items-center'>
                     <div className='text-center'>
-                      <h5 className='font-[600]'>В наличии</h5>
-                      <p className='text-[#a8a8a8]'>Отправка за 2-3 дня</p>
+                      <h5 className='font-[600]'>{t('isHave')}</h5>
+                      <p className='text-[#a8a8a8]'>{t('pochta')}</p>
                     </div>
                     <div className='flex items-center '>
                       <button className='bg-[#2d2d2d] w-[25px] h-[30px]'
@@ -67,13 +69,13 @@ function Order() {
                     </div>
                   </div>
                 </div>
-              )) : <p>Корзина пуста</p>}
+              )) : <p>{t('korzina')}</p>}
             </div>
           </div>
           <div className='mx-auto xl:mx-0'>
             <div className='bg-black w-[300px] sm:w-[430px] h-[158px] p-[20px] sm:p-[40px]'>
               <div className='flex justify-between mb-[20px] text-[20px]'>
-                <p>Итого:</p>
+                <p>{t('last')}:</p>
                 <p className='font-[600]'>{cart.reduce((total, item) => {
                   const itemTotal = convertPrice(item.price) * item.quantity;
                   return total + itemTotal;
@@ -81,7 +83,7 @@ function Order() {
               </div>
               <div className='text-center'>
                 <Link to="/orderCar">
-                  <button className='bg-[#D3176D] w-[100%] p-[10px]'>Продолжить</button>
+                  <button className='bg-[#D3176D] w-[100%] p-[10px]'>{t('go')}</button>
                 </Link>
               </div>
             </div>

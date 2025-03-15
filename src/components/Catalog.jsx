@@ -6,7 +6,6 @@ function Catalog() {
   const { t, i18n } = useTranslation();
   const [catalogs, setCatalogs] = useState([]);
   const [showMore, setShowMore] = useState(false);
-
   useEffect(() => {
     const fetchCatalogs = async () => {
       const data = await getCategories();
@@ -23,9 +22,9 @@ function Catalog() {
     <section className='min-h-[59.2vh] bg-[#0f0f0f] text-white'>
       <div className='container mx-auto py-[50px]'>
         <div className='flex flex-col items-center mb-[40px]'>
-          <h2 className='uppercase text-[40px] font-[600] max-[510px]:text-[30px]'>КАТАЛОГ INGAME.UZ</h2>
+          <h2 className='uppercase text-[40px] font-[600] max-[510px]:text-[30px]'>{t('catalogTitle')}</h2>
           <p className='mt-[10px] mb-[16px] text-[22px] font-[400] max-[765px]:text-[20px] max-[765px]:max-w-[500px] max-[765px]:text-center max-[510px]:text-[18px] max-[510px]:max-w-[360px]'>
-            Выберите себе в каталоге  для максимально комфортной игры
+            {t('catalogDescr')}
           </p>
           <p className='w-[130px] border-[1.6px] border-top border-[#d3176d]'></p>
         </div>

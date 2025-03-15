@@ -1,32 +1,32 @@
 export const data = [
     {
         id: 1,
-        title: 'Сколько примерно стоит средний ПК для игр?',
-        answer: 'Ответ 1'
+        title: 'question',
+        answer: 'answer'
     },
     {
         id: 2,
-        title: 'Сколько примерно стоит средний ПК для игр?',
-        answer: 'Ответ 2'
+        title: 'question',
+        answer: 'answer'
     },
     {
         id: 3,
-        title: 'Сколько примерно стоит средний ПК для игр?',
-        answer: 'Ответ 3'
+        title: 'question',
+        answer: 'answer'
     },
     {
         id: 4,
-        title: 'Сколько примерно стоит средний ПК для игр?',
-        answer: 'Ответ 4'
+        title: 'question',
+        answer: 'answer'
     },
     {
         id: 5,
-        title: 'Сколько примерно стоит средний ПК для игр?',
-        answer: 'Ответ 5'
+        title: 'question',
+        answer: 'answer'
     },
     {
         id: 6,
-        title: 'Сколько примерно стоит средний ПК для игр?',
-        answer: 'Ответ 6'
+        title: 'question',
+        answer: 'answer'
     },
 ]
