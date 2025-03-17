@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CartContext } from '../../context/CartContext';
 import trashIcon from "../../assets/order/trash.svg";
 import { Link } from 'react-router-dom';
@@ -8,6 +8,14 @@ function Order() {
   const { cart, updateQuantity, removeFromCart } = useContext(CartContext);
   const { selectedCurrency } = useContext(CartContext);
   const { t } = useTranslation();
+
+  // Прокрутка вверх при монтировании компонента
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Плавная прокрутка
+    });
+  }, []);
 
   const convertPrice = (price) => {
     if (!selectedCurrency) return price;
@@ -35,7 +43,6 @@ function Order() {
                   <div className='w-[44%] flex flex-col items-center md:flex-row md:items-start mb-[30px] gap-[20px]'>
                     <div className='bg-[#2d2d2d] p-[14px] mx-auto md:mx-0'>
                       <img className='w-[240px] sm:w-[100px] md:w-[50px]' src={item.image || "https://via.placeholder.com/150"} alt={item.name} />
-
                     </div>
                     <div className='text-center md:text-start'>
                       <h3 className='font-[600]'>{item.name}</h3>

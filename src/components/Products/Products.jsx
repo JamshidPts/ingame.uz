@@ -24,6 +24,24 @@ function Products() {
   const currentItems = product.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(product.length / itemsPerPage);
 
+  // Функция для прокрутки страницы вверх
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Плавная прокрутка
+    });
+  };
+
+  // Используем useEffect для прокрутки вверх при изменении currentPage
+  useEffect(() => {
+    scrollToTop();
+  }, [currentPage]);
+
+  // Обработчик изменения страницы
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -98,7 +116,7 @@ function Products() {
             {/* Пагинация */}
             <div className="flex justify-center mt-8">
               <button
-                onClick={() => setCurrentPage(currentPage - 1)}
+                onClick={() => handlePageChange(currentPage - 1)}
                 className="py-2 px-4 mx-2 rounded-full bg-transparent text-white border-[1px] border-[#D3176D]"
                 disabled={currentPage === 1}
               >
@@ -108,7 +126,7 @@ function Products() {
               {[...Array(totalPages)].map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentPage(index + 1)}
+                  onClick={() => handlePageChange(index + 1)}
                   className={`py-2 px-4 mx-2 ${currentPage === index + 1 ? 'bg-[#D3176D]' : 'bg-transparent'} text-white border-[1px] border-[#D3176D]`}
                 >
                   {index + 1}
@@ -116,7 +134,7 @@ function Products() {
               ))}
 
               <button
-                onClick={() => setCurrentPage(currentPage + 1)}
+                onClick={() => handlePageChange(currentPage + 1)}
                 className="py-2 px-4 mx-2 rounded-full bg-transparent text-white border-[1px] border-[#D3176D]"
                 disabled={currentPage === totalPages}
               >

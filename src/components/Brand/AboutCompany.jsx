@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import companyCar from '../../assets/brand/company1.png'
 import { useTranslation } from 'react-i18next'
 function AboutCompany() {
 
   const { t } = useTranslation();
+   // Прокрутка вверх при монтировании компонента
+    useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth', // Плавная прокрутка
+      });
+    }, []);
+
   return (
     <section className='bg-[#1a1a1a] min-h-[80vh] sm:min-h-[100vh]  pt-[120px] pb-[50px] text-white'>
       <div className="container mx-auto max-w-[1400px] md:max-w-[1120px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 ">
