@@ -27,7 +27,10 @@ function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProducts();
+        const params = {
+          p: 100 // Пример параметра
+        };
+        const data = await getProducts(params); // Передаем параметры в функцию
         console.log("Полученные данные:", data);
         setProduct(Array.isArray(data) ? data : []);
       } catch (error) {
