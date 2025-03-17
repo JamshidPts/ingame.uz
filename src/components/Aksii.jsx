@@ -4,7 +4,7 @@ import 'swiper/css';
 import { Navigation } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';
 import korzinaBtn from '../assets/navbar/korzina_btn.svg';
-import { getProducts } from '../api/front/products';
+import { getNewProducts } from '../api/front/products';
 import { CartContext } from '../context/CartContext'; // Импортируем контекст корзины
 import { Link } from 'react-router-dom';
 
@@ -20,26 +20,32 @@ function Aksii() {
     };
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const data = await getProducts();
-                const filteredProducts = Array.isArray(data)
-                    ? data.filter(item =>
-                        item.statuses?.some(status =>
-                            status.translations?.some(trans =>
-                                trans.name === "Распродажа" || trans.name === "Chegirma"
-                            )
-                        )
-                    )
-                    : [];
-
-                setProduct(filteredProducts);
-            } catch (error) {
-                console.error("Ошибка загрузки продуктов:", error);
-            }
-        };
-        fetchProducts();
-    }, []);
+            const fetchProducts = async () => {
+                try {
+                    const data = await getNewProducts();
+                    const filteredProducts = data.reduce((acc, status) => {
+                        const isNovinkaOrYangi = status.translations?.some(trans =>
+                            trans.name === "Распродажа" || trans.name === "Chegirma"
+                        );
+        
+                        if (isNovinkaOrYangi && status.products) {
+                            status.products.forEach(product => {
+                                if (!acc.some(p => p.id === product.id)) {
+                                    acc.push(product);
+                                }
+                            });
+                        }
+        
+                        return acc;
+                    }, []);
+        
+                    setProduct(filteredProducts);
+                } catch (error) {
+                    console.error("Failed to fetch products:", error);
+                }
+            };
+            fetchProducts();
+        }, []);
 
     const getTranslation = (item, field) => {
         return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
@@ -64,7 +70,7 @@ function Aksii() {
                             <div className='min-h-[500px] w-[280px] md:w-[280px] lg:w-[300px] 2xl:w-[320px] mx-auto px-5 py-10 bg-[#1E1E1E] relative'>
                                 <div className='m-auto relative'>
                                     <img
-                                        src={item.images?.[0]?.url || "https://via.placeholder.com/150"}
+                                        src={item.images?.[0]?.url || "default-image-url"}
                                         alt={getTranslation(item, "name")}
                                         className='relative z-[1] w-[100px] h-[180px] mx-auto lg:h-[230px] lg:w-[150px] object-contain'
                                     />
