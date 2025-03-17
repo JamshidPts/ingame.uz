@@ -117,6 +117,7 @@ const staticTranslations = {
       footerNumber: "номер",
       footerTime: "время работы",
       footerLocate: "локация",
+      ourPcBuyBtn: "Купить",
     },
   },
   uz: {
@@ -222,7 +223,8 @@ const staticTranslations = {
       footerSocial: "Bizning ijtimoiy tarmoqlar",
       footerNumber: "Raqam",
       footerTime: "Ish vaqti",
-      footerLocate: "Manzil"
+      footerLocate: "Manzil",
+      ourPcBuyBtn: "Sotib olish",
     },
   },
 };
