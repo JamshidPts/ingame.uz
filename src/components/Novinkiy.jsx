@@ -71,7 +71,7 @@ function Novinkiy() {
                         <SwiperSlide key={id} className='py-6'>
                             <div className='min-h-[500px] w-[280px] md:w-[280px] lg:w-[300px] 2xl:w-[320px] mx-auto px-5 py-10 bg-[#1E1E1E] relative'>
                                 <div className='m-auto relative'>
-                                    <img src={item.images?.url || "default-image-url"} alt="stul" className='relative z-[1] w-[100px] h-[180px] mx-auto lg:h-[230px] lg:w-[150px] object-contain' />
+                                    <img src={item.images[0]?.url || "default-image-url"} alt="stul" className='relative z-[1] w-[100px] h-[180px] mx-auto lg:h-[230px] lg:w-[150px] object-contain' />
                                     <span className="absolute inset-0 m-auto z-0 shadow-custom-white bg-white-transparent w-[20px] h-[20px] rounded-[10px]"></span>
                                 </div>
                                 <p className='text-[22px] font-bold py-[15px]'>{getTranslation(item, "name")}</p>
