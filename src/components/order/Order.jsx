@@ -20,10 +20,10 @@ function Order() {
         <div className='flex flex-col xl:flex-row xl:justify-between '>
           <div className='mx-auto xl:mx-0 mb-[60px] lg:mb-0'>
             <div className='hidden md:flex w-[700px] lg:w-[870px] xl:w-[800px] h-[40px] mb-[20px] px-[20px] justify-between bg-[#2d2d2d] items-center'>
-              <div className='w-[55%]'>
+              <div className='w-[65%]'>
                 <h4>{t('tovar')}</h4>
               </div>
-              <div className='flex w-[55%] justify-between'>
+              <div className='flex w-[76%] justify-between'>
                 <h4 className='ml-0 lg:ml-[28px] xl:ml-0'>{t('sklad')}</h4>
                 <h4 className='mr-[0px] xl:mr-[50px]'>{t('availability')}</h4>
                 <h4>{t('price')}</h4>
@@ -32,7 +32,7 @@ function Order() {
             <div>
               {cart.length > 0 ? cart.map((item) => (
                 <div className='flex flex-col items-center mb-[60px] md:mb-0 md:flex-row md:items-start w-[100%] md:w-[700px] lg:w-[860px] xl:w-[100%]' key={item.id}>
-                  <div className='w-[55%] flex flex-col items-center md:flex-row md:items-start mb-[30px] gap-[20px]'>
+                  <div className='w-[44%] flex flex-col items-center md:flex-row md:items-start mb-[30px] gap-[20px]'>
                     <div className='bg-[#2d2d2d] p-[14px] mx-auto md:mx-0'>
                       <img className='w-[240px] sm:w-[100px] md:w-[50px]' src={item.image || "https://via.placeholder.com/150"} alt={item.name} />
 
