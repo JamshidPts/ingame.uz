@@ -17,7 +17,7 @@ function MainPage() {
       <Header />
       <Catalog />
       <OurPC />
-      <Novinkiy />
+      {/* <Novinkiy /> */}
       <Aksii />
       <Uslugi />
       <AboutUs />
