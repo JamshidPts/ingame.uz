@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import pc from "../../assets/services/pcServices.png"
 import btnOutline from "../../assets/services/btnOutline.png"
 import btnArrow from "../../assets/services/btnArrow.svg"
@@ -7,6 +7,14 @@ import { useTranslation } from 'react-i18next'
 
 function Usluga() {
     const { t } = useTranslation();
+
+     // Прокрутка вверх при монтировании компонента
+      useEffect(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth', // Плавная прокрутка
+        });
+      }, []);
 
     return (
         <section className='relative bg-[#000000] min-h-[1100px] custom:min-h-[930px] md:min-h-[786px] font-orbitron pb-[40px] pt-[140px] custom:pt-[120px] md:pt-[180px]  text-white'>

@@ -26,6 +26,14 @@ function Banner() {
     fetchBanners();
   }, [i18n.language]);
 
+   // Прокрутка вверх при монтировании компонента
+    useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth', // Плавная прокрутка
+      });
+    }, []);
+
   return (
     <Swiper
       modules={[Pagination, Autoplay]}
