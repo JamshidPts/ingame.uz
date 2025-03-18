@@ -6,7 +6,6 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { CartContext } from '../context/CartContext';
-import { Link } from 'react-router-dom';
 
 function OurPC() {
   const [desktop, setDesktop] = useState([]);
@@ -21,6 +20,8 @@ function OurPC() {
   useEffect(() => {
     const fetchDesktops = async () => {
       const data = await getDesktops();
+      console.log(data);
+      
       setDesktop(Array.isArray(data) ? data : []);
     };
     fetchDesktops();
