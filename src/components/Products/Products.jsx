@@ -5,10 +5,12 @@ import korzinaBtn from "../../assets/navbar/korzina_btn.svg";
 import { useTranslation } from 'react-i18next';
 import { CartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
+import Loader from '../Loader'; // Импортируем Loader
 
 function Products() {
   const [currentPage, setCurrentPage] = useState(1);
   const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(true); // Состояние загрузки
   const { t, i18n } = useTranslation();
   const { addToCart } = useContext(CartContext);
   const { selectedCurrency } = useContext(CartContext);
@@ -45,6 +47,7 @@ function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true); // Устанавливаем состояние загрузки в true
         const params = {
           p: 100 // Пример параметра
         };
@@ -53,6 +56,8 @@ function Products() {
         setProduct(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Ошибка загрузки продуктов:", error);
+      } finally {
+        setLoading(false); // Устанавливаем состояние загрузки в false после завершения
       }
     };
 
@@ -64,8 +69,9 @@ function Products() {
   };
 
   return (
-    <section className='pt-[140px] pb-[40px] min-h-[1100px] bg-[#1A1A1A] text-white'>
+    <section className='pt-[140px] pb-[40px] min-h-[1100px] bg-[#1A1A1A] text-white relative'> {/* Добавлен relative */}
       <div className="container mx-auto px-4">
+        {loading && <Loader />} {/* Loader внутри компонента */}
         <div className='flex'>
           <div className='w-[16%] hidden lg:block'>
             <ProductSidebar />

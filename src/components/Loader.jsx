@@ -3,7 +3,7 @@ import { CircleLoader } from 'react-spinners';
 
 const Loader = () => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-100 z-50">
+    <div className="fixed lg:absolute inset-0 flex items-center justify-center bg-black z-20">
       <CircleLoader color="#D3176D" size={70} />
     </div>
   );
