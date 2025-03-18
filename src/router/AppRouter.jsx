@@ -10,22 +10,22 @@ import OrderCar from '../pages/OrderCarPage/OrderCar';
 import Loader from '../components/Loader';
 
 function AppRouter() {
-  const [loading, setLoading] = useState(true);
-  const location = useLocation();
+  // const [loading, setLoading] = useState(true);
+  // const location = useLocation();
 
-  useEffect(() => {
-    setLoading(true);
+  // useEffect(() => {
+  //   setLoading(true);
 
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [location]);
+  //   return () => clearTimeout(timer);
+  // }, [location]);
 
   return (
     <>
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       <Routes>
         <Route path='/admin' element={<AdminPage />} />
         <Route path='/' element={<MainPage />} />

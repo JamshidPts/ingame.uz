@@ -120,7 +120,7 @@ function Products() {
                 className="py-2 px-4 mx-2 rounded-full bg-transparent text-white border-[1px] border-[#D3176D]"
                 disabled={currentPage === 1}
               >
-                {t('prev')}
+                {`<`}
               </button>
 
               {[...Array(totalPages)].map((_, index) => (
@@ -138,7 +138,7 @@ function Products() {
                 className="py-2 px-4 mx-2 rounded-full bg-transparent text-white border-[1px] border-[#D3176D]"
                 disabled={currentPage === totalPages}
               >
-                {t('next')}
+                {`>`}
               </button>
             </div>
           </div>
