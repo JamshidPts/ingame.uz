@@ -56,7 +56,7 @@ function Navbar() {
         setLanguages([]);
       }
     };
-    
+
     const fetchDesktopTypes = async () => {
       const data = await getDesktopTypes();
       setTypes(Array.isArray(data) ? data : []);
@@ -99,7 +99,7 @@ function Navbar() {
 
   return (
     <>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {isModalOpen && <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
       <nav className="bg-[#1A1A1A] h-[10vh] w-full fixed top-0 left-0 z-30">
         <div className="container mx-auto h-full flex justify-between items-center px-4 xl:px-3">
           <div className="flex items-center gap-8 xl:pl-[20px] h-full cursor-pointer">
@@ -108,7 +108,7 @@ function Navbar() {
             </NavLink>
             <div className="relative hidden lg:flex text-white space-x-8">
               <NavLink to="/products" className={({ isActive }) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
-              {t('navbarProduct')}
+                {t('navbarProduct')}
               </NavLink>
               <img src={vector} alt="vector" className="absolute top-[32%] left-[99px] ml-2 w-[19px]" onClick={toggleProducts} />
               <NavLink to="/services" className={({ isActive }) => `text-[22px] transition-all duration-300 ease-in-out active:scale-95 p-2 ${isActive ? "text-[#D3176D]" : ""}`}>
@@ -177,7 +177,7 @@ function Navbar() {
           </div>
           <div className="flex flex-col items-center relative font-medium space-y-6 text-white mt-4 cursor-pointer">
             <NavLink to="/products" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
-            {t('navbarProduct')}
+              {t('navbarProduct')}
             </NavLink>
             {/* <div className={`text-white z-50 transform transition-[opacity,transform] duration-500 ease-in-out ${isMobileMenu ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
               } origin-top`}>
@@ -192,10 +192,10 @@ function Navbar() {
             </div> */}
             <img src={vector} alt="vector" className="absolute top-[-7%] left-[80%] ml-2 w-[19px]" onClick={mobileToggleProducts} />
             <NavLink to="/services" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
-            {t('navbarUsluga')}
+              {t('navbarUsluga')}
             </NavLink>
             <NavLink to="/brand" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
-            {t('navbarBrand')}
+              {t('navbarBrand')}
             </NavLink>
 
             {/* Мобилный language and currency */}
@@ -218,7 +218,7 @@ function Navbar() {
               </select>
             </div>
             <button onClick={modalToggle} className="border-b border-white py-1 text-[18px] transition-all duration-300 ease-in-out active:scale-95">
-            {t('navbarSvyaz')}
+              {t('navbarSvyaz')}
             </button>
           </div>
         </div>

@@ -90,7 +90,7 @@ function OurPC() {
                         ))}
                       </ul>
                       <div className='mx-auto mt-[20px] mb-[10px]'>
-                        <Link onClick={() => addToCart({
+                        <div onClick={() => addToCart({
                           id: item.id,
                           name: getTranslation(item, "name"),
                           description: getTranslation(item, "description"),
@@ -100,7 +100,7 @@ function OurPC() {
                           <button className='bg-[#d3176d] p-[10px] w-[200px]'>
                             {t('ourPcBuyBtn')}
                           </button>
-                        </Link>
+                        </div>
                       </div>
                     </div>
                   )}
