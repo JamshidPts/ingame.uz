@@ -133,6 +133,9 @@ const staticTranslations = {
       SidebarOffice: "Офисная",
       SidebarBtn: "Применить",
       SidebarReset: "Сбросить фильтр",
+      UslugiModalText1: "Снова же из-за двух отдельных камер. Первая отвечает за басы, а вторая за средние и высокие частоты — за счет этого звук становится чистым, сбалансированным и более качественным. Поэтому модель Cloud Alpha и завоевала популярность среди сотен тысяч геймеров по всему миру, это настоящая классика киберспортивной периферии.",
+      UslugiModalText2: "Снова же из-за двух отдельных камер. Первая отвечает за басы, а вторая за средние и высокие частоты — за счет этого звук становится чистым, сбалансированным и более качественным.",
+      UslugiModalText3: "Снова же из-за двух отдельных камер. Первая отвечает за басы, а вторая за средние и высокие частоты — за счет этого звук становится чистым, сбалансированным и более качественным.",
     },
   },
   uz: {
@@ -255,6 +258,10 @@ const staticTranslations = {
       SidebarOffice: "Ofis uchun",
       SidebarBtn: "Qo‘llash",
       SidebarReset: "Filtrni tozalash",
+      UslugiModalText1: "Ikki alohida kameraning mavjudligi tufayli. Birinchisi basslar uchun javobgar, ikkinchisi esa o‘rta va yuqori chastotalar uchun – buning natijasida tovush yanada toza, muvozanatli va sifatli bo‘ladi. Shu sababli Cloud Alpha modeli butun dunyo bo‘ylab yuz minglab geymerlar orasida mashhurlikka erishdi, bu haqiqiy kibersport periferiyasi klassikasi.",
+      UslugiModalText2: "Ikki alohida kameraning mavjudligi tufayli. Birinchisi basslar uchun javobgar, ikkinchisi esa o‘rta va yuqori chastotalar uchun – buning natijasida tovush yanada toza, muvozanatli va sifatli bo‘ladi.",
+      UslugiModalText3: "Ikki alohida kameraning mavjudligi tufayli. Birinchisi basslar uchun javobgar, ikkinchisi esa o‘rta va yuqori chastotalar uchun – buning natijasida tovush yanada toza, muvozanatli va sifatli bo‘ladi."
+
     },
   },
 };
