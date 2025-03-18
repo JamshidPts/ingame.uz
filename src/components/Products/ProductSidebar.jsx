@@ -1,23 +1,25 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 
-const brands = [
-  "GIGABYTE Aorus",
-  "ALIENWARE AURORA",
-  "Lenovo Legion T7",
-  "Acer Predator Orion",
-  "ARENA 9604",
-  "GAMER PRO RYZEN"
-];
-
-const monitors = ["24’’", "27’’", "32’’"];
-const mice = ["Игровая", "Офисная"];
 
 function ProductSidebar() {
+  const brands = [
+    "GIGABYTE Aorus",
+    "ALIENWARE AURORA",
+    "Lenovo Legion T7",
+    "Acer Predator Orion",
+    "ARENA 9604",
+    "GAMER PRO RYZEN"
+  ];
+
+  const { t } = useTranslation();
+  const monitors = ["24’’", "27’’", "32’’"];
+  const mice = [t("SidebarGame"), t("SidebarOffice")];
   return (
     <>
       <div className='mt-[80px]'>
-        <h6 className='font-bold'>Цена</h6>
-        <form className='flex justify-between mt-[10px]' action="#">
+        <h6 className='font-bold'>{t("SidebarPrice")}</h6>
+        <form className='flex justify-between mt-[10px] gap-[10px]' action="#">
           <div>
             <input id="minPrice" className='w-[108px] h-[35px] bg-transparent border-[1px] border-white px-[4px]' type="text" />
           </div>
@@ -29,7 +31,7 @@ function ProductSidebar() {
       </div>
 
       <div>
-        <h6 className='font-bold'>Бренды</h6>
+        <h6 className='font-bold'>{t("SidebarBrands")}</h6>
         <form className="flex flex-col space-y-2 mt-[5px]" action="#">
           {brands.map((brand, index) => (
             <label key={index} className="flex items-center">
@@ -40,8 +42,7 @@ function ProductSidebar() {
         </form>
 
         <div className='h-[1px] bg-[#707070] my-[20px]'></div>
-
-        <h6 className='font-bold'>Мониторы</h6>
+        <h6 className='font-bold'>{t("SidebarMonitor")}</h6>
         <form className="flex flex-col space-y-2 mt-[5px]" action="#">
           {monitors.map((monitor, index) => (
             <label key={index} className="flex items-center">
@@ -53,7 +54,7 @@ function ProductSidebar() {
 
         <div className='h-[1px] bg-[#707070] my-[20px]'></div>
 
-        <h6 className='font-bold'>Мышка</h6>
+        <h6 className='font-bold'>{t("SidebarMouse")}</h6>
         <form className="flex flex-col space-y-2 mt-[5px]" action="#">
           {mice.map((mouse, index) => (
             <label key={index} className="flex items-center">
@@ -64,8 +65,8 @@ function ProductSidebar() {
         </form>
 
         <div className='mt-[30px] text-center'>
-          <button className='py-[6px] px-[50px] mb-[10px] bg-transparent border-[1px] border-[#D3176D]'>Применить</button>
-          <p className='text-gray-500 cursor-pointer'>Сбросить фильтр</p>
+          <button className='py-[6px] px-[50px] mb-[10px] bg-transparent border-[1px] border-[#D3176D]'>{t("SidebarBtn")}</button>
+          <p className='text-gray-500 cursor-pointer'>{t("SidebarReset")}</p>
         </div>
       </div>
 
