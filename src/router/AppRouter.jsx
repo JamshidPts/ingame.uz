@@ -18,7 +18,7 @@ function AppRouter() {
 
     const timer = setTimeout(() => {
       setLoading(false);
-    },800);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [location]);
