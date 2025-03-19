@@ -8,6 +8,7 @@ import ProductPage from '../pages/ProductPage/ProductPage';
 import OrderPage from '../pages/OrderPage/OrderPage';
 import OrderCar from '../pages/OrderCarPage/OrderCar';
 import Filtered from '../components/Filtered';
+import FilteredProducts from '../components/FilteredProducts';
 
 function AppRouter() {
 
@@ -20,7 +21,8 @@ function AppRouter() {
         <Route path='/services' element={<ServicesPage />} />
         <Route path='/products' element={<ProductPage />} />
         <Route path='/order' element={<OrderPage />} />
-        <Route path='/products/:slug' element={<Filtered />} />
+        <Route path='/desktops/:slug' element={<Filtered />} />
+        <Route path='/products/:categoryId' element={<FilteredProducts />} /> {/* Новый маршрут */}
         <Route path='/orderCar' element={<OrderCar />} />
         <Route path="*" element={<h2 className='text-center'>404 Not Found</h2>} />
       </Routes>

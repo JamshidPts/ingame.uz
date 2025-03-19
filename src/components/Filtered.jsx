@@ -20,28 +20,45 @@ function Filtered() {
     if (!selectedCurrency) return price;
     return (price * selectedCurrency.conversions).toFixed(2);
   };
+  const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth', // Плавная прокрутка
+    });
+};
+
+// Используем useEffect для прокрутки вверх при изменении categoryId
+useEffect(() => {
+    scrollToTop();
+}, [slug]);
 
   useEffect(() => {
     const fetchDesktops = async () => {
       const data = await getDesktops();
       if (Array.isArray(data)) {
-        const filtered = data.filter(desktop => desktop.desktop_type.slug === slug);
+        const filtered = data.filter(desktop => 
+          desktop.desktop_type.id === parseInt(slug)
+        );
         setFilteredDesktops(filtered);
       }
     };
     fetchDesktops();
-  }, [slug]);
+  }, [slug, i18n.language]);
 
   const getTranslation = (item, field) => {
     return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
   };
+
+  // Получаем название категории из первого десктопа (если десктопы есть)
+  const categoryName = filteredDesktops.length > 0 ? getTranslation(filteredDesktops[0].desktop_type, "name") : t("filteredPcTitle");
 
   return (
     <>
       <Navbar />
       <section className="bg-[#1A1A1A] text-white py-[100px]">
         <div className="container mx-auto min-h-[90vh]">
-          <h1 className="text-[40px] font-[600] mb-[40px] px-4">{t('filteredPcTitle')}</h1>
+          {/* Используем categoryName в заголовке */}
+          <h1 className="text-[40px] font-[600] mb-[40px] px-4">{categoryName}</h1>
           <div className='p-4 flex justify-between'>
             <Swiper
               modules={[Autoplay]}

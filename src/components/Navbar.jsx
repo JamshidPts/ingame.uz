@@ -243,7 +243,7 @@ function Navbar() {
           } origin-top`}>
           <div className="container mx-auto px-20 py-10 flex flex-col gap-4">
             {types.map((item, id) => (
-              <Link to={`/products/${item.slug}`} key={id} className="flex items-center gap-20">
+              <Link to={`/desktops/${item.id}`} key={id} className="flex items-center gap-20">
                 <p className="text-[20px] font-bold p-2">{item.name}</p>
                 <img src={vectorProduct} alt="vector" className="w-[15px]" />
               </Link>
