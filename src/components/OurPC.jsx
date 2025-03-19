@@ -20,8 +20,7 @@ function OurPC() {
   useEffect(() => {
     const fetchDesktops = async () => {
       const data = await getDesktops();
-      console.log(data);
-      
+      // console.log(data);
       setDesktop(Array.isArray(data) ? data : []);
     };
     fetchDesktops();

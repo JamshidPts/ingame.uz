@@ -137,6 +137,8 @@ const staticTranslations = {
       UslugiModalText2: "Снова же из-за двух отдельных камер. Первая отвечает за басы, а вторая за средние и высокие частоты — за счет этого звук становится чистым, сбалансированным и более качественным.",
       UslugiModalText3: "Снова же из-за двух отдельных камер. Первая отвечает за басы, а вторая за средние и высокие частоты — за счет этого звук становится чистым, сбалансированным и более качественным.",
       filteredPcTitle: "Отфильтрованные продукты",
+      filteredProductsTitle: "Отфильтрованные продукты",
+      fio: "Ф.И.О"
     },
   },
   uz: {
@@ -262,7 +264,9 @@ const staticTranslations = {
       UslugiModalText1: "Ikki alohida kameraning mavjudligi tufayli. Birinchisi basslar uchun javobgar, ikkinchisi esa o‘rta va yuqori chastotalar uchun – buning natijasida tovush yanada toza, muvozanatli va sifatli bo‘ladi. Shu sababli Cloud Alpha modeli butun dunyo bo‘ylab yuz minglab geymerlar orasida mashhurlikka erishdi, bu haqiqiy kibersport periferiyasi klassikasi.",
       UslugiModalText2: "Ikki alohida kameraning mavjudligi tufayli. Birinchisi basslar uchun javobgar, ikkinchisi esa o‘rta va yuqori chastotalar uchun – buning natijasida tovush yanada toza, muvozanatli va sifatli bo‘ladi.",
       UslugiModalText3: "Ikki alohida kameraning mavjudligi tufayli. Birinchisi basslar uchun javobgar, ikkinchisi esa o‘rta va yuqori chastotalar uchun – buning natijasida tovush yanada toza, muvozanatli va sifatli bo‘ladi.",
-      filteredPcTitle: "Filtrlangan mahsulotlar"
+      filteredPcTitle: "Filtrlangan mahsulotlar",
+      filteredProductsTitle: "Filtrlangan mahsulotlar",
+      fio: "F.I.O"
     },
   },
 };

@@ -45,7 +45,7 @@ function Modal({ isOpen, onClose }) {
                 </h5>
                 <form onSubmit={handleSubmit} className="text-white flex flex-col max-w-[250px] sm:max-w-[300px] mx-auto py-5">
                     <label htmlFor="name" className="font-semibold py-2">{t("ModalName")}</label>
-                    <input required type="text" id="name" value={fullname} onChange={(e) => setFullname(e.target.value)} className="p-2 border border-[#D0D5DD] text-[#444444] font-semibold" />
+                    <input required type="text" id="name" value={fullname} onChange={(e) => setFullname(e.target.value)} placeholder={t('fio')} className="p-2 border border-[#D0D5DD] text-[#444444] font-semibold" />
                     <label htmlFor="phone" className="font-semibold py-2">{t("ModalNumber")}</label>
                     <input required type="text" value={phone} onChange={handlePhoneChange} maxLength="17" id="phone" className="p-2 border border-[#D0D5DD] text-[#444444] font-semibold" />
                     <button type="submit" className="bg-[#D3176D] cursor-pointer mt-5 py-2 text-[20px] font-bold active:bg-[#af316a]" disabled={loading}>

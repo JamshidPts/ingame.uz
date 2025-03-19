@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getCategories } from '../api/front/category';
+import { Link } from 'react-router-dom'; // Импортируем Link
 
 function Catalog() {
   const { t, i18n } = useTranslation();
   const [catalogs, setCatalogs] = useState([]);
   const [showMore, setShowMore] = useState(false);
+
   useEffect(() => {
     const fetchCatalogs = async () => {
       const data = await getCategories();
@@ -31,24 +33,28 @@ function Catalog() {
 
         <div className='max-w-[950px] mx-auto flex flex-wrap justify-center items-center gap-5'>
           {catalogs.slice(0, 8).map((item, id) => (
-            <div className='p-5 text-center flex flex-col items-center justify-between h-full max-[420px]:p-1 cursor-pointer' key={id}>
-              <div className='w-40 mb-4 h-32 flex justify-center max-[420px]:w-21 max-[356px]:w-[100px]'>
-                <img src={item.icon?.url || ''} alt={getTranslation(item)} className='w-[120px] sm:w-[190px] max-h-full object-contain' />
+            <Link to={`/products/${item.id}`} key={id}> {/* Используем название категории */}
+              <div className='p-5 text-center flex flex-col items-center justify-between h-full max-[420px]:p-1 cursor-pointer'>
+                <div className='w-40 mb-4 h-32 flex justify-center max-[420px]:w-21 max-[356px]:w-[100px]'>
+                  <img src={item.icon?.url || ''} alt={getTranslation(item)} className='w-[120px] sm:w-[190px] max-h-full object-contain' />
+                </div>
+                <p className='text-lg font-normal max-[420px]:text-md'>{getTranslation(item)}</p>
               </div>
-              <p className='text-lg font-normal max-[420px]:text-md'>{getTranslation(item)}</p>
-            </div>
+            </Link>
           ))}
         </div>
 
         {catalogs.length > 8 && (
           <div className='max-w-[950px] mx-auto flex flex-wrap justify-center items-center gap-5'>
             {catalogs.slice(8, showMore ? catalogs.length : 8).map((item, id) => (
-              <div className='p-5 text-center flex flex-col items-center justify-between h-full max-[420px]:p-1 cursor-pointer' key={id}>
-                <div className='w-40 mb-4 h-32 flex justify-center max-[420px]:w-21 max-[356px]:w-[100px]'>
-                  <img src={item.icon?.url || ''} alt={getTranslation(item)} className='max-w-full max-h-full object-contain' />
+              <Link to={`/products/${item.id}`} key={id}> {/* Используем название категории */}
+                <div className='p-5 text-center flex flex-col items-center justify-between h-full max-[420px]:p-1 cursor-pointer'>
+                  <div className='w-40 mb-4 h-32 flex justify-center max-[420px]:w-21 max-[356px]:w-[100px]'>
+                    <img src={item.icon?.url || ''} alt={getTranslation(item)} className='max-w-full max-h-full object-contain' />
+                  </div>
+                  <p className='text-lg font-normal max-[420px]:text-md'>{getTranslation(item)}</p>
                 </div>
-                <p className='text-lg font-normal max-[420px]:text-md'>{getTranslation(item)}</p>
-              </div>
+              </Link>
             ))}
           </div>
         )}
