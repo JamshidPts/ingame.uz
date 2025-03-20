@@ -11,7 +11,7 @@ import modal_nav from "../assets/navbar/mobile_modal.svg";
 import closeBtn from "../assets/navbar/close_modal.svg";
 import closeBtnBlack from "../assets/navbar/close_btn.svg";
 import vectorProduct from "../assets/navbar/vector_products.svg"
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { getDesktopTypes } from '../api/front/desktopTypes';
 import { CartContext } from "../context/CartContext";
@@ -30,10 +30,47 @@ function Navbar() {
   // const [currencies, setCurrencies] = useState([]);
   const { cart } = useContext(CartContext); // Достаем корзину из контекста
   const { currencies, selectedCurrency, setSelectedCurrency } = useContext(CartContext);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isNoResults, setIsNoResults] = useState(false);
 
   // Подсчет общего количества товаров в корзине
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const { t } = useTranslation();
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  useEffect(() => {
+    if (searchQuery.length > 2) { // Минимальная длина запроса для поиска
+      setIsLoading(true);
+      setIsNoResults(false);
+  
+      axios.get(`https://ingame1.azeme.uz/api/user/search-products?q=${searchQuery}`)
+        .then(response => {
+          if (response.data.data.length > 0) {
+            setSearchResults(response.data.data);
+            setIsNoResults(false);
+          } else {
+            setSearchResults([]);
+            setIsNoResults(true);
+          }
+        })
+        .catch(error => {
+          console.error("Ошибка при поиске товаров:", error);
+          setSearchResults([]);
+          setIsNoResults(true);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setSearchResults([]);
+      setIsNoResults(false);
+    }
+  }, [searchQuery]);
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem("language");
@@ -56,7 +93,6 @@ function Navbar() {
         setLanguages([]);
       }
     };
-
     const fetchDesktopTypes = async () => {
       const data = await getDesktopTypes();
       setTypes(Array.isArray(data) ? data : []);
@@ -179,17 +215,17 @@ function Navbar() {
             <NavLink to="/products" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
               {t('navbarProduct')}
             </NavLink>
-            {/* <div className={`text-white z-50 transform transition-[opacity,transform] duration-500 ease-in-out ${isMobileMenu ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            <div className={`text-white z-50 transform transition-[opacity,transform] duration-500 ease-in-out ${isMobileMenu ? "opacity-100 overflow-hidden" : "opacity-0 hidden"
               } origin-top`}>
               <div className="py-2 flex flex-col justify-between">
                 {types.map((item, id) => (
-                  <Link to="/product" key={id} className="flex items-center gap-20">
+                  <Link to={`/desktops/${item.id}`} key={id} className="flex justify-between gap-20">
                     <p className="text-[20px] font-bold p-2">{item.name}</p>
                     <img src={vectorProduct} alt="vector" className="w-[15px]" />
                   </Link>
                 ))}
               </div>
-            </div> */}
+            </div>
             <img src={vector} alt="vector" className="absolute top-[-7%] left-[80%] ml-2 w-[19px]" onClick={mobileToggleProducts} />
             <NavLink to="/services" className={({ isActive }) => `text-[18px] border-b border-[#252525] transition-all duration-300 ease-in-out active:scale-95 pb-3 w-[250px] ${isActive ? "text-[#D3176D]" : ""}`}>
               {t('navbarUsluga')}
@@ -225,17 +261,46 @@ function Navbar() {
 
         {/* Поиск панель*/}
         <div
-          className={`bg-[#D3176D] h-[60px] absolute w-full z-50 top-full transform transition-all duration-500 ease-in-out ${isSearchOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
-            } origin-top`}
+          className={`bg-[#D3176D] h-[60px] absolute w-full z-50 top-full transform transition-all duration-500 ease-in-out ${
+            isSearchOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
+          } origin-top`}
         >
           <div className="container h-full m-auto pl-[25px] flex justify-start items-center pr-[20px] cursor-pointer">
-            <input
-              className="w-[656px] h-[32px] bg-[#1A1A1A] text-white p-[10px] focus:border-[#B3B3B3]"
-              type="text"
-            />
-            <img src={searchBtnBlack} alt="search_black" className="px-[20px]" />
-            <img src={closeBtnBlack} alt="close_black" className="w-[60px] sm:w-[50px] md:w-[35px] transition-transform duration-300 transform hover:scale-95 active:scale-100" onClick={toggleSearch} />
+              <input
+                className="w-[500px] h-[32px] bg-[#1A1A1A] text-white p-[10px] focus:border-[#B3B3B3]"
+                type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+              <button type="submit" className="px-[10px]">
+                <img src={searchBtnBlack} alt="search_black" className="w-[40px] sm:w-[30px] md:w-[25px] transition-transform duration-300 transform hover:scale-95 active:scale-100"/>
+              </button>
+              <img src={closeBtnBlack} alt="close_black" className="w-[60px] sm:w-[50px] md:w-[35px] transition-transform duration-300 transform hover:scale-95 active:scale-100" onClick={toggleSearch} />
           </div>
+
+          {/* Блок с результатами поиска */}
+          {isSearchOpen && (
+            <div className="absolute top-[60px] left-0 w-full bg-[#1A1A1A] text-white z-50">
+              {isLoading ? (
+                <div className="p-4">Загрузка...</div>
+              ) : isNoResults ? (
+                <div className="p-4">Товар не найден</div>
+              ) : (
+                <div className="p-4">
+                  {searchResults.map((product) => (
+                    <Link
+                      key={product.id}
+                      to={`/searched/${encodeURIComponent(product.name)}`} // Передаем имя товара
+                      className="block p-2 hover:bg-[#D3176D]"
+                      onClick={() => setIsSearchOpen(false)}
+                    >
+                      {product.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Продукт панель */}
@@ -243,19 +308,11 @@ function Navbar() {
           } origin-top`}>
           <div className="container mx-auto px-20 py-10 flex flex-col gap-4">
             {types.map((item, id) => (
-              <Link to={`/desktops/${item.id}`} key={id} className="flex items-center gap-20">
+              <Link to={`/desktops/${item.id}`} key={id} className="flex justify-between w-[205px] gap-20">
                 <p className="text-[20px] font-bold p-2">{item.name}</p>
                 <img src={vectorProduct} alt="vector" className="w-[15px]" />
               </Link>
             ))}
-            {/* <Link className="flex items-center gap-24">
-              <p className="flex flex-col text-[20px]">Игровые ПК<span className="text-[#9D9D9D] text-[18px]">Лучшее времяпрепровождение</span></p>
-              <img src={vectorProduct} alt="vector" className="w-[15px]" />
-            </Link> */}
-            {/* <Link className="flex items-center gap-24">
-              <p className="flex flex-col text-[20px]">Ноутбуки<span className="text-[#9D9D9D] text-[18px]">Лучшее времяпрепровождение</span></p>
-              <img src={vectorProduct} alt="vector" className="w-[15px]" />
-            </Link> */}
           </div>
         </div>
       </nav>
