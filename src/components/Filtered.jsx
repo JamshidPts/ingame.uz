@@ -20,25 +20,20 @@ function Filtered() {
     if (!selectedCurrency) return price;
     return (price * selectedCurrency.conversions).toFixed(2);
   };
-  const scrollToTop = () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth', // Плавная прокрутка
-    });
-};
 
-// Используем useEffect для прокрутки вверх при изменении categoryId
-useEffect(() => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
     scrollToTop();
-}, [slug]);
+  }, [slug]);
 
   useEffect(() => {
     const fetchDesktops = async () => {
       const data = await getDesktops();
       if (Array.isArray(data)) {
-        const filtered = data.filter(desktop => 
-          desktop.desktop_type.id === parseInt(slug)
-        );
+        const filtered = data.filter(desktop => desktop.desktop_type.id === parseInt(slug));
         setFilteredDesktops(filtered);
       }
     };
@@ -49,7 +44,6 @@ useEffect(() => {
     return item?.translations?.find(trans => trans.locale === i18n.language)?.[field] || item[field] || "";
   };
 
-  // Получаем название категории из первого десктопа (если десктопы есть)
   const categoryName = filteredDesktops.length > 0 ? getTranslation(filteredDesktops[0].desktop_type, "name") : t("filteredPcTitle");
 
   return (
@@ -57,24 +51,24 @@ useEffect(() => {
       <Navbar />
       <section className="bg-[#1A1A1A] text-white py-[100px]">
         <div className="container mx-auto min-h-[90vh]">
-          {/* Используем categoryName в заголовке */}
           <h1 className="text-[40px] font-[600] mb-[40px] px-4">{categoryName}</h1>
-          <div className='p-4 flex justify-between'>
+          <div className="p-4">
             <Swiper
               modules={[Autoplay]}
               speed={600}
-              spaceBetween={20}
+              spaceBetween={30}
               loop
               breakpoints={{
-                640: { slidesPerView: 1.5 },
+                640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
               }}
+              className="w-full"
             >
               {filteredDesktops.length > 0 ? (
                 filteredDesktops.map((item) => (
-                  <SwiperSlide key={item.id} className="min-h-[400px] bg-[#1E1E1E] p-4">
-                    <img src={item.image?.url} alt={item.name} className="mx-auto w-[350px] h-[200px] object-cover" />
+                  <SwiperSlide key={item.id} className="flex flex-col bg-[#1E1E1E] p-4 rounded-lg w-full min-h-[450px]">
+                    <img src={item.image?.url} alt={item.name} className="mx-auto w-full p-[10px] h-[200px] object-cover rounded-lg" />
                     <h3 className="text-[#d3176d] text-[20px] font-[600] mt-3">{getTranslation(item, "name")}</h3>
                     <p className="text-[14px] font-[500]">{getTranslation(item, "description")}</p>
                     <p className="text-right text-[16px] font-bold mt-1 line-through">
@@ -114,7 +108,7 @@ useEffect(() => {
                             </li>
                           ))}
                         </ul>
-                        <div className='mx-auto mt-[20px] mb-[10px]'>
+                        <div className="mx-auto mt-[20px] mb-[10px]">
                           <div onClick={() => addToCart({
                             id: item.id,
                             name: getTranslation(item, "name"),
@@ -122,13 +116,14 @@ useEffect(() => {
                             price: item.price,
                             image: item.image?.url || "",
                           })}>
-                            <button className='bg-[#d3176d] p-[10px] w-[200px]'>
+                            <button className="bg-[#d3176d] p-[10px] w-[200px]">
                               {t('ourPcBuyBtn')}
                             </button>
                           </div>
                         </div>
                       </div>
                     )}
+
                   </SwiperSlide>
                 ))
               ) : (
