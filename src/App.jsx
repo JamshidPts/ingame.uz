@@ -7,16 +7,16 @@ function App() {
   return (
     <>
       <ToastContainer
-          style={{ zIndex: 9999 }}
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          closeOnClick
-          pauseOnHover
-          draggable
-          theme="dark"
-        />
-        <AppRouter />
+        style={{ zIndex: 9999 }}
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="dark"
+      />
+      <AppRouter />
     </>
   )
 }
